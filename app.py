@@ -21,7 +21,6 @@ with open(path + "/family_links_cyto.json") as json_file:
     links = json.load(json_file)
 
 
-
 app.layout = html.Div([
     dcc.Slider(
         id='my-slider',
