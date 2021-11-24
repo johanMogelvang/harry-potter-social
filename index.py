@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
-from app import app
+from app import app, server
 # import all pages in the app
 from apps import family_house, home, exploratory
 
