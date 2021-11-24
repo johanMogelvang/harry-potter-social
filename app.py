@@ -157,7 +157,7 @@ def get_graph(node_elements):
     bar_list = []
     #color_list = ['purple', 'green', 'blue', 'red', 'orange', 'black', 'black', 'black', 'black']
     for node in node_elements:
-        bar_list.append(node['classes'])
+        bar_list.append(node['data']['house'])
     return px.bar(bar_list)
 
 
