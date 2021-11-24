@@ -21,7 +21,8 @@ layout = html.Div([
                                      )
                     , className="mb-4")
             ]),
-    ])
+    ]),
+    html.Iframe(src="/assets/lda.html", style=dict(position="absolute",left="0", top="0", width="100%", height="100%"))
 
 ])
 
