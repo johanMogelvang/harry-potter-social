@@ -1,6 +1,6 @@
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-
+import dash_gif_component as gif
 
 from app import app
 
@@ -13,9 +13,22 @@ from app import app
 layout = html.Div([
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H1("Welcome to the Harry Potter dashboard", className="text-center")
+            dbc.Col(html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", className="text-center")
                     , className="mb-5 mt-5")
         ]),
+        #dbc.Row([
+        #    dbc.Col(html.Img(src="/assets/logo.png", 
+        #                    height="50px"), style={'textAlign': 'center'}),
+        #    ]),
+       
+        dbc.Row([
+            dbc.Col(
+                gif.GifPlayer(gif="assets/HP.gif", still='assets/HP_cristmas_gif.png', autoplay =True),
+                width = "100px",
+                style={'textAlign': 'center'}
+            )
+        ]),
+
         dbc.Row([
             dbc.Col(html.H5(children='This app marks my very first attempt at using Plotly, Dash and Bootstrap! '
                                      )
