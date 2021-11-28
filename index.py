@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 
 from app import app, server
 # import all pages in the app
-from apps import family_house, home, exploratory
+from apps import family_house, home, exploratory, text_analysis
 
 # building the navigation bar
 # https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
@@ -15,7 +15,8 @@ nav_pages = dbc.Row(
     [
         dbc.NavItem(dbc.NavLink("Home", href="/home")),
         dbc.NavItem(dbc.NavLink("Exploratory", href="/exploratory")),
-        dbc.NavItem(dbc.NavLink("family-house", href="/family_house")),
+        dbc.NavItem(dbc.NavLink("Network science", href="/family_house")),
+        dbc.NavItem(dbc.NavLink("Books vs. movies", href="/text_analysis")),
     ],
     className="g-0 ms-auto flex-nowrap mt-3 mt-md-0",
     align="center"
@@ -74,6 +75,8 @@ def display_page(pathname):
         return family_house.layout
     elif pathname == '/exploratory':
         return exploratory.layout
+    elif pathname == '/text_analysis':
+        return text_analysis.layout
     else:
         return home.layout
 
