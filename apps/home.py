@@ -36,49 +36,136 @@ layout = html.Div([
             ]),
 
         dbc.Row([
-            dbc.Col(html.H5(children='It consists of two main pages: Global, which gives an overview of the COVID-19 cases and deaths around the world, '
+            dbc.Col(
+                html.H5(children='It consists of two main pages: Global, which gives an overview of the COVID-19 cases and deaths around the world, '
                                      'Singapore, which gives an overview of the situation in Singapore after different measures have been implemented by the local government.')
                     , className="mb-5")
         ]),
 
         dbc.Row([
-            dbc.Col(dbc.Card(children=[html.H3(children='Get the original datasets used in this dashboard',
-                                               className="text-center"),
-                                       dbc.Row([dbc.Col(dbc.Button("Global", href="https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863",
-                                                                   color="primary"),
-                                                        className="mt-3"),
-                                                dbc.Col(dbc.Button("Singapore", href="https://data.world/hxchua/covid-19-singapore",
-                                                                   color="primary"),
-                                                        className="mt-3")], justify="center")
-                                       ],
-                             body=True, color="dark", outline=True)
-                    , width=4, className="mb-4"),
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody([
+                        dbc.CardLink(
+                            html.H3(
+                                'Explore the features in the Wizarding World',
+                                className="text-center"
+                            ), 
+                            href = "/exploratory"
+                        ),
+                        html.P(
+                            "The Wizarding universe consists of characters from the Harry Potter world, "
+                            "Fantastic Beasts and The Tales of Beedle the Bard, and their features. "
+                            "You can explore more about all these amazing characters and the data. ",
+                            className="card-text",
+                            ),
+                        dbc.Row([
+                            #dbc.Col(
+                            #    dbc.Button(
+                            #        "Explore more", 
+                            #        href="/exploratory",
+                            #        color="primary"
+                            #        ), 
+                            #    className="mt-3"),
+                            dbc.Col(
+                                dbc.Button(
+                                    "Get the data", 
+                                    href="https://harrypotter.fandom.com/wiki/Main_Page",
+                                    color="primary"
+                                    ), 
+                                className="mt-3"
+                                )
+                        ],
+                        justify = 'align-right'),
+                    ]),
+                body=True, color="dark", outline=True), 
+            style={"center": "2px"}),
 
-            dbc.Col(dbc.Card(children=[html.H3(children='Access the code used to build this dashboard',
-                                               className="text-center"),
-                                       dbc.Button("GitHub",
-                                                  href="https://github.com/meredithwan/covid-dash-app",
-                                                  color="primary",
-                                                  className="mt-3"),
-                                       ],
-                             body=True, color="dark", outline=True)
-                    , width=4, className="mb-4"),
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody([
+                        dbc.CardLink(
+                            html.H3(
+                                'Explore the relationships between the characters in the Wizarding World',
+                                className="text-center"
+                            ), 
+                            href = "/family_house"
+                        ),
+                        html.P(
+                            "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
+                            "Using network science it is possible to explore the interconnections between characters. "
+                            "You can even use your imagination to examine relationships across school houses, family houses "
+                            "or blood status. ",
+                            className="card-text",
+                            ),
+                        dbc.Row([
+                            #dbc.Col(
+                            #    dbc.Button(
+                            #        "Explore more", 
+                            #        href="/family_house",
+                            #        color="primary"
+                            #        ), 
+                            #    className="mt-3"),
+                            dbc.Col(
+                                dbc.Button(
+                                    "Get the data", 
+                                    href="https://harrypotter.fandom.com/wiki/Main_Page",
+                                    color="primary"
+                                    ), 
+                                className="mt-3"
+                                )
+                        ],
+                        justify = 'align-right'),
+                    ]),
+                body=True, color="dark", outline=True), 
+            style={"center": "2px"}),
 
-            dbc.Col(dbc.Card(children=[html.H3(children='Read the Medium article detailing the process',
-                                               className="text-center"),
-                                       dbc.Button("Medium",
-                                                  href="https://medium.com/@meredithwan",
-                                                  color="primary",
-                                                  className="mt-3"),
-
-                                       ],
-                             body=True, color="dark", outline=True)
-                    , width=4, className="mb-4")
-        ], className="mb-5"),
-
-        html.A("Special thanks to Flaticon for the icon in COVID-19 Dash's logo.",
-               href="https://www.flaticon.com/free-icon/coronavirus_2913604")
-
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody([
+                        dbc.CardLink(
+                            html.H3(
+                                'Explore the difference between the books and movie scripts',
+                                className="text-center"
+                            ), 
+                            href = "/text_analysis"
+                        ),
+                        html.P(
+                            "How does the sentiment change across the seven books? How does the sentiment change "
+                            "across the eight movies? Are there any differences? Do the topics in the books differ "
+                            "from those in the movies? ...... ",
+                            className="card-text"
+                            ),
+                        dbc.Row([
+                            #dbc.Col(
+                            #    dbc.Button(
+                            #        "Explore more", 
+                            #        href="/text_analysis",
+                            #        color="primary"
+                            #        ), 
+                            #    className="mt-3"),
+                            dbc.Col(
+                                dbc.Button(
+                                    "Get the data - books", 
+                                    href="https://github.com/formcept/whiteboard/tree/master/nbviewer/notebooks/data/harrypotter",
+                                    color="primary"
+                                    ), 
+                                className="mt-3"
+                                ),
+                            dbc.Col(
+                                dbc.Button(
+                                    "Get the data - movies", 
+                                    href="https://github.com/kornflex28/hp-dataset",
+                                    color="primary"
+                                    ), 
+                                className="mt-3"
+                                ),
+                        ],
+                        justify = 'align-right'),
+                    ]),
+                body=True, color="dark", outline=True), 
+            style={"center": "2px"}),
+        ], justify = 'start', className="mb-5"),
     ])
 
 ])
