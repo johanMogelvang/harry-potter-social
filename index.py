@@ -18,8 +18,11 @@ nav_pages = dbc.Row(
         dbc.NavItem(dbc.NavLink("family-house", href="/family_house")),
     ],
     className="g-0 ms-auto flex-nowrap mt-3 mt-md-0",
-    align="center",
+    align="center"
 )
+#dbc.Row( [ dbc.Col(html.Div("One of three columns"), width=3),
+# dbc.Col(html.Div("One of three columns")), dbc.Col(html.Div("One of three columns"), width=3), ] )
+
 navbar = dbc.Navbar(
     dbc.Container(
         [
@@ -28,7 +31,7 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src="/assets/logo.png", height="50px")),
-                        dbc.Col(dbc.NavbarBrand("Harry Potter DASH", className="ml-2")),
+                        dbc.Col(dbc.NavbarBrand("The Universe of Harry Potter", className="ml-2")),
                     ],
                     align="center",
                 ),
@@ -38,10 +41,11 @@ navbar = dbc.Navbar(
             nav_pages,
         ]
     ),
-    color="dark",
+    color="primary",
     dark=True,
-    className="mb-4",
+    className="g-0"#"mb-4",
 )
+
 
 def toggle_navbar_collapse(n, is_open):
     if n:
