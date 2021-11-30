@@ -10,6 +10,9 @@ from app import app
 #app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # change to app.layout if running as single page app instead
+
+graph_style = {"maxHeight": "auto", "align":"center", "margin": "auto"}
+
 layout = html.Div([
     dbc.Container([
         dbc.Row([
@@ -22,11 +25,18 @@ layout = html.Div([
                     , className="mb-4")
             ]),
     ]),
+<<<<<<< HEAD
     
     dbc.Row([
         html.Iframe(src="/assets/lda.html", style={"height": "1067px", "width": "100%"}) #style=dict(position="absolute",left="0", top="0", width="100%", height="100%"))
         ])
 
+=======
+    dbc.Container(
+    html.Iframe(src="/assets/lda.html", style={"width":"100%", "height":"1067px"}),
+    style=graph_style
+    )
+>>>>>>> origin/main
 ])
 
 # needed only if running this as a single page app

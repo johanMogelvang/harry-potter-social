@@ -1,3 +1,4 @@
+from typing import Sized
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import dash_gif_component as gif
@@ -10,6 +11,8 @@ from app import app
 #app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # change to app.layout if running as single page app instead
+card_width = "25rem"
+
 layout = html.Div([
     dbc.Container([
         dbc.Row([
@@ -27,10 +30,24 @@ layout = html.Div([
                 width = "auto",
                 style={'textAlign': 'center'}
             ), 
+<<<<<<< HEAD
         ]),
+=======
+        ]
+        ),
 
         dbc.Row([
-            dbc.Col(html.H5(children='This app marks my very first attempt at using Plotly, Dash and Bootstrap! '
+            dbc.Col(html.H5(children="")
+                    , className="mb-4")
+            ]),
+>>>>>>> origin/main
+
+        dbc.Row([
+            dbc.Col(html.H5(children=
+                                     "Welcome!"
+                                     ""
+                                     "..."
+                                     "The main goal of this project is allowing you to dive into the social network of Harry Potter, Fantastical Beasts and all the side stories from the Wizarding World." 
                                      )
                     , className="mb-4")
             ]),
@@ -41,36 +58,131 @@ layout = html.Div([
                                      'Singapore, which gives an overview of the situation in Singapore after different measures have been implemented by the local government.')
                     , className="mb-5")
         ]),
+        dbc.Row([
+            dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                    dbc.CardLink(
+                            html.H5("Exploratory Analysis",
+                                #className="text-center"
+                            ), 
+                            href = "/exploratory", style={"text-decoration":"none"}
+                        ),
+                    html.P("Explore the features in the Wizarding World. "
+                    "The Wizarding universe consists of characters from the Harry Potter world,"
+                    "Fantastic Beasts and The Tales of Beedle the Bard, and their features. "
+                    "You can explore more about all these amazing characters and the data."
+                    , className = "card-text")
+                    ]
+                ), 
+                ], 
+                style = {'width':card_width},
+            ),
+            dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                        dbc.CardLink(
+                            html.H5("Network Analysis",
+                                #className="text-center"
+                            ), 
+                            href = "/exploratory", style={"text-decoration":"none"}
+                        ),
+                    html.P("Explore the relationships in the Wizarding World."
+                            "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
+                            "Using network science it is possible to explore the interconnections between characters. "
+                            "You can even use your imagination to examine relationships across school houses, family houses "
+                            "or blood status. "
+                    , className = "card-text")
+                    ]
+                ), 
+                ],
+                style = {'width':card_width},
+            ),
+                       dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                    html.H5("Community detection"), 
+                    html.P("What are the most important communities in the Wizarding World?"
+                            "How strong/ connected are these groups. Are "
+                    , className = "card-text")
+                    ]
+                ), 
+                ],
+                style = {'width':card_width},
+            ),
+            dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                    html.H5("Text analysis"), 
+                    html.P("Using language processing to examine different groups of characters in the Wizarding World. "
+                    "What sets the different species apart? Are all pure-bloods really prejudices? (wordclouds, tf-idf etc)"
+                    , className = "card-text")
+                    ]
+                ), 
+                ],
+                style = {'width':card_width},
+            ),
+
+            dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                    html.H5("Sentiment Analysis"), 
+                    html.P(" Sentiment for characters"
+                    "Books vs movies,  characters in HP vs Fantastic beasts movies? "
+                    , className = "card-text")
+                    ]
+                ), 
+                ],
+                style = {'width':card_width},
+            ),
+
+            dbc.Card(
+                [
+                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardBody([
+                    html.H5("Topic modelling"), 
+                    html.P(" topics in the books vs movies"
+                    "LDA etc. "
+                    , className = "card-text")
+                    ]
+                ), 
+                ],
+                style = {'width':card_width},
+            )
+        ], justify = 'center', className ="mb-5"),
+
+        dbc.Row([
+            dbc.Col(html.P(" Enjoy!...  ", className="text-center")
+                    , className="mb-5 mt-5")
+        ]),
 
         dbc.Row([
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        dbc.CardLink(
-                            html.H3(
-                                'Explore the features in the Wizarding World',
+                            html.H5(
+                                'Explainer notebook',
                                 className="text-center"
                             ), 
+<<<<<<< HEAD
                             href = "/exploratory",
                             style={"text-decoration": "none"}
                         ),
+=======
+>>>>>>> origin/main
                         html.P(
-                            "The Wizarding universe consists of characters from the Harry Potter world, "
-                            "Fantastic Beasts and The Tales of Beedle the Bard, and their features. "
-                            "You can explore more about all these amazing characters and the data. ",
+                            "Get the explainer notebook to dive more into the technical aspect of this project.",
                             className="card-text",
                             ),
                         dbc.Row([
-                            #dbc.Col(
-                            #    dbc.Button(
-                            #        "Explore more", 
-                            #        href="/exploratory",
-                            #        color="primary"
-                            #        ), 
-                            #    className="mt-3"),
                             dbc.Col(
                                 dbc.Button(
-                                    "Get the data", 
+                                    "Download the explainer notebook", 
                                     href="https://harrypotter.fandom.com/wiki/Main_Page",
                                     color="primary"
                                     ), 
@@ -85,29 +197,21 @@ layout = html.Div([
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        dbc.CardLink(
-                            html.H3(
-                                'Explore the relationships between the characters in the Wizarding World',
+                               html.H5(
+                                'Our data',
                                 className="text-center"
                             ), 
+<<<<<<< HEAD
                             href = "/family_house",
                             style={"text-decoration": "none"}
                         ),
+=======
+>>>>>>> origin/main
                         html.P(
-                            "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
-                            "Using network science it is possible to explore the interconnections between characters. "
-                            "You can even use your imagination to examine relationships across school houses, family houses "
-                            "or blood status. ",
+                            "Get the cleaned dataset containing all characters, links and features .... and cleaned text data",
                             className="card-text",
                             ),
                         dbc.Row([
-                            #dbc.Col(
-                            #    dbc.Button(
-                            #        "Explore more", 
-                            #        href="/family_house",
-                            #        color="primary"
-                            #        ), 
-                            #    className="mt-3"),
                             dbc.Col(
                                 dbc.Button(
                                     "Get the data", 
@@ -125,28 +229,28 @@ layout = html.Div([
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        dbc.CardLink(
-                            html.H3(
-                                'Explore the difference between the books and movie scripts',
+                            html.H5(
+                                'Source data',
                                 className="text-center"
                             ), 
+<<<<<<< HEAD
                             href = "/text_analysis",
                             style={"text-decoration": "none"}
                         ),
+=======
+>>>>>>> origin/main
                         html.P(
-                            "How does the sentiment change across the seven books? How does the sentiment change "
-                            "across the eight movies? Are there any differences? Do the topics in the books differ "
-                            "from those in the movies? ...... ",
+                            "link to HP fandom and the two github pages for books and movies. ",
                             className="card-text"
                             ),
                         dbc.Row([
-                            #dbc.Col(
-                            #    dbc.Button(
-                            #        "Explore more", 
-                            #        href="/text_analysis",
-                            #        color="primary"
-                            #        ), 
-                            #    className="mt-3"),
+                            dbc.Col(
+                                dbc.Button(
+                                    "Go to HP Wiki", 
+                                    href="https://harrypotter.fandom.com/wiki/Main_Page",
+                                    color="primary"
+                                    ), 
+                                className="mt-3"),
                             dbc.Col(
                                 dbc.Button(
                                     "Get the data - books", 
