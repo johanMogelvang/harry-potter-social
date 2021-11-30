@@ -7,8 +7,17 @@ from app import app, server
 # import all pages in the app
 from apps import family_house, home, exploratory, text_analysis
 
-# building the navigation bar
-# https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
+
+nav = dbc.Nav(
+    [
+        dbc.NavLink("Home", href="/home"),
+        dbc.NavLink("Exploratory", href="/exploratory"),
+        dbc.NavLink("Network science", href="/family_house"),
+        dbc.NavLink("Books vs. movies", href="/text_analysis"),
+    ],
+    pills=True,
+    fill=True
+)
 
 
 nav_pages = dbc.Row(
@@ -18,14 +27,26 @@ nav_pages = dbc.Row(
         dbc.NavItem(dbc.NavLink("Network science", href="/family_house")),
         dbc.NavItem(dbc.NavLink("Books vs. movies", href="/text_analysis")),
     ],
-    className="g-0 ms-auto flex-nowrap mt-3 mt-md-0",
+    className="g-0 ms-auto flex-nowrap",# "g-0 ms-auto flex-nowrap mt-3 mt-md-0",
     align="center"
 )
 #dbc.Row( [ dbc.Col(html.Div("One of three columns"), width=3),
 # dbc.Col(html.Div("One of three columns")), dbc.Col(html.Div("One of three columns"), width=3), ] )
 
+
+
+NAVBAR_STYLE={"background-repeat": "no-repeat",
+"background-position": "right top",
+"background-size": "300px 30px",
+"height":"10%","position":"fixed",
+"top":"0","border":"3px solid",
+"width":"100%",
+"z-index": "999"}
+
+CONTENT_STYLE={"margin-top":"5%"}
+
 navbar = dbc.Navbar(
-    dbc.Container(
+    html.Div(
         [
             html.A(
                 # Use row and col to control vertical alignment of logo / brand
@@ -33,18 +54,30 @@ navbar = dbc.Navbar(
                     [
                         dbc.Col(html.Img(src="/assets/logo.png", height="50px")),
                         dbc.Col(dbc.NavbarBrand("The Universe of Harry Potter", className="ml-2")),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(width="auto"),
+                        dbc.Col(nav, width={"size":"auto", "order": "last"}, align="center"),
                     ],
                     align="center",
                 ),
                 href="/home",
+                style={"text-decoration":"none"}
             ),
-            dbc.NavbarToggler(id="navbar-toggler2"),
-            nav_pages,
+            #dbc.NavbarToggler(id="navbar-toggler2"),
+            #nav,
         ]
     ),
     color="primary",
     dark=True,
-    className="g-0"#"mb-4",
+    className="g-0",#"mb-4",
+    style=NAVBAR_STYLE,
 )
 
 
@@ -64,7 +97,7 @@ for i in [2]:
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
-    html.Div(id='page-content')
+    html.Div(id='page-content', style=CONTENT_STYLE)
 ])
 
 
