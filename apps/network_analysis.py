@@ -17,6 +17,7 @@ from app import app
 # app = dash.Dash(__name__)
 # server = app.server
 cyto.load_extra_layouts()
+#cyto.use()
 
 path = os.getcwd().replace("\\", "/")
 with open(path + "/family_links_cyto.json") as json_file:
@@ -34,7 +35,7 @@ layout = html.Div([
     ),
     cyto.Cytoscape(
         id='cytoscape-hp-family',
-        layout={'name': 'circle'}, #circle, #cose-bilkent
+        layout={'name': 'concentric'}, #circle, #close-bilkent
         #stylesheet=default_stylesheet,
         style={'width': '100%', 'height': '500px'},
         stylesheet=[
