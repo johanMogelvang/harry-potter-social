@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 
 from app import app, server
 # import all pages in the app
-from apps import family_house, home, exploratory, text_analysis, network_analysis, topic_modelling, communities, sentiment_analysis
+from apps import home, exploratory, text_analysis, network_analysis, topic_modelling, communities, sentiment_analysis
 
 
 nav = dbc.Nav(
