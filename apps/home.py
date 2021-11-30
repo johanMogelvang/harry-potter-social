@@ -24,9 +24,9 @@ layout = html.Div([
         dbc.Row([
             dbc.Col(
                 gif.GifPlayer(gif="assets/HP.gif", still='assets/HP_cristmas_gif.png', autoplay =True),
-                width = "100px",
+                width = "auto",
                 style={'textAlign': 'center'}
-            )
+            ), 
         ]),
 
         dbc.Row([
@@ -51,7 +51,8 @@ layout = html.Div([
                                 'Explore the features in the Wizarding World',
                                 className="text-center"
                             ), 
-                            href = "/exploratory"
+                            href = "/exploratory",
+                            style={"text-decoration": "none"}
                         ),
                         html.P(
                             "The Wizarding universe consists of characters from the Harry Potter world, "
@@ -89,7 +90,8 @@ layout = html.Div([
                                 'Explore the relationships between the characters in the Wizarding World',
                                 className="text-center"
                             ), 
-                            href = "/family_house"
+                            href = "/family_house",
+                            style={"text-decoration": "none"}
                         ),
                         html.P(
                             "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
@@ -128,7 +130,8 @@ layout = html.Div([
                                 'Explore the difference between the books and movie scripts',
                                 className="text-center"
                             ), 
-                            href = "/text_analysis"
+                            href = "/text_analysis",
+                            style={"text-decoration": "none"}
                         ),
                         html.P(
                             "How does the sentiment change across the seven books? How does the sentiment change "
