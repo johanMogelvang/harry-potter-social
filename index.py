@@ -5,31 +5,24 @@ import dash_bootstrap_components as dbc
 
 from app import app, server
 # import all pages in the app
-from apps import family_house, home, exploratory, text_analysis, network_analysis, topic_modelling, communities, wordclouds
+from apps import family_house, home, exploratory, text_analysis, network_analysis, topic_modelling, communities, sentiment_analysis
 
 
 nav = dbc.Nav(
     [
         dbc.NavLink("Home", href="/home"),
         dbc.NavLink("Exploratory", href="/exploratory"),
-        dbc.NavLink("Network science", href="/family_house"),
-        dbc.NavLink("Books vs. movies", href="/text_analysis"),
+        dbc.NavLink("Network science", href="/network_analysis"),
+        dbc.NavLink("Community detection", href="/communities"),
+        dbc.NavLink("Text Analysis", href="/text_analysis"),
+        dbc.NavLink("Sentiment Analysis", href="/sentiment_analysis"),
+        dbc.NavLink("Topic modelling", href="/topic_modelling"),
     ],
     pills=True,
     fill=True
 )
 
 
-nav_pages = dbc.Row(
-    [
-        dbc.NavItem(dbc.NavLink("Home", href="/home")),
-        dbc.NavItem(dbc.NavLink("Exploratory", href="/exploratory")),
-        dbc.NavItem(dbc.NavLink("Network science", href="/family_house")),
-        dbc.NavItem(dbc.NavLink("Books vs. movies", href="/text_analysis")),
-    ],
-    className="g-0 ms-auto flex-nowrap",# "g-0 ms-auto flex-nowrap mt-3 mt-md-0",
-    align="center"
-)
 #dbc.Row( [ dbc.Col(html.Div("One of three columns"), width=3),
 # dbc.Col(html.Div("One of three columns")), dbc.Col(html.Div("One of three columns"), width=3), ] )
 
@@ -104,12 +97,18 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/family_house':
-        return family_house.layout
-    elif pathname == '/exploratory':
+    if pathname == '/exploratory':
         return exploratory.layout
     elif pathname == '/text_analysis':
         return text_analysis.layout
+    elif pathname == '/sentiment_analysis':
+        return sentiment_analysis.layout
+    elif pathname == '/communities':
+        return communities.layout
+    elif pathname == '/network_analysis':
+        return network_analysis.layout
+    elif pathname == '/topic_modelling':
+        return topic_modelling.layout
     else:
         return home.layout
 
