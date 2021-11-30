@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 
 from app import app, server
 # import all pages in the app
-from apps import family_house, home, exploratory, text_analysis
+from apps import family_house, home, exploratory, text_analysis, network_analysis, topic_modelling, communities, wordclouds
 
 
 nav = dbc.Nav(
@@ -52,7 +52,7 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src="/assets/logo.png", height="50px")),
+                        dbc.Col(html.Img(src="/assets/HP_snitch_gold.png", height="60px")),
                         dbc.Col(dbc.NavbarBrand("The Universe of Harry Potter", className="ml-2")),
                         dbc.Col(width="auto"),
                         dbc.Col(width="auto"),
