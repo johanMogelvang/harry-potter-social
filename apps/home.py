@@ -19,11 +19,7 @@ layout = html.Div([
             dbc.Col(html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", className="text-center")
                     , className="mb-5 mt-5")
         ]),
-        #dbc.Row([
-        #    dbc.Col(html.Img(src="/assets/logo.png", 
-        #                    height="50px"), style={'textAlign': 'center'}),
-        #    ]),
-       
+
         dbc.Row([
             dbc.Col(
                 gif.GifPlayer(gif="assets/HP.gif", still='assets/HP_cristmas_gif.png', autoplay =True),
@@ -57,7 +53,7 @@ layout = html.Div([
         dbc.Row([
             dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardImg(src="assets/logos/houses_distribution.png", top = True), 
                 dbc.CardBody([
                     dbc.CardLink(
                             html.H5("Exploratory Analysis",
@@ -77,7 +73,7 @@ layout = html.Div([
             ),
             dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardImg(src="assets/logos/GCC.png", top = True), 
                 dbc.CardBody([
                         dbc.CardLink(
                             html.H5("Network Analysis",
@@ -98,7 +94,7 @@ layout = html.Div([
             ),
                        dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardImg(src="assets/logos/communities2.jpeg"), 
                 dbc.CardBody([
                     html.H5("Community detection"), 
                     html.P("What are the most important communities in the Wizarding World?"
@@ -111,7 +107,7 @@ layout = html.Div([
             ),
             dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardImg(src="assets/logos/Wordcloud_slytherin.png", top = True), 
                 dbc.CardBody([
                     html.H5("Text analysis"), 
                     html.P("Using language processing to examine different groups of characters in the Wizarding World. "
@@ -125,7 +121,7 @@ layout = html.Div([
 
             dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
+                dbc.CardImg(src="assets/logos/sentiment_analysis.jpg", top = True), 
                 dbc.CardBody([
                     html.H5("Sentiment Analysis"), 
                     html.P(" Sentiment for characters"
