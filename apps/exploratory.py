@@ -7,9 +7,12 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import dash_table
 import networkx as nx
+import dash_cytoscape as cyto
 import pandas as pd
 import numpy as np
+from plotly.subplots import make_subplots
 import json
+import pickle 
 
 from app import app
 
@@ -19,15 +22,80 @@ from app import app
 #app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # change to app.layout if running as single page app instead
+cyto.load_extra_layouts()
 
 graph_style = {"maxHeight": "auto", "align":"center", "margin": "auto"}
 
 # Read data
 df = pd.read_csv('HP_enriched_character_df.csv')
-with open('attributes.json') as json_file:
-    attributes = json.load(json_file)
-with open('links.json') as json_file:
-    links = json.load(json_file)
+
+with open("G.pickle", 'rb') as f:
+    G = pickle.load(f)
+
+with open("GCC.pickle", 'rb') as f:
+    GCC = pickle.load(f)
+
+with open("cyto_full_network.json", 'rb') as f:
+    cyto_G = json.load(f)
+
+with open("cyto_GCC.json", 'rb') as f:
+    cyto_GCC = json.load(f)
+
+max_degree = max([cyto_G['nodes'][i]['size'] for i in range(0,len(cyto_G['nodes']))])
+
+stylesheet_cyto = [
+            # Class selectors
+            {
+                'selector': '.Hufflepuff',
+                'style': {
+                    'background-color': 'blue',
+                    'line-color': 'blue'
+                }
+            },
+            {
+                'selector': '.Ravenclaw',
+                'style': {
+                    'background-color': 'orange',
+                    'line-color': 'orange'
+                }
+            },
+            {
+                'selector': '.Gryffindor',
+                'style': {
+                    'background-color': 'red',
+                    'line-color': 'red'
+                }
+            },
+            {
+                'selector': '.Slytherin',
+                'style': {
+                    'background-color': 'green',
+                    'line-color': 'green'
+                }
+            },
+            {
+                'selector': '.unknown',
+                'style': {
+                    'background-color': 'purple',
+                    'line-color': 'purple'
+                }
+            },         
+            {
+                'selector': 'node',
+                'style': {
+                    'width': 'mapData(size, 0,'+str(max_degree)+', 500, 8000)',
+                    'height': 'mapData(size, 0,' +str(max_degree)+', 500, 8000)', 
+                    'content': 'data(label)',
+                    'font-size': "12px",
+                    "text-valign":"center", 
+                    "text-halign":"center", 
+                    'line-color': 'purple'
+                }
+            },
+            {
+                'selector': 'edges',
+                'style': {'opacity': 0.2}}
+        ]
 
 layout = html.Div([
     dbc.Container([
@@ -90,7 +158,7 @@ layout = html.Div([
             {'label': 'All values', 'value': 'all_values'},
             {'label': 'Top 5 values', 'value': 'top_5'},
         ],
-        value='All values',
+        value='top_5',
         #multi=True,
         style={'width': '50%', 'margin': 50}
         ),
@@ -123,19 +191,48 @@ layout = html.Div([
             id='graph_type',
             options=[{'label': i, 'value': i} for i in ['Full network', 'GCC']],
             value='Full network',
-            labelStyle={'display': 'inline-block', 'marginLeft':10}
+            labelStyle={'display': 'inline-block', 'marginLeft':60}
     ),
-     # Network
+     html.Div(children = [
+            dbc.Row([
+                dbc.Col(
+                html.H5(id = 'cytoscape-title',
+                children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"]),
+                className="text-left", width = "50%"
+                )
+            ]
+            ),
+             dbc.Row(
+                dbc.Col(
+                html.P(id = 'cytoscape-subtitle', 
+                children=["Isolated nodes: "+str(len(list(nx.isolates(G))))]),
+                className="text-left", width = "50%"
+                )
+            ),
+    ], style ={"justify-content":"left",'width': '100', 'font-weight': 'bold', 'marginLeft': 200, 'marginTop':30}
+    ),
+    # Network
      html.Div([
-            html.Div([(dcc.Graph(id = "Network"))], style = {'width':'65%'}),
-        ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-    ),
-    # Degree distributions
-    html.Div([
-            html.Div([(dcc.Graph(id = "bar_in_degree"))], style = {'width':'50%'}),
-            html.Div([(dcc.Graph(id = "bar_out_degree"))], style = {'width':'50%'}),
-        ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-    ),
+            cyto.Cytoscape(
+                id='cytoscape-graph',
+                layout={'name': 'preset'},
+                #stylesheet=default_stylesheet,
+                style={'width': '45%', 'height': '800px'},
+                stylesheet=stylesheet_cyto,
+                elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
+            ),
+            #dcc.Graph(id='live-update-bar-graph'),
+            #html.P(id='cytoscape-tapNodeData-output'),
+            #html.P(id='cytoscape-tapEdgeData-output'),
+            #html.P(id='cytoscape-mouseoverNodeData-output'),
+            #html.P(id='cytoscape-mouseoverEdgeData-output'),
+            
+            # Degree distributions
+            html.Div([dcc.Graph(id = "scatter_distribution")
+                    ]
+            ), 
+
+     ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"})
 ], style ={"justify-content":"center", 'width': '100vw', 'height':'100vh'}
 )
 
@@ -251,44 +348,110 @@ def update_graph(choice):
                       margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
     return fig, fig2, fig3, fig4
 
-@app.callback([Output('Network', 'figure')],
-              [Output('bar_in_degree', 'figure')],
-              [Output('bar_out_degree', 'figure')],
+@app.callback([Output('scatter_distribution', 'figure')],
+              [Output('cytoscape-graph', 'elements')],
+              [Output('cytoscape-title', 'children')],
+              [Output('cytoscape-subtitle', 'children')],
               [Input('graph_type', 'value')])
 
 def update_network(value):
-    
-    # add nodes and edges from dictionary 
-    G = nx.DiGraph(links)
 
-    # add node attributes
-    nx.set_node_attributes(G, attributes)
-    pos = nx.layout.spring_layout(G)
-    nx.set_node_attributes(G, pos, "pos")
+    # Decide if using full network or GCC
+    if value == 'Full network': 
+        graph = G
+        elements = cyto_G['nodes'] + cyto_G['edges']
+    else: 
+        graph = GCC
+        elements = cyto_GCC['nodes'] + cyto_GCC['edges']
 
-    fig1 = go.Figure(
-        go.Scatter(10,10)
-    )
+    # Get degree values from graph 
+    in_degree_vals = list(nx.get_node_attributes(graph,'in_degree').values())
+    out_degree_vals = list(nx.get_node_attributes(graph,'out_degree').values())
 
-    # get the in and out degrees
-    in_degrees = sorted([(i, G.in_degree(i)) for i in G.nodes()], key=lambda x: x[1], reverse=True)
-    out_degrees = sorted([(i, G.out_degree(i)) for i in G.nodes()], key=lambda x: x[1], reverse=True)
-    in_degree_vals =  [val for n,val in in_degrees]
-    out_degree_vals =  [val for n,val in out_degrees]
-    
     # Get hist values
     hist_in, bins_in = np.histogram(in_degree_vals, bins = np.arange(np.min(in_degree_vals), np.max(in_degree_vals) + 2))
     centered_in = (bins_in[:-1] + bins_in[1:]) / 2
     hist_out, bins_out = np.histogram(out_degree_vals, bins = np.arange(np.min(out_degree_vals), np.max(out_degree_vals) + 2))
     centered_out = (bins_out[:-1] + bins_out[1:]) / 2
 
-    fig2 = go.Figure(
-        go.Scatter(centered_in,hist_in, title="Degree distribution")
-        #go.scatter(centered_out, hist_out, s = 1, color = 'skyblue',alpha = 0.5, label = 'out-degree')
+    df_in_degree = pd.DataFrame({"In-degree": hist_in, "Count": centered_in})
+    df_out_degree = pd.DataFrame({"Out-degree": hist_out, "Count": centered_out})
+
+    # Make figure
+    fig = make_subplots(rows=2, cols=1)
+
+    marker_layout_in = dict(size=8,color = "blue", line_width=1,opacity = 0.5)
+    marker_layout_out = dict(size=8,color = "red", line_width=1,opacity = 0.5)
+
+    # Add traces
+    fig.add_trace(go.Scatter(x=df_in_degree["Count"], y=df_in_degree["In-degree"],
+                        mode='markers',
+                        marker=marker_layout_in,
+                        hoverinfo='none',
+                        name='In-degree', 
+                        legendgroup = '1'),
+                row=1, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_out_degree["Count"], y=df_out_degree["Out-degree"],
+                        mode='markers',
+                        marker=marker_layout_out,
+                        hoverinfo='none',
+                        name='Out-degrees', 
+                        legendgroup = '1'),
+                row=1, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_in_degree["Count"], y=df_in_degree["In-degree"],
+                    mode='markers',
+                        marker=marker_layout_in,
+                        hoverinfo='none',
+                        name='In-degree', 
+                        legendgroup = '2'),
+                row=2, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_out_degree["Count"], y=df_out_degree["Out-degree"],
+                        mode='markers',
+                        marker=marker_layout_out,
+                        hoverinfo='none',
+                        name='Out-degrees',
+                        legendgroup = '2'),
+                row=2, col=1
+                )
+
+    # Update xaxis properties
+    fig.update_xaxes(title_text="Degree", row=1, col=1)
+    fig.update_xaxes(title_text="log(Degree)", row=2, col=1, type="log")
+
+    # Update yaxis properties
+    fig.update_yaxes(title_text="Count", row=1, col=1)
+    fig.update_yaxes(title_text="log(Count)", row=2, col=1, type="log")
+
+    # Update title and height
+    fig.update_layout(title_text="Degree distribution", height=800)
+
+    fig.update_layout(
+        legend=dict(
+            font=dict(
+                #family="Courier",
+                size=18,
+                color="black"
+            ),
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99, 
+            bgcolor = 'rgba(0,0,0,0)'
+        ),
+        legend_tracegroupgap = 300,
+        title=dict(
+            font=dict(
+                #family="Courier",
+                size=20,
+                color="black"
+            )
+        ) 
     )
 
-    fig3 = go.Figure(
-       #go.Scatter(centered_in,hist_in, s = 1, color = 'orange', alpha = 0.5, label = 'in-degree'),
-       go.scatter(centered_out, hist_out, s = 1, color = 'skyblue',alpha = 0.5, label = 'out-degree')
-    )
-    return fig1, fig2, fig3
+    title = "Network with "+ str(graph.number_of_nodes())+ " nodes and "+ str(graph.number_of_edges())+" edges"
+    subtitle = "Isolated nodes: "+str(len(list(nx.isolates(graph))))
+
+    return [go.Figure(fig),elements, title, subtitle] #{'data': fig.data, 'layout': fig.layout}
