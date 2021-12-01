@@ -17,29 +17,15 @@ from app import app
 # app = dash.Dash(__name__)
 # server = app.server
 cyto.load_extra_layouts()
-#cyto.use()
 
-path = os.getcwd().replace("\\", "/")
-with open(path + "/family_links_cyto.json") as json_file:
-    links = json.load(json_file)
-
-
-layout = html.Div([
-    dcc.Slider(
-        id='my-slider',
-        min=1,
-        max=len(links['nodes']),
-        step=1,
-        tooltip={"placement": "bottom", "always_visible": True},
-        value=100,
-    ),
-    cyto.Cytoscape(
-        id='cytoscape-hp-family',
-        layout={'name': 'concentric'}, #circle, #close-bilkent
-        #stylesheet=default_stylesheet,
-        style={'width': '100%', 'height': '500px'},
-        stylesheet=[
+cyto_style = [
             # Class selectors
+            {
+                'selector': 'node',
+                'style': {
+                'content': 'data(id)',
+                }
+            },
             {
                 'selector': '.Hufflepuff',
                 'style': {
@@ -75,15 +61,41 @@ layout = html.Div([
                     'line-color': 'purple'
                 }
             }
-        ],
-        elements=links['nodes']+links['edges']
-    ),
+        ]
+
+path = os.getcwd().replace("\\", "/")
+with open(path + "/family_links_cyto.json") as json_file:
+    links = json.load(json_file)
+
+
+layout = html.Div([
+    html.Div([
+        dcc.Slider(
+        id='my-slider',
+        min=1,
+        max=len(links['nodes']),
+        step=1,
+        tooltip={"placement": "bottom", "always_visible": True},
+        value=100,
+        ),
+    cyto.Cytoscape(
+        id='cytoscape-hp-family',
+        layout={'name': 'cose-bilkent'}, #circle, #close-bilkent
+        #stylesheet=default_stylesheet,
+        stylesheet=cyto_style,
+        elements=links['nodes']+links['edges'],
+        style={'width': '100%', 'height': '100%'}
+        )
+    ], style={'width': '40%', 'height': '100%'}),
+    html.Div([
     dcc.Graph(id='live-update-bar-graph'),
     html.P(id='cytoscape-tapNodeData-output'),
     html.P(id='cytoscape-tapEdgeData-output'),
     html.P(id='cytoscape-mouseoverNodeData-output'),
     html.P(id='cytoscape-mouseoverEdgeData-output')
-])
+    ],  style={'width': '40%', 'height': '100%'})
+
+], style ={"display": "flex", "justify-content": "center", "width": "90vw", "height" : "60vh"})
 
 @app.callback(Output('cytoscape-mouseoverNodeData-output', 'children'),
               Input('cytoscape-hp-family', 'tapNodeData'))
@@ -161,7 +173,33 @@ def get_graph(node_elements):
     #color_list = ['purple', 'green', 'blue', 'red', 'orange', 'black', 'black', 'black', 'black']
     for node in node_elements:
         bar_list.append(node['data']['house'])
-    return px.bar(bar_list)
+
+    frequency = {}
+
+    # iterating over the list
+    for item in bar_list:
+        # checking the element in dictionary
+        if item in frequency:
+            # incrementing the counr
+            frequency[item] += 1
+        else:
+            # initializing the count
+            frequency[item] = 1
+
+    colors = ['Grey'] * len(frequency.keys())
+    for i, color in enumerate(colors):
+        house = list(frequency.keys())[i]
+        if house == 'unknown':
+            colors[i] = "#800080"
+        elif house == 'Slytherin':
+            colors[i] = "#1A472A"
+        elif house == "Hufflepuff":
+            colors[i] = "#FFDB00"
+        elif house == "Ravenclaw":
+            colors[i] = "#0E1A40"
+        elif house == "Gryffindor":
+            colors[i] = "#740001"    
+    return px.bar(x=frequency.keys(),y=frequency, color=colors, color_discrete_map="identity")
 
 
 if __name__ == '__main__':
