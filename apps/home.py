@@ -27,21 +27,16 @@ layout = html.Div([
         dbc.Row([
             dbc.Col(
                 gif.GifPlayer(gif="assets/HP.gif", still='assets/HP_cristmas_gif.png', autoplay =True),
-                width = "auto",
+                width = "100px",
                 style={'textAlign': 'center'}
             ), 
-<<<<<<< HEAD
         ]),
-=======
-        ]
-        ),
 
         dbc.Row([
-            dbc.Col(html.H5(children="")
+            dbc.Col(html.H5(children="" 
+                                     )
                     , className="mb-4")
             ]),
->>>>>>> origin/main
-
         dbc.Row([
             dbc.Col(html.H5(children=
                                      "Welcome!"
@@ -87,7 +82,7 @@ layout = html.Div([
                             html.H5("Network Analysis",
                                 #className="text-center"
                             ), 
-                            href = "/exploratory", style={"text-decoration":"none"}
+                            href = "/network_analysis", style={"text-decoration":"none"}
                         ),
                     html.P("Explore the relationships in the Wizarding World."
                             "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
@@ -104,7 +99,12 @@ layout = html.Div([
                 [
                 dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
                 dbc.CardBody([
-                    html.H5("Community detection"), 
+                    dbc.CardLink(
+                            html.H5("Community Detection",
+                                #className="text-center"
+                            ), 
+                            href = "/communities", style={"text-decoration":"none"}
+                        ),
                     html.P("What are the most important communities in the Wizarding World?"
                             "How strong/ connected are these groups. Are "
                     , className = "card-text")
@@ -117,7 +117,12 @@ layout = html.Div([
                 [
                 dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
                 dbc.CardBody([
-                    html.H5("Text analysis"), 
+                    dbc.CardLink(
+                            html.H5("Text Analysis",
+                                #className="text-center"
+                            ), 
+                            href = "/text_analysis", style={"text-decoration":"none"}
+                        ), 
                     html.P("Using language processing to examine different groups of characters in the Wizarding World. "
                     "What sets the different species apart? Are all pure-bloods really prejudices? (wordclouds, tf-idf etc)"
                     , className = "card-text")
@@ -131,7 +136,12 @@ layout = html.Div([
                 [
                 dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
                 dbc.CardBody([
-                    html.H5("Sentiment Analysis"), 
+                    dbc.CardLink(
+                            html.H5("Sentiment Analysis",
+                                #className="text-center"
+                            ), 
+                            href = "/sentiment_analysis", style={"text-decoration":"none"}
+                        ), 
                     html.P(" Sentiment for characters"
                     "Books vs movies,  characters in HP vs Fantastic beasts movies? "
                     , className = "card-text")
@@ -145,7 +155,12 @@ layout = html.Div([
                 [
                 dbc.CardImg(src="assets/HPlogo.jpg", top = True), 
                 dbc.CardBody([
-                    html.H5("Topic modelling"), 
+                    dbc.CardLink(
+                            html.H5("Topic Modelling",
+                                #className="text-center"
+                            ), 
+                            href = "/topic_modelling", style={"text-decoration":"none"}
+                        ),
                     html.P(" topics in the books vs movies"
                     "LDA etc. "
                     , className = "card-text")
@@ -168,13 +183,7 @@ layout = html.Div([
                             html.H5(
                                 'Explainer notebook',
                                 className="text-center"
-                            ), 
-<<<<<<< HEAD
-                            href = "/exploratory",
-                            style={"text-decoration": "none"}
-                        ),
-=======
->>>>>>> origin/main
+                            ),
                         html.P(
                             "Get the explainer notebook to dive more into the technical aspect of this project.",
                             className="card-text",
@@ -199,14 +208,7 @@ layout = html.Div([
                     dbc.CardBody([
                                html.H5(
                                 'Our data',
-                                className="text-center"
-                            ), 
-<<<<<<< HEAD
-                            href = "/family_house",
-                            style={"text-decoration": "none"}
-                        ),
-=======
->>>>>>> origin/main
+                                className="text-center"),
                         html.P(
                             "Get the cleaned dataset containing all characters, links and features .... and cleaned text data",
                             className="card-text",
@@ -232,13 +234,7 @@ layout = html.Div([
                             html.H5(
                                 'Source data',
                                 className="text-center"
-                            ), 
-<<<<<<< HEAD
-                            href = "/text_analysis",
-                            style={"text-decoration": "none"}
                         ),
-=======
->>>>>>> origin/main
                         html.P(
                             "link to HP fandom and the two github pages for books and movies. ",
                             className="card-text"
@@ -273,8 +269,7 @@ layout = html.Div([
                 body=True, color="dark", outline=True), 
             style={"center": "2px"}),
         ], justify = 'start', className="mb-5"),
-    ])
-
+    ]),
 ])
 
 # needed only if running this as a single page app

@@ -45,20 +45,8 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-<<<<<<< HEAD
                         dbc.Col(html.Img(src="/assets/HP_snitch_gold.png", height="50px")),
-=======
-                        dbc.Col(html.Img(src="/assets/HP_snitch_gold.png", height="60px")),
->>>>>>> origin/main
                         dbc.Col(dbc.NavbarBrand("The Universe of Harry Potter", className="ml-2")),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
-                        dbc.Col(width="auto"),
                         dbc.Col(width="auto"),
                         dbc.Col(nav, width={"size":"auto", "order": "last"}, align="center"),
                     ],
