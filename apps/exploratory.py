@@ -273,7 +273,7 @@ layout = html.Div([
             html.P("Overall, we can see that the Harry Potter resembles a real-world network "
                     "with a few highly connected hubs such as Harry Potter and Voldemort, the main antagonist and protagonist of the Harry Potter world, "
                     "and many characters that only have very few connections. "
-                    "If you want to learn more about the characteristics, see the explainer notebook. Otherwise the next page in our website is about exploring the different ties and connections in our network even further."
+                    "If you want to learn more about the characteristics of the network, see the explainer notebook. Otherwise the next page in our website is about exploring the different ties and connections in our network even further."
             
             , className="text-center"
             , style = {"marginTop":20,'marginLeft':200, 'width':"65vw", "justify-content":"center"})
