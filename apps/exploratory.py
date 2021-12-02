@@ -130,12 +130,13 @@ layout = html.Div([
                         'padding': 10},#table-layout': 'fixed'
             style_header={'backgroundColor': '#25597f', 'color': 'white'},
             style_cell={
-                'backgroundColor': 'white',
+                'backgroundColor': 'whitesmoke',
                 'color': 'black',
                 'fontSize': 13,
-                'font-family': 'Nunito Sans',
+                'font-family': "sans-serif",#'Nunito Sans',
                 'textAlign': 'left'
-                }
+                }, 
+                style_as_list_view=True
         ),
     ],style={"justify-content":"center", 'width': '80vw','marginLeft':80}
     ),
@@ -182,7 +183,8 @@ layout = html.Div([
         ]),
         dbc.Row([
             dbc.Col(html.P(children='The network has been created by using the characters as nodes and the links between the character pages as edges.'
-                                    'By examining the Wizarding World as a networj, the most central characters and most important relationships can easily be identified.'
+                                    'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified.'
+                                    'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as the difference is very big).'
                                         )
                     , className="mb-4")
         ]),
@@ -198,7 +200,7 @@ layout = html.Div([
                 dbc.Col(
                 html.H5(id = 'cytoscape-title',
                 children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"]),
-                className="text-left", width = "50%"
+                className="text-left"
                 )
             ]
             ),
@@ -206,7 +208,7 @@ layout = html.Div([
                 dbc.Col(
                 html.P(id = 'cytoscape-subtitle', 
                 children=["Isolated nodes: "+str(len(list(nx.isolates(G))))]),
-                className="text-left", width = "50%"
+                className="text-left"
                 )
             ),
     ], style ={"justify-content":"left",'width': '100', 'font-weight': 'bold', 'marginLeft': 200, 'marginTop':30}
@@ -217,7 +219,7 @@ layout = html.Div([
                 id='cytoscape-graph',
                 layout={'name': 'preset'},
                 #stylesheet=default_stylesheet,
-                style={'width': '45%', 'height': '800px'},
+                style={'width': '50%', 'height': '600px'},
                 stylesheet=stylesheet_cyto,
                 elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
             ),
@@ -233,7 +235,7 @@ layout = html.Div([
             ), 
 
      ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"})
-], style ={"justify-content":"center", 'width': '100vw', 'height':'100vh'}
+], style ={"justify-content":"center", 'width': '100vw', 'height':'90vh'}
 )
 
 @app.callback([Output('datatable', 'data'),
