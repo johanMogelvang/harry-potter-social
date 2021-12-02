@@ -435,7 +435,7 @@ def update_network(value):
             font=dict(
                 #family="Courier",
                 size=18,
-                color="black"
+                color   ="black"
             ),
             yanchor="top",
             y=0.99,
