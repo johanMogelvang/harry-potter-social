@@ -2,11 +2,11 @@ name,species,gender,house,blood
 1992 Gryffindor vs Slytherin Quidditch match spectators,unknown,unknown,unknown,unknown
 Hannah Abbott,Human,Female,Hufflepuff,Half-blood
 Hannah Abbott's mother,Human,Female,unknown,unknown
+Edith Abernathy,Human,Female,unknown,unknown
 Ernestina Abutor,Human,Female,unknown,unknown
 Zoe Accrington,Human,Female,Slytherin,unknown
 Aged witch,Human,Female,unknown,unknown
 Agnes,Human,Female,unknown,unknown
-Agnes Nutt,Human,Female,unknown,unknown
 Aisha,Human,Female,unknown,unknown
 Sakura Akagi,Human,Female,Gryffindor,unknown
 Alannis,Human,Female,Ravenclaw,unknown
@@ -81,11 +81,11 @@ Bernadette,Human,Female,unknown,unknown
 Bernadette Beauchene,Human,Female,unknown,unknown
 Beryl,Human,Female,unknown,unknown
 Bespectacled Slytherin girl,Human,Female,Slytherin,unknown
-Betty Huxley,Human,Female,unknown,unknown
 Kinjal Bhatia,Human,Female,Slytherin,unknown
 Kajol Bhatt,Human,Female,Gryffindor,unknown
 Betty Bickering,Human,Female,Gryffindor,unknown
 Unidentified Big Bean Shack spokeswoman,Human,Female,unknown,Muggle
+Billingsley's niece,Human,Female,unknown,unknown
 Gilbert Bingley's wife,Human,Female,unknown,Muggle
 Trevor Birch's mother,Human,Female,unknown,unknown
 Sally Birchgrove,Human,Female,Gryffindor,unknown
@@ -195,6 +195,7 @@ Circe,Human,Female,unknown,unknown
 Elfrida Clagg,Human,Female,unknown,unknown
 Georgia Clark-Day,unknown,Female,unknown,unknown
 Penelope Clearwater,Human,Female,Ravenclaw,Muggle-born
+Phoebe Clem,Human,Female,unknown,unknown
 Cliodna,Human,Female,unknown,unknown
 Hannah Cockleford,Human,Female,unknown,unknown
 Rachael Codnor,Human,Female,Gryffindor,unknown
@@ -207,6 +208,7 @@ Ben Copper's mother,Human,Female,unknown,Muggle
 Martine Copplestone,Human,Female,Hufflepuff,unknown
 Yvette Coquelot,Human,Female,unknown,Muggle
 Corey Hayden's grandmother,Human,Female,unknown,Pure-blood
+Corey Hayden's parents,Human,Female,unknown,unknown
 Loretta Cornhill,Human,Female,Ravenclaw,unknown
 Daisy Corran,Human,Female,Ravenclaw,unknown
 Jane Court,Human,Female,Hufflepuff,unknown
@@ -297,12 +299,12 @@ Felicity Eastchurch,Human,Female,Ravenclaw,unknown
 Edgecombe,Human,Female,unknown,unknown
 Marietta Edgecombe,Human,Female,Ravenclaw,Pure-blood
 Edith,unknown,Female,unknown,unknown
-Edith Abernathy,Human,Female,unknown,unknown
 Edith Nesbit,Human,Female,unknown,Muggle
 Unidentified female Eeylops Owl Emporium employee,Human,Female,unknown,unknown
 Andre Egwu's grandmother,Human,Female,unknown,unknown
 Andre Egwu's sister,Human,Female,unknown,unknown
 Jules Egwu,Human,Female,unknown,Pure-blood
+Jules Egwu's parents,Human,unknown,unknown,unknown
 Elena Eldritch,Human,Female,unknown,unknown
 Eliana,Human,Female,unknown,unknown
 Eliana's parents,Human,Male,unknown,unknown
@@ -434,7 +436,7 @@ Hermione Granger's mother,Human,Female,unknown,Muggle
 Rose Granger-Weasley,Human,Female,Gryffindor,Half-blood
 Olivia Green,Human,Female,Ravenclaw,unknown
 Mathilda Greenford,Human,Female,Slytherin,unknown
-Aquila Greengrass,unknown,Female,unknown,unknown
+Aquila Greengrass,Human,Female,unknown,unknown
 Cereus Greengrass,Human,Female,unknown,Pure-blood
 Daphne Greengrass,Human,Female,Slytherin,Pure-blood
 Lady Grieve,Human,Female,unknown,Muggle
@@ -457,9 +459,8 @@ Joyce Haddock,Human,Female,unknown,Muggle
 Hall's wife,Human,Female,unknown,Muggle
 Yurika Haneda,Human,Female,Slytherin,unknown
 Kelly Harborne,Human,Female,Gryffindor,unknown
-Harfang Longbottom's daughter,Human,Female,unknown,Pure-blood
 Bethany Harrison,Human,Female,unknown,Muggle
-Beatrice Haywood,Human,Female,Hufflepuff,Half-blood
+Beatrice Haywood,Witch,Female,Hufflepuff,Half-blood
 Penny Haywood,Human,Female,Hufflepuff,Half-blood
 Penny Haywood's mother,Human,Female,unknown,Muggle-born
 Healer (Diagon Alley),Human,Female,unknown,unknown
@@ -502,6 +503,7 @@ Hungarian Horntail in the Dragon Sanctuary,Dragon,Female,unknown,unknown
 Lucy Hurst,Human,Female,Gryffindor,unknown
 Grizel Hurtz,Human,Female,unknown,unknown
 Kay Hurwitz,Human,Female,unknown,Muggle
+Betty Huxley,Human,Female,unknown,unknown
 Helixa Hyslop,Human,Female,unknown,unknown
 Syna Hyslop,Human,Female,unknown,unknown
 Ice cream seller,Human,Female,unknown,Muggle
@@ -515,6 +517,7 @@ Clara Ivanova,Human,Female,unknown,unknown
 Erica J.,Human,Female,Gryffindor,unknown
 Jody Jacknife,Human,Female,Slytherin,unknown
 Jacob's mother,Human,Female,unknown,unknown
+Jae Kim's mother,Human,Female,unknown,unknown
 Mary Jauncey,Human,Female,unknown,unknown
 Eugenia Jenkins,Human,Female,unknown,unknown
 Jackie Jernigan,Human,Female,unknown,unknown
@@ -531,14 +534,13 @@ Griselda Jorkins,unknown,Female,unknown,Half-blood
 Primrose Jorkins,Human,Female,unknown,unknown
 Josephine,Zouwu,Female,unknown,unknown
 Josephine Kay,unknown,Female,unknown,unknown
-Jules Egwu's parents,Human,unknown,unknown,unknown
 Trupti Kadam,Human,Female,Slytherin,unknown
 Tomoko Kajiwara,Human,Female,Ravenclaw,unknown
 Laurena Kama,Human,Female,unknown,Pure-blood
 Anjali Kapoor,Human,Female,Gryffindor,unknown
 Mary Karasu,Human,Female,unknown,unknown
 Rosa Karasu,Human,Female,unknown,unknown
-Tulip Karasu,Human,Female,Ravenclaw,Half-blood
+Tulip Karasu,Human,Female,Ravenclaw,Pure-blood
 Tulip Karasu's mother,Human,Female,unknown,unknown
 Igor Karkaroff's Yule Ball partner,Human,Female,unknown,Pure-blood
 Karkus's wife,Giant,Female,unknown,unknown
@@ -615,6 +617,7 @@ Gilderoy Lockhart's sisters,Human,Female,unknown,Squib
 Alice Longbottom,Human,Female,unknown,Pure-blood
 Augusta Longbottom,Human,Female,unknown,Pure-blood
 Enid Longbottom,Human,Female,unknown,unknown
+Harfang Longbottom's daughter,Human,Female,unknown,Pure-blood
 Louise,Human,Female,unknown,unknown
 Luna Lovegood,Human,Female,Ravenclaw,Pure-blood
 Pandora Lovegood,Human,Female,Ravenclaw,unknown
@@ -713,6 +716,7 @@ Miraforum (British witch),Human,Female,unknown,Pure-blood
 Miraphorus,unknown,Female,unknown,unknown
 Anna Mirfield,Human,Female,Gryffindor,unknown
 Cordelia Misericordia,Hag,Female,unknown,unknown
+Sunita Mistry,Human,Female,unknown,unknown
 Elizabeth Mkapa,Human,Female,Ravenclaw,unknown
 Eupraxia Mole,Human,Female,unknown,unknown
 Lilith Molesby,Human,Female,unknown,unknown
@@ -774,6 +778,7 @@ Mrs Norris,Cat,Female,unknown,unknown
 Theodore Nott's mother,Human,Female,unknown,Pure-blood
 Honoria Nutcombe,Human,Female,unknown,unknown
 Grace Nutley,Human,Female,Hufflepuff,unknown
+Agnes Nutt,Human,Female,unknown,unknown
 Orabella Nuttley,Human,Female,unknown,unknown
 Shelagh O'Dowd,Human,Female,Gryffindor,unknown
 Maxine O'Flaherty,Human,Female,Hufflepuff,unknown
@@ -800,6 +805,7 @@ Owner of 7 Privet Drive,Human,Female,unknown,Muggle
 Owner of the Railview Hotel,Human,Female,unknown,Muggle
 Page siblings' mother,Human,Female,unknown,unknown
 Daniel Page's sister,Human,Female,unknown,Half-blood
+Prentiss Pagett-Goggins,Human,Female,unknown,unknown
 Pansy Parkinson's gang,unknown,unknown,unknown,unknown
 Paper shop girl,Human,Female,unknown,Muggle
 Lenelle Paraison,Human,Female,unknown,unknown
@@ -834,7 +840,6 @@ Enid Pettigrew,Human,Female,unknown,unknown
 Swati Pevekar,Human,Female,Ravenclaw,unknown
 Cadmus Peverell's fiancée,Human,Female,unknown,unknown
 Iolanthe Peverell,Human,Female,unknown,unknown
-Phoebe Clem,Human,Female,unknown,unknown
 Constance Pickering,Human,Female,Hufflepuff,Half-blood
 Constance Pickering's grandmother,Human,Female,Hufflepuff,unknown
 Constance Pickering's mother,Human,Female,unknown,unknown
@@ -893,7 +898,7 @@ Quintia Qarase,Human,Female,unknown,unknown
 Hayley Quentin,Human,Female,Slytherin,unknown
 Orla Quirke,Human,Female,Ravenclaw,unknown
 Amina Qureshi,Human,Female,Ravenclaw,unknown
-Babbitty Rabbity,Human,Female,unknown,unknown
+Babbitty Rabbitty,Human,Female,unknown,unknown
 Modesty Rabnott,Human,Female,unknown,unknown
 Rachel,Human,Female,Slytherin,unknown
 Mnemone Radford,Human,Female,unknown,unknown
@@ -1022,7 +1027,6 @@ Pomona Sprout,Human,Female,Hufflepuff,Half-blood
 Squawk,Occamy,Female,unknown,unknown
 Squibbert,Human,Female,unknown,unknown
 Emma Squiggle,Human,Female,unknown,unknown
-Winged St Mungo's patient,Human,Female,unknown,unknown
 Theresa Stadt,Human,Female,unknown,unknown
 Erica Stainwright,Human,Female,unknown,unknown
 Melanie Stanmore,Human,Female,Gryffindor,unknown
@@ -1040,7 +1044,6 @@ Brunhilde Stokke,Human,Female,unknown,unknown
 Imogen Stretton,Human,Female,Slytherin,unknown
 Miriam Strout,Human,Female,unknown,unknown
 Aki Sugiyama,Human,Female,Hufflepuff,unknown
-Sunita Mistry,Human,Female,unknown,unknown
 Natsumi Suzuki,Human,Female,Hufflepuff,unknown
 Bethany Swordbane,Human,Female,unknown,unknown
 Jocunda Sykes,Human,Female,unknown,unknown
@@ -1093,9 +1096,9 @@ Felicitania Tugwood,Human,Female,unknown,unknown
 Sacharissa Tugwood,Human,Female,unknown,unknown
 Lottie Turner,Human,Female,unknown,unknown
 Lisa Turpin,Human,Female,Ravenclaw,unknown
+Lana Tuttle,Human,Female,unknown,Half-blood
 Liz Tuttle,Human,Female,Slytherin,Half-blood
 Liz Tuttle's maternal grandmother,Human,Female,unknown,unknown
-Liz Tuttle's sister,Human,Female,unknown,Half-blood
 Liz Tuttle's mother,Human,Female,unknown,Pure-blood
 Dorcus Twelvetrees,Human,Female,unknown,Pure-blood
 Daisy Twemlove,Human,Female,unknown,unknown
@@ -1144,6 +1147,7 @@ Unidentified Gryffindor Prefect,Human,Female,Gryffindor,unknown
 Unidentified guide,Human,Female,unknown,unknown
 Unidentified Head Girl,Human,Female,unknown,unknown
 Unidentified Hogwarts employees,unknown,unknown,unknown,unknown
+Unidentified Hogwarts Healers,unknown,unknown,unknown,unknown
 Unidentified Hogwarts students at the Battle of Hogwarts,unknown,unknown,unknown,unknown
 Unidentified Hogwarts students killed on the Seventh Floor,Human,unknown,Gryffindor,unknown
 Unidentified housewife,Human,Female,unknown,Muggle
@@ -1249,7 +1253,7 @@ Weasley family chickens,Chicken,unknown,unknown,unknown
 Audrey Weasley,Human,Female,unknown,unknown
 Dominique Weasley,Human,Female,unknown,unknown
 Ginevra Weasley,Human,Female,Gryffindor,Pure-blood
-Lucy Weasley,Human,Female,unknown,unknown
+Lucy Weasley,Human,Female,unknown,Pure-blood
 Molly Weasley,Human,Female,Gryffindor,Pure-blood
 Molly Weasley II,Human,Female,unknown,Pure-blood
 Roxanne Weasley,Human,Female,unknown,unknown
@@ -1266,6 +1270,7 @@ Kelly Whakkaarangapawarau,Human,Female,unknown,unknown
 White-Haired Healer,Human,Female,unknown,unknown
 Phylis Whitehead,Human,Female,Slytherin,unknown
 Winifred Whittle,Human,Female,unknown,unknown
+Wiggins,Human,Female,unknown,unknown
 Ignatia Wildsmith,Human,Female,Ravenclaw,unknown
 Ella Wilkins,Human,Female,Slytherin,unknown
 Heliotrope Wilkins,Human,Female,unknown,unknown
@@ -1274,6 +1279,7 @@ Saranna Wilkinson,Human,Female,unknown,unknown
 Dora Williams,Human,Female,Hufflepuff,unknown
 Heliotrope Willis,Human,Female,unknown,unknown
 Lady Wimborne,Human,Female,unknown,Muggle-born
+Winged St Mungo's patient,Human,Female,unknown,unknown
 Talbott Winger's mother,Human,Female,unknown,unknown
 Ruth Winikus,Human,Female,Gryffindor,unknown
 Winky,House-elf,Female,unknown,unknown
@@ -1314,7 +1320,6 @@ Euan Abercrombie,Human,Male,Gryffindor,unknown
 Abernathy,Human,Male,unknown,unknown
 Abraham,Human,Male,unknown,unknown
 Cosme Acajor,Human,Male,unknown,unknown
-Achilles Tolliver,Human,Male,unknown,unknown
 Enoch Acidus,Human,Male,unknown,unknown
 Stewart Ackerley,Human,Male,Ravenclaw,unknown
 Acolyte thug,Human,Male,unknown,unknown
@@ -1322,7 +1327,7 @@ Actor who played Crapaud,Human,Male,unknown,unknown
 Actor who played Grenouille,Human,Male,unknown,unknown
 Adrian,Human,Male,unknown,unknown
 Falco Aesalon,Human,Male,unknown,unknown
-African prince,Human,Male,unknown,Muggle-born
+African prince,Human,Male,unknown,unknown
 Johann Agardh,Human,Male,unknown,unknown
 Jatin Agarkar,Human,Male,Ravenclaw,unknown
 Agnes's son,Human,Male,unknown,unknown
@@ -1379,6 +1384,7 @@ Arthur Weasley's contact at the Floo Regulation Panel,Human,Male,unknown,unknown
 Duncan Ashe,unknown,Male,Slytherin,unknown
 Silvio Astolfi,Human,Male,unknown,unknown
 Bertram Aubrey,Human,Male,unknown,unknown
+Basil Aurelius III,Human,Male,unknown,unknown
 Unidentified male Auror at Hogwarts,Human,Male,unknown,unknown
 Unidentified Aurors stationed at the Great Hall,Human,Male,unknown,unknown
 Edwin Avarus,Human,Male,unknown,unknown
@@ -1405,7 +1411,7 @@ Bane,Centaur,Male,unknown,unknown
 Heathcote Barbary,Human,Male,unknown,unknown
 José Barboza,Human,Male,unknown,unknown
 Bartholomew Barebone,Human,Male,unknown,Muggle
-Credence Barebone,Human,Male,unknown,Half-blood
+Credence Barebone,Human,Male,unknown,Pure-blood
 Modesty Barebone's biological father,Human,Male,unknown,unknown
 Lucas Bargeworthy,unknown,Male,unknown,unknown
 Barker (Muggle),Human,Male,unknown,Muggle
@@ -1487,7 +1493,6 @@ Sirius Black,Human,Male,Gryffindor,Pure-blood
 Sirius Black I,Human,Male,unknown,Pure-blood
 Sirius Black II,Human,Male,unknown,Pure-blood
 Philip Blagdon,Human,Male,Hufflepuff,unknown
-Blaise Zabini's mother's seven husbands,Human,Male,unknown,unknown
 Balfour Blane,Human,Male,unknown,unknown
 Blagdon Blay,Human,Male,unknown,unknown
 Barnabus Blenkinsop,Human,Male,unknown,unknown
@@ -1600,7 +1605,6 @@ Caelan,Quintaped,Male,unknown,unknown
 Caesar,Human,Male,unknown,unknown
 Calchas,Human,Male,unknown,unknown
 Calid,Human,Male,unknown,unknown
-Calvert Tillery,Human,Male,unknown,unknown
 Calvin Coolidge,Human,Male,unknown,Muggle
 Angus Campbell,Human,Male,unknown,unknown
 Lennox Campbell,Human,Male,unknown,unknown
@@ -1722,7 +1726,6 @@ Dan,Human,Male,Gryffindor,unknown
 Dark Wizard from Knockturn Alley,Human,Male,unknown,unknown
 Dan Darker,Human,unknown,Slytherin,unknown
 Alistair Darling,Human,Male,unknown,unknown
-Darren Floyd,unknown,Male,unknown,unknown
 Rohit Das,Human,Male,Hufflepuff,unknown
 David (king),Human,Male,unknown,unknown
 David (saint),Human,Male,unknown,unknown
@@ -1806,6 +1809,7 @@ Davet Dumont,Human,Male,unknown,Pure-blood
 Dungeon Corridor Slytherin Prefect (I),Human,Male,Slytherin,unknown
 Dungeon Corridor Slytherin Prefect (II),Human,Male,Slytherin,unknown
 Craig Dunn,Human,Male,Hufflepuff,unknown
+Durmstrang boy,Human,Male,unknown,Pure-blood
 Dudley Dursley,Human,Male,unknown,Muggle
 Vernon Dursley,Human,Male,unknown,Muggle
 Troy Duvall,Human,Male,unknown,unknown
@@ -1926,6 +1930,7 @@ Keaton Flitney,Human,Male,unknown,unknown
 Filius Flitwick,Human,Male,Ravenclaw,unknown
 Florence's boyfriend,Human,Male,unknown,unknown
 Gonçalo Flores,Human,Male,unknown,unknown
+Darren Floyd,unknown,Male,unknown,unknown
 Fluffy,Three-headed dog,Male,unknown,unknown
 Ambrosius Flume,Human,Male,unknown,unknown
 Terrence Fogarty,Human,Male,Gryffindor,unknown
@@ -1982,6 +1987,7 @@ Brian Gallagher,unknown,Male,unknown,unknown
 William Gallagher,unknown,Male,unknown,unknown
 Paul Gallico,Human,Male,unknown,Muggle
 Ulick Gamp,Human,Male,unknown,Pure-blood
+Gareth Greengrass's brother,Human,Male,unknown,Pure-blood
 Chris Garland,Human,Male,Gryffindor,unknown
 Jeremiah Garnet,Human,Male,unknown,unknown
 Garrick Ollivander's peacock,Peacock,Male,unknown,unknown
@@ -2029,7 +2035,7 @@ Gornuk,Goblin,Male,unknown,unknown
 Jakub Gorski,Human,Male,unknown,unknown
 Damon Gosforth,Human,Male,Slytherin,unknown
 Miranda Goshawk's father,Human,Male,unknown,unknown
-Gossamer,Human,Male,unknown,unknown
+Gossamer,unknown,Male,unknown,unknown
 Stephen Gould,Human,Male,Gryffindor,unknown
 Goyle,Human,Male,Slytherin,Pure-blood
 Gregory Goyle,Human,Male,Slytherin,Pure-blood
@@ -2107,9 +2113,9 @@ Hans,Augurey,Male,unknown,unknown
 Peter Hansen,Human,Male,unknown,unknown
 Warren G. Harding,Human,Male,unknown,Muggle
 Shimmy Hardoteer,Human,Male,unknown,unknown
-Harfang Longbottom's son,Human,Male,unknown,Pure-blood
 Thornton Harkaway,Human,Male,unknown,unknown
 Ciceron Harkiss,Human,Male,unknown,unknown
+Harold,Human,Male,unknown,unknown
 Harper,Human,Male,Slytherin,Pure-blood
 Warty Harris,Human,Male,unknown,unknown
 Don Harrison,Human,Male,unknown,Muggle
@@ -2127,6 +2133,7 @@ Penny Haywood's father,Human,Male,unknown,Muggle
 Unidentified resting Headmaster,Human,Male,unknown,unknown
 Headmaster of Castelobruxo during 1989,Human,Male,unknown,unknown
 First Headmaster of Hogwarts,Human,Male,unknown,unknown
+Headmaster of Mahoutokoro during 1990,Human,Male,unknown,unknown
 Heady,Shrunken head,Male,unknown,unknown
 Portrait of the Healers,Human,Male,unknown,unknown
 Reginald Heartachus,Human,Male,unknown,unknown
@@ -2281,6 +2288,8 @@ Ashok Khanna,Human,Male,Ravenclaw,unknown
 Rowan Khanna's father,Human,Male,unknown,unknown
 Rowan Khanna's brother,Human,Male,unknown,Pure-blood
 Kazu Kibuishi,unknown,Male,unknown,unknown
+Wilfred Levi Kidd,Human,Male,Gryffindor,unknown
+Wilfred Kidd Senior,Human,Male,unknown,unknown
 Jimmy Kiddell,Human,Male,unknown,unknown
 Aidan Kiely,unknown,Male,unknown,unknown
 Olivier Kikkert,Human,Male,unknown,unknown
@@ -2398,6 +2407,7 @@ Frank Longbottom's father,Human,Male,unknown,Pure-blood
 Algie Longbottom,Human,Male,unknown,unknown
 Frank Longbottom,Human,Male,unknown,Pure-blood
 Harfang Longbottom,Human,Male,unknown,Pure-blood
+Harfang Longbottom's son,Human,Male,unknown,Pure-blood
 Neville Longbottom,Human,Male,Gryffindor,Pure-blood
 Aamir Loonat,Human,Male,Gryffindor,unknown
 Carlos Lopez,Human,Male,unknown,unknown
@@ -2522,6 +2532,7 @@ Mentor Metaxas,Human,Male,unknown,unknown
 Michael,Human,Male,Gryffindor,unknown
 Eloise Midgen's father,Human,Male,Gryffindor,Pure-blood
 Godfrey Midhurst,Human,Male,Ravenclaw,unknown
+Kensington Millbottom,Human,Male,unknown,Muggle
 Luc Millefeuille,Human,Male,unknown,unknown
 Byron Miller,Human,Male,Slytherin,unknown
 Sean Miller,Human,Male,unknown,unknown
@@ -2604,6 +2615,7 @@ Maurice Netto,Human,Male,unknown,unknown
 Garrick Newbourne,Human,Male,Slytherin,unknown
 Unidentified newspaper vendor,Human,Male,unknown,unknown
 Isaac Newton,Human,Male,unknown,Muggle
+Nicholas de Mimsy-Porpington's doorman,Troll,Male,unknown,unknown
 Nicholas de Mimsy-Porpington's executioner,Human,Male,unknown,Muggle
 Nigel,Human,Male,unknown,Pure-blood
 Nigel's nephew,Human,Male,Slytherin,Pure-blood
@@ -2628,6 +2640,7 @@ Harvey O'Brien,Human,Male,Hufflepuff,unknown
 Aiden O'Connor,Human,Male,Gryffindor,unknown
 Banga O'Deluga,Human,Male,Ravenclaw,unknown
 Darren O'Hare,Human,Male,unknown,unknown
+Olin Oakwood,Human,Male,unknown,unknown
 Uric Oapley,Human,Male,Gryffindor,unknown
 Otto Obermeier,Human,Male,unknown,unknown
 Oblansk,Human,Male,unknown,unknown
@@ -2735,8 +2748,8 @@ Picasso,Human,Male,unknown,Muggle
 Adam Pickering,Human,Male,Gryffindor,unknown
 Constance Pickering's older brother,Human,Male,unknown,Pure-blood
 Constance Pickering's Muggle grandfather,Human,Male,unknown,unknown
-Matthias Pickering,Human,Male,unknown,unknown
 Constance Pickering's Squib brother,Human,Male,unknown,Squib
+Matthias Pickering,Human,Male,unknown,unknown
 Pickett,Bowtruckle,Male,unknown,unknown
 Lucas Picquery,Human,Male,unknown,unknown
 Pigwidgeon,Owl,Male,unknown,unknown
@@ -2845,7 +2858,7 @@ Daniel Radcliffe (in-universe),Human,Male,unknown,Muggle
 Radulf,Human,Male,unknown,unknown
 Ragnok,Goblin,Male,unknown,unknown
 Ragnok the Pigeon-Toed,Goblin,Male,unknown,unknown
-Ragnuk,Goblin,Male,unknown,unknown
+Ragnuk,unknown,Male,unknown,unknown
 K. Rammelle,Human,Male,unknown,unknown
 Neil Randall,Human,Male,Gryffindor,unknown
 Xavier Rastrick,Human,Male,unknown,unknown
@@ -2906,6 +2919,7 @@ Greg Ruczinski,Human,Male,unknown,unknown
 Grugwyn Rufford,Human,Male,unknown,unknown
 Albert Runcorn,Human,Male,unknown,Pure-blood
 Barry Ryan,Human,Male,unknown,unknown
+Dai Ryusaki,Human,Male,unknown,unknown
 W. de S. Trenholm,Human,Male,unknown,Muggle
 Sabre,Dog,Male,unknown,unknown
 Carl Sagan,Human,Male,unknown,Muggle
@@ -3007,7 +3021,6 @@ Andy Smudgley,Human,Male,unknown,unknown
 Snaglok,Goblin,Male,unknown,unknown
 Severus Snape,Human,Male,Slytherin,Half-blood
 Tobias Snape,unknown,Male,unknown,Muggle
-Chief Snatcher,unknown,unknown,unknown,unknown
 Unidentified Snatcher,Human,Male,unknown,Pure-blood
 Unidentified Snatcher (II),Human,Male,unknown,Half-blood
 Barnaby Snell,Human,Male,unknown,unknown
@@ -3052,6 +3065,7 @@ Justin Steele,Human,Male,Ravenclaw,unknown
 Kevin Sterndale,Human,Male,unknown,unknown
 Steve,Human,Male,unknown,Muggle
 Steve McClaren,Human,Male,unknown,unknown
+Tom Stevens,Human,Male,Hufflepuff,unknown
 John Stevenson,Human,Male,unknown,unknown
 R. L. Stevenson,Human,Male,unknown,unknown
 Douglas Steward,unknown,Male,unknown,Muggle
@@ -3106,6 +3120,7 @@ Tertius,Human,Male,unknown,Muggle-born
 Tertius's brothers,Human,Male,unknown,Muggle
 Vikram Thakur,Human,Male,Slytherin,unknown
 Alistair Thaxted,Human,Male,Hufflepuff,unknown
+Theodore,Human,Male,Ravenclaw,unknown
 Janus Thickey,Human,Male,unknown,unknown
 Pius Thicknesse,Human,Male,unknown,Pure-blood
 Third semi-finalist of the 1379 duelling contest,Human,Male,unknown,unknown
@@ -3123,6 +3138,7 @@ Orsino Thruston,Human,Male,unknown,unknown
 Thurkell brothers,unknown,Male,unknown,Squib
 Thaddeus Thurkell,Human,Male,unknown,unknown
 Tiberius,Human,Male,unknown,unknown
+Calvert Tillery,Human,Male,unknown,unknown
 Albert Tillyman,Human,Male,unknown,unknown
 Tim,Human,Male,unknown,unknown
 Tim (Wampus cat),Wampus cat,Male,unknown,unknown
@@ -3131,10 +3147,10 @@ Titus,Bowtruckle,Male,unknown,unknown
 Sidney Todd,Human,Male,unknown,unknown
 Kurt Todt,Human,Male,unknown,unknown
 Tofty,Human,Male,unknown,unknown
+Achilles Tolliver,Human,Male,unknown,unknown
 Tom,Human,Male,unknown,unknown
 Tom (Bowtruckle),Bowtruckle,Male,unknown,unknown
 Tom (vandal),Human,Male,unknown,Muggle
-Tom Stevens,Human,Male,Hufflepuff,unknown
 Garius Tomkink,Human,Male,unknown,unknown
 Tomkins,Human,Male,unknown,unknown
 Edward Tonks,Human,Male,unknown,Muggle-born
@@ -3251,6 +3267,7 @@ Unidentified friend of McClaggan,Human,Male,Gryffindor,unknown
 Unidentified Frog Choir member (I),Human,Male,Hufflepuff,unknown
 Unidentified Frog Choir member (II),Human,Male,unknown,unknown
 Unidentified frowning Ministry of Magic wizard who murmured instructions to a quill,Human,Male,unknown,Pure-blood
+Unidentified German Minister for Magic in 1926,Human,Male,unknown,unknown
 Unidentified Giant in the Battle of Hogwarts (I),Giant,Male,unknown,unknown
 Unidentified Giant in the Battle of Hogwarts (II),Giant,Male,unknown,unknown
 Unidentified Giant in the Battle of Hogwarts (IV),Giant,Male,unknown,unknown
@@ -3318,6 +3335,7 @@ Unidentified man in Borgin and Burkes in 1996,Human,Male,unknown,unknown
 Unidentified man killed in the courtyard explosion,Human,Male,unknown,unknown
 Unidentified man that yelled the Death Eaters were coming,Human,Male,unknown,unknown
 Unidentified man who opened the doors of the Hearing Room for Newton and Theseus Scamander,Human,Male,unknown,unknown
+Unidentified member of the Dark Force Defence League,Human,Male,unknown,unknown
 Unidentified Merman at the Great Lake,Merpeople,Male,unknown,unknown
 Unidentified Merman who fell in love with Mirabella Plunkett,Merpeople,Male,unknown,unknown
 Unidentified Minister of Magical Transportation,Human,Male,unknown,unknown
@@ -3490,8 +3508,6 @@ Hermann Wiel,Human,Male,unknown,unknown
 Dempster Wiggleswade,Human,Male,unknown,unknown
 Wilhelm Wigworthy,Human,Male,unknown,unknown
 R. Wilde Aston,Human,Male,unknown,unknown
-Wilfred Kidd Senior,Human,Male,unknown,unknown
-Wilfred Levi Kidd,Human,Male,Gryffindor,unknown
 Wilfred the Wistful,Human,Male,unknown,unknown
 Simon Wilkinson,Human,Male,unknown,unknown
 Will,Human,Male,unknown,unknown
@@ -3565,6 +3581,7 @@ Unidentified young wizard,Human,Male,unknown,unknown
 Andy Young,Human,Male,unknown,Muggle
 M. Young,Human,Male,unknown,Muggle
 Blaise Zabini,Human,Male,Slytherin,Pure-blood
+Blaise Zabini's mother's seven husbands,Human,Male,unknown,unknown
 Ladislaw Zamojski,Human,Male,unknown,unknown
 Georgi Zdravko,Human,Male,unknown,unknown
 Alonzo Zema,Human,Male,unknown,Muggle
@@ -3573,7 +3590,6 @@ Zonko,Human,Male,unknown,unknown
 Zoo director,Human,Male,unknown,Muggle
 1996 Gryffindor Quidditch Keeper trials spectators,unknown,unknown,unknown,unknown
 Abraxan at the Magical Creatures Reserve,Abraxan,unknown,unknown,unknown
-Aceline Faure,Human,unknown,unknown,unknown
 Albanian peasant,Human,unknown,unknown,Muggle
 Albus Dumbledore's great-great-grandfather's phoenix,Phoenix,unknown,unknown,unknown
 Albus Potter's ferret,Ferret,unknown,unknown,unknown
@@ -3641,11 +3657,13 @@ B. Dunstan,Human,unknown,unknown,unknown
 Eekins,Human,unknown,Hufflepuff,unknown
 Ellerby,Human,unknown,unknown,unknown
 Employee of the Hogsmeade Post Office,Human,unknown,unknown,unknown
+Aceline Faure,Human,unknown,unknown,unknown
 FDM,Human,unknown,unknown,Muggle
 D. Figueiredus,Human,unknown,unknown,unknown
 E. L. Filhus,Human,unknown,unknown,unknown
 Filibuster,Human,unknown,unknown,unknown
 Filk,House-elf,unknown,unknown,unknown
+Skylar Flame,Human,unknown,unknown,unknown
 Fleetwing,Hippogriff,unknown,unknown,unknown
 Fleetwood,Human,unknown,unknown,unknown
 Filius Flitwick's goblin ancestor,Goblin,unknown,unknown,unknown
@@ -3738,7 +3756,7 @@ Ministry Official No. 25052018,Human,unknown,unknown,unknown
 Ministry Official No. 39423,Human,unknown,unknown,unknown
 M. L. Minus,Human,unknown,unknown,unknown
 M. L. Miraphorum,Human,unknown,unknown,unknown
-M. Miraphorumus,Human,unknown,unknown,unknown
+M. Miraphorusus,Human,unknown,unknown,unknown
 Miromy Hara,unknown,unknown,unknown,unknown
 Modesty Rabnott's hippogriff,Hippogriff,unknown,unknown,unknown
 H. Mogrix,Human,unknown,unknown,unknown
@@ -3825,6 +3843,7 @@ Violet Tillyman's children,Human,unknown,unknown,Pure-blood
 Toad Toazer,unknown,unknown,Gryffindor,unknown
 Transylvanian Head of Magical Co-operation,Human,unknown,unknown,unknown
 Sloan Travers,Human,unknown,unknown,unknown
+Kikis Trecus,Human,unknown,unknown,unknown
 Donaghan Tremlett's spouse,Human,unknown,unknown,unknown
 Trio of Red Caps,Red Cap,unknown,unknown,unknown
 Troll at the Training Grounds,Troll,unknown,unknown,unknown
@@ -3843,6 +3862,7 @@ Unidentified 1987–1988 Defence Against the Dark Arts professor,Human,unknown,u
 Unidentified 1989–1990 Defence Against the Dark Arts professor,Human,unknown,unknown,unknown
 Unidentified 19th-century Hogwarts student,Human,unknown,unknown,Pure-blood
 Unidentified Acromantula Commander during Battle of Hogwarts,Acromantula,unknown,unknown,unknown
+Unidentified Andorran Minister for Magic,Human,unknown,unknown,unknown
 Unidentified Aurors,Human,unknown,unknown,unknown
 Unidentified Ballycastle Bats Chaser,unknown,unknown,unknown,unknown
 Unidentified bird in bell jar,Hummingbird,unknown,unknown,unknown

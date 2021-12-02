@@ -106,7 +106,7 @@ layout = html.Div([
         dbc.Row([
             dbc.Col(html.P(children='This page is about understanding the data set collected from the HP Wiki Fandom and gaining valuable insights about the characters. '
                                     'All the characters that inhabit the wizarding world have been collected from the wiki-pages, together with some intersting features, '
-                                    'such as their blood-status, school-house, species and gender.'
+                                    'such as their blood-status, school-house, species and gender. '
                                     'A selected part of the dataset can be seen below with some key statistics.'
                                      )
                     , className="mb-4")
@@ -143,9 +143,8 @@ layout = html.Div([
 
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H3("Distribution of features", className="text-center")
-                    , className="mb-5 mt-5"
-                )  
+            html.H3("Distribution of features", className="text-center", style = {"marginTop":50, "marginBottom":10}
+         )# , className="mb-5 mt-5")
         ]),
         dbc.Row([
             dbc.Col(html.P("To get an overview of the dataset, the distribution of the features are shown below. There are many values for some of the features, you can choose how many to display for each feature.")
@@ -161,7 +160,7 @@ layout = html.Div([
         ],
         value='top_5',
         #multi=True,
-        style={'width': '50%', 'margin': 50}
+        style={'width': '50%', 'marginTop': 40,'marginBottom': 20,'marginLeft': 50}
         ),
 
         # Bar charts 
@@ -178,40 +177,40 @@ layout = html.Div([
     #]),  
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H3("Exploring the Network", className="text-center")
-                    , className="mb-5 mt-5")
+            html.H3("Exploring the Network", className="text-center")
         ]),
         dbc.Row([
-            dbc.Col(html.P(children='The network has been created by using the characters as nodes and the links between the character pages as edges.'
-                                    'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified.'
-                                    'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as the difference is very big).'
-                                        )
-                    , className="mb-4")
+            html.P(children='The network has been created using the characters as nodes and the links between the character pages as edges. '
+                                    'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified. '
+                                    'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as there is a very large difference between the number of connections). '
+                                     'Choose whether you want to see the full network or only the Giant Connected Component (GCC) below: '
+                )
         ]),
     ]),
     dcc.RadioItems(
             id='graph_type',
             options=[{'label': i, 'value': i} for i in ['Full network', 'GCC']],
             value='Full network',
-            labelStyle={'display': 'inline-block', 'marginLeft':60}
+            labelStyle={'display': 'inline-block', 'marginLeft':120}
     ),
      html.Div(children = [
             dbc.Row([
                 dbc.Col(
                 html.H5(id = 'cytoscape-title',
                 children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"]),
-                className="text-left"
+                #className="text-left"
                 )
-            ]
+            ],style ={"justify-content":"center",'width': '40', 'font-weight': 'bold', 'marginLeft': 160, 'marginTop':30}
             ),
-             dbc.Row(
+             dbc.Row([
                 dbc.Col(
                 html.P(id = 'cytoscape-subtitle', 
                 children=["Isolated nodes: "+str(len(list(nx.isolates(G))))]),
-                className="text-left"
+                #className="text-center"
                 )
-            ),
-    ], style ={"justify-content":"left",'width': '100', 'font-weight': 'bold', 'marginLeft': 200, 'marginTop':30}
+            ], style ={"justify-content":"center",'width': '40', 'font-weight': 'bold', 'marginLeft': 280}
+            )
+    ]
     ),
     # Network
      html.Div([
@@ -219,22 +218,68 @@ layout = html.Div([
                 id='cytoscape-graph',
                 layout={'name': 'preset'},
                 #stylesheet=default_stylesheet,
-                style={'width': '50%', 'height': '600px'},
+                style={'width': '45%', 'height': '600px'},
                 stylesheet=stylesheet_cyto,
                 elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
             ),
-            #dcc.Graph(id='live-update-bar-graph'),
-            #html.P(id='cytoscape-tapNodeData-output'),
-            #html.P(id='cytoscape-tapEdgeData-output'),
-            #html.P(id='cytoscape-mouseoverNodeData-output'),
-            #html.P(id='cytoscape-mouseoverEdgeData-output'),
+                html.P(id='cytoscape-tapNodeData-output-explore'),
+                html.P(id='cytoscape-tapEdgeData-output-explore'),
+                html.P(id='cytoscape-mouseoverNodeData-output-explore'),
+                html.P(id='cytoscape-mouseoverEdgeData-output-explore'),
             
             # Degree distributions
             html.Div([dcc.Graph(id = "scatter_distribution")
                     ]
             ), 
 
-     ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"})
+        ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
+     ),
+    dbc.Container([
+        dbc.Row([
+            html.P(children=[
+                    html.Span('In the table below you can see the most connected characters in the network. '
+                          "Do you think they are suprising? No, not really, but who is this Jacob's sibling? "
+                          "This character is part of the videogame "),
+                     html.Em("Harry Potter: Hogwarts Mystery, "),
+                     html.Span("where the player can can take on the role of Jacob's sibling, a Hogwarts student before the time of Harry Potter.")
+                   ]
+            )
+        ])
+    ]),
+    # Table with most connected 
+    html.Div([
+        html.Label("Top 5 characters by in- and out-degree", style = {'font-weight': 'bold', "justify-content":"center",'marginLeft':10}),
+        dash_table.DataTable(
+            id='degree-tabel',
+            style_table={'overflowX': 'scroll',
+                        'whitespace':'normal',
+                        'height': 'auto',
+                        'lineHeight': '15px',
+                        'padding': 10},#table-layout': 'fixed'
+            style_header={'backgroundColor': 'lightsteelblue', 'color': 'white'},
+            style_cell={
+                'backgroundColor': 'whitesmoke',
+                'color': 'black',
+                'fontSize': 13,
+                'font-family': "sans-serif",#'Nunito Sans',
+                'textAlign': 'left'
+                }, 
+                style_as_list_view=True
+        ),
+    ],style={"justify-content":"center", 'width': '80vw','marginLeft':80}
+    ),
+    dbc.Container([
+        dbc.Row([
+            html.P("Overall, we can see that the Harry Potter resembles a real-world network "
+                    "with a few highly connected hubs such as Harry Potter and Voldemort, the main antagonist and protagonist of the Harry Potter world, "
+                    "and many characters that only have very few connections. "
+                    "If you want to learn more about the characteristics, see the explainer notebook. Otherwise the next page in our website is about exploring the different ties and connections in our network even further."
+            
+            , className="text-center"
+            , style = {"marginTop":20,'marginLeft':200, 'width':"65vw", "justify-content":"center"})
+        ]
+        )
+    ]),
 ], style ={"justify-content":"center", 'width': '100vw', 'height':'90vh'}
 )
 
@@ -376,14 +421,18 @@ def update_network(value):
     hist_out, bins_out = np.histogram(out_degree_vals, bins = np.arange(np.min(out_degree_vals), np.max(out_degree_vals) + 2))
     centered_out = (bins_out[:-1] + bins_out[1:]) / 2
 
+    # Adjust size of nodes (set it to zero if the hist-value is 0 i.e. there is no observation here)
+    marker_size_in = [8 if val>0 else 0 for val in hist_in]
+    marker_size_out = [8 if val>0 else 0 for val in hist_out]
+
     df_in_degree = pd.DataFrame({"In-degree": hist_in, "Count": centered_in})
     df_out_degree = pd.DataFrame({"Out-degree": hist_out, "Count": centered_out})
 
     # Make figure
     fig = make_subplots(rows=2, cols=1)
 
-    marker_layout_in = dict(size=8,color = "blue", line_width=1,opacity = 0.5)
-    marker_layout_out = dict(size=8,color = "red", line_width=1,opacity = 0.5)
+    marker_layout_in = dict(size=marker_size_in,color = "blue", line_width=1,opacity = 0.5)
+    marker_layout_out = dict(size=marker_size_out,color = "red", line_width=1,opacity = 0.5)
 
     # Add traces
     fig.add_trace(go.Scatter(x=df_in_degree["Count"], y=df_in_degree["In-degree"],
@@ -432,6 +481,7 @@ def update_network(value):
 
     fig.update_layout(
         legend=dict(
+            itemsizing= "constant",
             font=dict(
                 #family="Courier",
                 size=18,
@@ -449,7 +499,7 @@ def update_network(value):
                 #family="Courier",
                 size=20,
                 color="black"
-            )
+            )   
         ) 
     )
 
@@ -457,3 +507,50 @@ def update_network(value):
     subtitle = "Isolated nodes: "+str(len(list(nx.isolates(graph))))
 
     return [go.Figure(fig),elements, title, subtitle] #{'data': fig.data, 'layout': fig.layout}
+
+
+@app.callback(Output('cytoscape-mouseoverNodeData-output-explore', 'children'),
+              Input('cytoscape-graph', 'tapNodeData'))
+
+def displayTapNodeData(data):
+    if data:
+        return "You recently clicked/tapped on the individual: " + data['name']
+
+@app.callback(Output('cytoscape-tapEdgeData-output-explore', 'children'),
+              Input('cytoscape-graph', 'tapEdgeData'))
+
+def displayTapEdgeData(data):
+    if data:
+        return "You recently clicked/tapped the edge between " + \
+               data['source'].upper() + " and " + data['target'].upper()
+
+
+@app.callback([Output('degree-tabel', 'data'),
+              Output('degree-tabel', 'columns')],
+             [Input('graph_type', 'value')])
+
+def update_degree_table(value):
+     # Decide if using full network or GCC
+    if value == 'Full network': 
+        graph = G
+    else: 
+        graph = GCC
+
+    # Get degree values from graph 
+    in_degree_vals = nx.get_node_attributes(graph,'in_degree')
+    out_degree_vals = nx.get_node_attributes(graph,'out_degree')
+
+    sorted_in_degree_dict = {k: v for k, v in sorted(in_degree_vals.items(), key=lambda item: item[1], reverse = True)}
+    sorted_out_degree_dict = {k: v for k, v in sorted(out_degree_vals.items(), key=lambda item: item[1], reverse = True)}
+
+    top5_in = list(sorted_in_degree_dict.items())[:5]
+    top5_out = list(sorted_out_degree_dict.items())[:5]
+    top5_in = [str(tup[0])+": "+str(tup[1]) for tup in top5_in]
+    top5_out = [str(tup[0])+": "+str(tup[1]) for tup in top5_out]
+
+    df_degree = pd.DataFrame({"In-degree":top5_in,"Out-degree":top5_out}, index = range(1,6))
+
+    columns = [{"name": i, "id": i} for i in df_degree.columns]
+    data = df_degree.to_dict('records')
+
+    return data, columns
