@@ -6,7 +6,13 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dash.dependencies import Input, Output
 import dash_table
+import networkx as nx
+import dash_cytoscape as cyto
 import pandas as pd
+import numpy as np
+from plotly.subplots import make_subplots
+import json
+import pickle 
 
 from app import app
 
@@ -16,10 +22,80 @@ from app import app
 #app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # change to app.layout if running as single page app instead
+cyto.load_extra_layouts()
 
 graph_style = {"maxHeight": "auto", "align":"center", "margin": "auto"}
 
+# Read data
 df = pd.read_csv('HP_enriched_character_df.csv')
+
+with open("G.pickle", 'rb') as f:
+    G = pickle.load(f)
+
+with open("GCC.pickle", 'rb') as f:
+    GCC = pickle.load(f)
+
+with open("cyto_full_network.json", 'rb') as f:
+    cyto_G = json.load(f)
+
+with open("cyto_GCC.json", 'rb') as f:
+    cyto_GCC = json.load(f)
+
+max_degree = max([cyto_G['nodes'][i]['size'] for i in range(0,len(cyto_G['nodes']))])
+
+stylesheet_cyto = [
+            # Class selectors
+            {
+                'selector': '.Hufflepuff',
+                'style': {
+                    'background-color': 'blue',
+                    'line-color': 'blue'
+                }
+            },
+            {
+                'selector': '.Ravenclaw',
+                'style': {
+                    'background-color': 'orange',
+                    'line-color': 'orange'
+                }
+            },
+            {
+                'selector': '.Gryffindor',
+                'style': {
+                    'background-color': 'red',
+                    'line-color': 'red'
+                }
+            },
+            {
+                'selector': '.Slytherin',
+                'style': {
+                    'background-color': 'green',
+                    'line-color': 'green'
+                }
+            },
+            {
+                'selector': '.unknown',
+                'style': {
+                    'background-color': 'purple',
+                    'line-color': 'purple'
+                }
+            },         
+            {
+                'selector': 'node',
+                'style': {
+                    'width': 'mapData(size, 0,'+str(max_degree)+', 500, 8000)',
+                    'height': 'mapData(size, 0,' +str(max_degree)+', 500, 8000)', 
+                    'content': 'data(label)',
+                    'font-size': "12px",
+                    "text-valign":"center", 
+                    "text-halign":"center", 
+                    'line-color': 'purple'
+                }
+            },
+            {
+                'selector': 'edges',
+                'style': {'opacity': 0.2}}
+        ]
 
 layout = html.Div([
     dbc.Container([
@@ -31,7 +107,7 @@ layout = html.Div([
             dbc.Col(html.P(children='This page is about understanding the data set collected from the HP Wiki Fandom and gaining valuable insights about the characters. '
                                     'All the characters that inhabit the wizarding world have been collected from the wiki-pages, together with some intersting features, '
                                     'such as their blood-status, school-house, species and gender.'
-                                    '\n To get an overview of the dataset, the distribution of the features are shown below. '
+                                    'A selected part of the dataset can be seen below with some key statistics.'
                                      )
                     , className="mb-4")
         ]),
@@ -54,24 +130,25 @@ layout = html.Div([
                         'padding': 10},#table-layout': 'fixed'
             style_header={'backgroundColor': '#25597f', 'color': 'white'},
             style_cell={
-                'backgroundColor': 'white',
+                'backgroundColor': 'whitesmoke',
                 'color': 'black',
                 'fontSize': 13,
-                'font-family': 'Nunito Sans',
+                'font-family': "sans-serif",#'Nunito Sans',
                 'textAlign': 'left'
-                }
+                }, 
+                style_as_list_view=True
         ),
     ],style={"justify-content":"center", 'width': '80vw','marginLeft':80}
     ),
 
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H3("Feature distributions", className="text-center")
+            dbc.Col(html.H3("Distribution of features", className="text-center")
                     , className="mb-5 mt-5"
                 )  
         ]),
         dbc.Row([
-            dbc.Col(html.P("There are many values for some of the features, you can choose how many to display for each feature.")
+            dbc.Col(html.P("To get an overview of the dataset, the distribution of the features are shown below. There are many values for some of the features, you can choose how many to display for each feature.")
                 )  
         ])
     ]),
@@ -82,36 +159,83 @@ layout = html.Div([
             {'label': 'All values', 'value': 'all_values'},
             {'label': 'Top 5 values', 'value': 'top_5'},
         ],
-        value='All values',
+        value='top_5',
         #multi=True,
         style={'width': '50%', 'margin': 50}
         ),
 
-        # Graph 
-        html.Div([
+        # Bar charts 
+     html.Div([
             html.Div([(dcc.Graph(id = "bar_distribution_houses"))], style = {'width':'45%'}),
             html.Div([(dcc.Graph(id = "bar_distribution_species"))], style = {'width':'45%'}),
             html.Div([(dcc.Graph(id = "bar_distribution_blood"))], style = {'width':'45%'}),
             html.Div([(dcc.Graph(id = "bar_distribution_gender"))], style = {'width':'45%'})
         ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-        ),
+    ),
     #dbc.Row([
     #    dbc.Col(dcc.Graph(id = "distribution_gender"), width = 4),
     #    dbc.Col(dcc.Graph(id = "distribution_houses"), width = 4)
     #]),  
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H5("Exploring the Network", className="text-center")
+            dbc.Col(html.H3("Exploring the Network", className="text-center")
                     , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.P(children='The network has been created by using the characters as nodes. A characters is connected to another in the graph, if their wiki page links to each other character\'s page'
-                                    ' Hereby, intersting insights about the relationships and the most central characters can be easily identified.'
+            dbc.Col(html.P(children='The network has been created by using the characters as nodes and the links between the character pages as edges.'
+                                    'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified.'
+                                    'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as the difference is very big).'
                                         )
                     , className="mb-4")
         ]),
-    ])
-], style ={"justify-content":"center", 'width': '100vw', 'height':'100vh'}
+    ]),
+    dcc.RadioItems(
+            id='graph_type',
+            options=[{'label': i, 'value': i} for i in ['Full network', 'GCC']],
+            value='Full network',
+            labelStyle={'display': 'inline-block', 'marginLeft':60}
+    ),
+     html.Div(children = [
+            dbc.Row([
+                dbc.Col(
+                html.H5(id = 'cytoscape-title',
+                children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"]),
+                className="text-left"
+                )
+            ]
+            ),
+             dbc.Row(
+                dbc.Col(
+                html.P(id = 'cytoscape-subtitle', 
+                children=["Isolated nodes: "+str(len(list(nx.isolates(G))))]),
+                className="text-left"
+                )
+            ),
+    ], style ={"justify-content":"left",'width': '100', 'font-weight': 'bold', 'marginLeft': 200, 'marginTop':30}
+    ),
+    # Network
+     html.Div([
+            cyto.Cytoscape(
+                id='cytoscape-graph',
+                layout={'name': 'preset'},
+                #stylesheet=default_stylesheet,
+                style={'width': '50%', 'height': '600px'},
+                stylesheet=stylesheet_cyto,
+                elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
+            ),
+            #dcc.Graph(id='live-update-bar-graph'),
+            #html.P(id='cytoscape-tapNodeData-output'),
+            #html.P(id='cytoscape-tapEdgeData-output'),
+            #html.P(id='cytoscape-mouseoverNodeData-output'),
+            #html.P(id='cytoscape-mouseoverEdgeData-output'),
+            
+            # Degree distributions
+            html.Div([dcc.Graph(id = "scatter_distribution")
+                    ]
+            ), 
+
+     ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"})
+], style ={"justify-content":"center", 'width': '100vw', 'height':'90vh'}
 )
 
 @app.callback([Output('datatable', 'data'),
@@ -141,8 +265,6 @@ def update_columns(value):
         data=df1.loc[ixs] .to_dict('records')
     return data, columns
 
-# page callbacks
-# display pie charts and line charts to show number of cases or deaths
 @app.callback([Output('bar_distribution_houses', 'figure'),
                Output('bar_distribution_species', 'figure'),
                Output('bar_distribution_blood', 'figure'),
@@ -227,3 +349,111 @@ def update_graph(choice):
     fig4.update_layout(showlegend=False,
                       margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
     return fig, fig2, fig3, fig4
+
+@app.callback([Output('scatter_distribution', 'figure')],
+              [Output('cytoscape-graph', 'elements')],
+              [Output('cytoscape-title', 'children')],
+              [Output('cytoscape-subtitle', 'children')],
+              [Input('graph_type', 'value')])
+
+def update_network(value):
+
+    # Decide if using full network or GCC
+    if value == 'Full network': 
+        graph = G
+        elements = cyto_G['nodes'] + cyto_G['edges']
+    else: 
+        graph = GCC
+        elements = cyto_GCC['nodes'] + cyto_GCC['edges']
+
+    # Get degree values from graph 
+    in_degree_vals = list(nx.get_node_attributes(graph,'in_degree').values())
+    out_degree_vals = list(nx.get_node_attributes(graph,'out_degree').values())
+
+    # Get hist values
+    hist_in, bins_in = np.histogram(in_degree_vals, bins = np.arange(np.min(in_degree_vals), np.max(in_degree_vals) + 2))
+    centered_in = (bins_in[:-1] + bins_in[1:]) / 2
+    hist_out, bins_out = np.histogram(out_degree_vals, bins = np.arange(np.min(out_degree_vals), np.max(out_degree_vals) + 2))
+    centered_out = (bins_out[:-1] + bins_out[1:]) / 2
+
+    df_in_degree = pd.DataFrame({"In-degree": hist_in, "Count": centered_in})
+    df_out_degree = pd.DataFrame({"Out-degree": hist_out, "Count": centered_out})
+
+    # Make figure
+    fig = make_subplots(rows=2, cols=1)
+
+    marker_layout_in = dict(size=8,color = "blue", line_width=1,opacity = 0.5)
+    marker_layout_out = dict(size=8,color = "red", line_width=1,opacity = 0.5)
+
+    # Add traces
+    fig.add_trace(go.Scatter(x=df_in_degree["Count"], y=df_in_degree["In-degree"],
+                        mode='markers',
+                        marker=marker_layout_in,
+                        hoverinfo='none',
+                        name='In-degree', 
+                        legendgroup = '1'),
+                row=1, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_out_degree["Count"], y=df_out_degree["Out-degree"],
+                        mode='markers',
+                        marker=marker_layout_out,
+                        hoverinfo='none',
+                        name='Out-degrees', 
+                        legendgroup = '1'),
+                row=1, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_in_degree["Count"], y=df_in_degree["In-degree"],
+                    mode='markers',
+                        marker=marker_layout_in,
+                        hoverinfo='none',
+                        name='In-degree', 
+                        legendgroup = '2'),
+                row=2, col=1
+                )
+    fig.add_trace(go.Scatter(x=df_out_degree["Count"], y=df_out_degree["Out-degree"],
+                        mode='markers',
+                        marker=marker_layout_out,
+                        hoverinfo='none',
+                        name='Out-degrees',
+                        legendgroup = '2'),
+                row=2, col=1
+                )
+
+    # Update xaxis properties
+    fig.update_xaxes(title_text="Degree", row=1, col=1)
+    fig.update_xaxes(title_text="log(Degree)", row=2, col=1, type="log")
+
+    # Update yaxis properties
+    fig.update_yaxes(title_text="Count", row=1, col=1)
+    fig.update_yaxes(title_text="log(Count)", row=2, col=1, type="log")
+
+    # Update title and height
+    fig.update_layout(title_text="Degree distribution", height=800)
+
+    fig.update_layout(
+        legend=dict(
+            font=dict(
+                #family="Courier",
+                size=18,
+                color   ="black"
+            ),
+            yanchor="top",
+            y=0.99,
+            xanchor="right",
+            x=0.99, 
+            bgcolor = 'rgba(0,0,0,0)'
+        ),
+        legend_tracegroupgap = 300,
+        title=dict(
+            font=dict(
+                #family="Courier",
+                size=20,
+                color="black"
+            )
+        ) 
+    )
+
+    title = "Network with "+ str(graph.number_of_nodes())+ " nodes and "+ str(graph.number_of_edges())+" edges"
+    subtitle = "Isolated nodes: "+str(len(list(nx.isolates(graph))))
+
+    return [go.Figure(fig),elements, title, subtitle] #{'data': fig.data, 'layout': fig.layout}
