@@ -66,7 +66,7 @@ layout = html.Div([
             id='word_cloud_options',
             options=
                 attribute_options_default,
-            value='Gryffindor',
+            value="",#'Gryffindor',
             multi=True,
             style={'width': '70%', 'marginTop': 30,'marginBottom': 20,'marginLeft': 0}
         )
@@ -76,7 +76,7 @@ layout = html.Div([
         id = 'word-cloud-images', children =[ 
         html.Img(
             id = 'word-cloud-image',
-            src="/assets/Wordclouds/wordcloud_Gryffindor.png",
+            src="",#"/assets/Wordclouds/wordcloud_Gryffindor.png",
             style=dict(width="50%", 
                     height="50%")
             )
