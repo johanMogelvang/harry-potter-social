@@ -1,0 +1,5 @@
+,Number of communities,Size of smallest community,Size of largest community,Modularity
+School Houses,9,1,2187,0.08253378598636713
+Species,96,1,2346,0.03242572837859596
+Blood Status,6,14,1883,0.1089478279452543
+Louvian,30,3,439,0.49113303729635777
