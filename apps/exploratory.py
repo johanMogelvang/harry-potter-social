@@ -48,36 +48,36 @@ stylesheet_cyto = [
             {
                 'selector': '.Hufflepuff',
                 'style': {
-                    'background-color': 'blue',
-                    'line-color': 'blue'
+                    'background-color': "#FFDB00",
+                    'line-color': "#FFDB00"
                 }
             },
             {
                 'selector': '.Ravenclaw',
                 'style': {
-                    'background-color': 'orange',
-                    'line-color': 'orange'
+                    'background-color': "#222F5B",
+                    'line-color': "#222F5B"
                 }
             },
             {
                 'selector': '.Gryffindor',
                 'style': {
-                    'background-color': 'red',
-                    'line-color': 'red'
+                   'background-color': '#740001',
+                    'line-color': '#740001'
                 }
             },
             {
                 'selector': '.Slytherin',
                 'style': {
-                    'background-color': 'green',
-                    'line-color': 'green'
+                    'background-color': '#1A472A',
+                    'line-color': '#1A472A'
                 }
             },
             {
                 'selector': '.unknown',
                 'style': {
-                    'background-color': 'purple',
-                    'line-color': 'purple'
+                    'background-color': 'grey',
+                    'line-color': 'grey'
                 }
             },         
             {
@@ -295,11 +295,9 @@ def update_columns(value):
                     "freq":"Frequency"}, inplace = True)
     df_stat.rename(columns={'name':'Name','species': 'Species','gender':'Gender','house':'House','blood':'Blood-status'}, inplace =True)
     stat_cols = list(df_stat.columns)
-    #stat_cols = [c.capitalize() for c in stat_cols] 
 
     df1 = df.rename(columns={'name':'Name','species': 'Species','gender':'Gender','house':'House','blood':'Blood-status'})
     all_cols = list(df1.columns)
-    #all_cols = [c.capitalize() for c in all_cols] 
 
     if value == 'Statistics':
         columns = [{"name": i, "id": i} for i in stat_cols]
