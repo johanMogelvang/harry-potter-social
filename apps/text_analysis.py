@@ -99,14 +99,19 @@ def update_dropdown(value):
 
 @app.callback(
             [Output('word-cloud-images', 'children')],
+            [Input('attribute_for_wordclouds', 'value')],
             [Input('word_cloud_options', 'value')],
             )
 
-def update_wordclouds(value):
+def update_wordclouds(attribute, options):
     children = []
 
-    for val in value: 
-        wordcloud = "/assets/Wordclouds/wordcloud_"+str(val)+".png"
+    for val in options: 
+        if val == "unknown":
+            attr_dict = {"Blood-status":"blood","Species":"species","Gender":"gender","House":"house"}
+            attr = attr_dict[attribute]
+            val = attr+"_"+val
+        wordcloud = "/assets/Wordclouds/"+str(val)+".png"
         children.append(html.Img(id = 'word-cloud-image',
                                     src=wordcloud,
                                     style=dict(width="45%", 
