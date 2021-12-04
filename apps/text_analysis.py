@@ -139,7 +139,7 @@ def update_dropdown(value):
                 "The other wordclouds seem to mostly refer to important characters and events associated with this house. Especially the Hufflepuff wordcloud is very influenced by the most famous Hufflepuff, Newton Scamander, who has a magically-expanded *suitcase* where he among other things has a *obscurus* and a wide variety of magical beasts."
 
                 "\n \nThere are also some American characters such as Queenie Goldstein (from the Fanastic Beasts and Where to Find Them movies), "
-                "who went to Ilvermorny (the American equivalent of Hogwarts). You can dive more into these American houses by examining their wordclouds."
+                "who went to Ilvermorny (the American equivalent of Hogwarts). You can dive more into the wordclouds for these houses. However, it should be noted that there are only between 1-2 observations from each of these houses, so the wordclouds are more telling about these specific characters than the house itself."
                 ]
     if value == "species":
         text = ["There are many different species in the dataset. The four most common are Humans followed by Goblins, House-elfs and Giants, "
