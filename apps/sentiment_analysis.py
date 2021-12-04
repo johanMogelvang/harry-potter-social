@@ -20,7 +20,7 @@ layout = html.Div([
 
         dbc.Row([
             dbc.Col(
-                gif.GifPlayer(gif="assets/house_cup.gif", still='assets/house_cup_picture.jpg', autoplay = True),
+                gif.GifPlayer(gif="assets/Sentiment/house_cup.gif", still='assets/Sentiment/house_cup_picture.jpg', autoplay = True),
                 width = "100px",
                 style={'textAlign': 'center'}
             ), 
@@ -64,13 +64,13 @@ layout = html.Div([
     html.Div([
         html.Img(
             id = "sentiment_movies",
-            src = "assets/chap_sentiment_movies.png", 
+            src = "assets/Sentiment/chap_sentiment_movies.png", 
             style={'height': '45%', 'width': "45%"}
                 )
         ,
         html.Img(
             id = "sentiment_books",
-            src = "assets/chap_sentiment_books.png", 
+            src = "assets/Sentiment/chap_sentiment_books.png", 
             style = {'height':'45%', 'width': "45%"}
         )
         ], style = {'width': '100vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'}
@@ -92,13 +92,13 @@ layout = html.Div([
     html.Div([
         html.Img(
             id = "boxplot_movies",
-            src = "assets/boxplot_sentiment_movies.png", 
+            src = "assets/Sentiment/boxplot_sentiment_movies.png", 
             style={'height': '45%', 'width': "45%"}
                 )
         ,
         html.Img(
             id = "boxplot_books",
-            src = "assets/boxplot_sentiment_books.png", 
+            src = "assets/Sentiment/boxplot_sentiment_books.png", 
             style = {'height':'45%', 'width': "45%"}
         )
         ], style = {'width': '100vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'}
@@ -130,8 +130,8 @@ layout = html.Div([
 def update_figure(value):
 
     if value == 'Chapter based':
-        src1 = "assets/chap_sentiment_movies.png"
-        src2 = "assets/chap_sentiment_books.png"
+        src1 = "assets/Sentiment/chap_sentiment_movies.png"
+        src2 = "assets/Sentiment/chap_sentiment_books.png"
         text = "A sentiment score has been found for all chapters in the seven books and scenes in the eight movies. " \
             "The most negative scene in the movies is \"Writting on the Wall\" this scene only includes the basilisk " \
             "saying \"Kill!\" and the sentiment score is therefore very negative. For the books the most negative chapter " \
@@ -141,8 +141,8 @@ def update_figure(value):
             "When looking at the development in sentiment scores for the books, it can be seen that for the later books " \
             "they do not have the same \"happy ending\" as book 1, 2, 3 and 4 have. They all end on a more gloomy node. "
     else:
-        src1 = "assets/char_sentiment_movies.png"
-        src2 = "assets/char_sentiment_books.png"
+        src1 = "assets/Sentiment/char_sentiment_movies.png"
+        src2 = "assets/Sentiment/char_sentiment_books.png"
         text = "Each of the top 10 most connected characters in the Harry Potter universe has an average sentiment score for "\
             "all the seven books and eight movies. It can be seen that in the movies there are some gaps for e.g. "\
             "Sirius Black and Voldemort. This is because the characters do not have any dialogue in that movie. " \
