@@ -10,26 +10,74 @@ import pandas as pd
 import dash_cytoscape as cyto
 import json
 import pickle 
+import networkx as nx
 
 from app import app
 
-df = pd.read_csv('assets/table_communities.csv')
+df = pd.read_csv('assets/Communities/table_communities.csv')
+
+df_barplot = pd.read_csv('assets/Communities/best_partition_barplot.csv')
+
+with open("assets/Communities/GCC_com.pickle", 'rb') as f:
+    GCC = pickle.load(f)
+
+with open("assets/Communities/cyto_GCC_com.json", 'rb') as f:
+    cyto_GCC = json.load(f)
+
 h = 350
 w = 500
-df_barplot = pd.read_csv('assets/best_partition_barplot.csv')
 
-
-fig = px.bar(df_barplot, x = "Count", y = "Communities", orientation = 'h', color = 'Colours')
+fig = px.bar(df_barplot, x = "Size", y = "Communities", orientation = 'h', color = 'Colours', color_discrete_map="identity")
 
 fig.update_layout(title = "Sizes of communities in the best partition",
-                   xaxis_title = 'Count', 
-                   yaxis_title = 'Communities',width = 1000)
+                   xaxis_title = 'Size', 
+                   yaxis_title = 'Communities', width = 1400, height = 600)
 
-# for the best partition of grapg into communities
-with open("cyto_GCC_com.json", 'rb') as f:
-    cyto_GCC_com = json.load(f)
 
+cyto.load_extra_layouts()
 #stylesheet_cyto = ?
+default_stylesheet = [
+    {
+        'selector': 'node',
+        'style': {
+            'background-color': '#BFD7B5',
+            'label': 'data(label)',
+            'width': "30%",
+            'height': "50%"
+        }
+    }
+]
+
+communities = list(set(nx.get_node_attributes(GCC, 'community').values()))
+max_degree = max([cyto_GCC['nodes'][i]['size'] for i in range(0,len(cyto_GCC['nodes']))])
+
+stylesheet_cyto = [
+            # Class selectors
+            *[{
+                'selector': str(i),
+                'style': {
+                    'background-color': 'data(community_colour)',
+                    'line-color': 'data(community_colour)'
+                }
+            } for i in communities],
+           
+            {
+                'selector': 'node',
+                'style': {
+                    'width': 'mapData(size, 0,'+str(max_degree)+', 1000, 15000)',
+                    'height': 'mapData(size, 0,' +str(max_degree)+', 1000, 15000)', 
+                    'content': 'data(label)',
+                    'font-size': "12px",
+                    "text-valign":"center", 
+                    "text-halign":"center", 
+                    'line-color': 'purple'
+                }
+            },
+            {
+                'selector': 'edges',
+                'style': {'opacity': 0.2}}
+        ]
+
 
 layout = html.Div([
     dbc.Container([
@@ -75,25 +123,28 @@ layout = html.Div([
     # Graph 
     html.Div([
         html.Div([
-            dcc.Graph(id = 'boxplot_partition', figure = fig),])
+            dcc.Graph(id = 'plot_com_sizes', figure = fig),])
         ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
     ),
-    # indsæt graf farvet efter bedste partition
-    html.Div([
-            cyto.Cytoscape(
-                id='cytoscape-graph',
-                layout={'name': 'preset'},
-                #stylesheet=default_stylesheet,
-                style={'width': '45%', 'height': '600px'},
-                stylesheet=stylesheet_cyto,
-                elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
-            ),
-                html.P(id='cytoscape-tapNodeData-output-explore'),
-                html.P(id='cytoscape-tapEdgeData-output-explore'),
-                html.P(id='cytoscape-mouseoverNodeData-output-explore'),
-                html.P(id='cytoscape-mouseoverEdgeData-output-explore'),
 
-        ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-     ),
+    # indsæt graf farvet efter bedste partition
+    # for the best partition of graph into communities
+    # Network
+    html.Div([
+        cyto.Cytoscape(
+            id='cytoscape-graph',
+            layout={'name': 'preset'},
+            #stylesheet=default_stylesheet,
+            style={'width': '45%', 'height': '600px'},
+            stylesheet=stylesheet_cyto,
+            elements=cyto_GCC['nodes'] + cyto_GCC['edges']  
+        ),
+            html.P(id='cytoscape-tapNodeData-output-explore'),
+            html.P(id='cytoscape-tapEdgeData-output-explore'),
+            html.P(id='cytoscape-mouseoverNodeData-output-explore'),
+            html.P(id='cytoscape-mouseoverEdgeData-output-explore'),
+
+    ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
+    ),
 ]),
 
