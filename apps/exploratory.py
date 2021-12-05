@@ -22,7 +22,7 @@ from app import app
 #app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # change to app.layout if running as single page app instead
-cyto.load_extra_layouts()
+#cyto.load_extra_layouts()
 
 graph_style = {"maxHeight": "auto", "align":"center", "margin": "auto"}
 
@@ -34,68 +34,6 @@ with open("G.pickle", 'rb') as f:
 
 with open("GCC.pickle", 'rb') as f:
     GCC = pickle.load(f)
-
-with open("cyto_full_network.json", 'rb') as f:
-    cyto_G = json.load(f)
-
-with open("cyto_GCC.json", 'rb') as f:
-    cyto_GCC = json.load(f)
-
-max_degree = max([cyto_G['nodes'][i]['size'] for i in range(0,len(cyto_G['nodes']))])
-
-stylesheet_cyto = [
-            # Class selectors
-            {
-                'selector': '.Hufflepuff',
-                'style': {
-                    'background-color': 'blue',
-                    'line-color': 'blue'
-                }
-            },
-            {
-                'selector': '.Ravenclaw',
-                'style': {
-                    'background-color': 'orange',
-                    'line-color': 'orange'
-                }
-            },
-            {
-                'selector': '.Gryffindor',
-                'style': {
-                    'background-color': 'red',
-                    'line-color': 'red'
-                }
-            },
-            {
-                'selector': '.Slytherin',
-                'style': {
-                    'background-color': 'green',
-                    'line-color': 'green'
-                }
-            },
-            {
-                'selector': '.unknown',
-                'style': {
-                    'background-color': 'purple',
-                    'line-color': 'purple'
-                }
-            },         
-            {
-                'selector': 'node',
-                'style': {
-                    'width': 'mapData(size, 0,'+str(max_degree)+', 500, 8000)',
-                    'height': 'mapData(size, 0,' +str(max_degree)+', 500, 8000)', 
-                    'content': 'data(label)',
-                    'font-size': "12px",
-                    "text-valign":"center", 
-                    "text-halign":"center", 
-                    'line-color': 'purple'
-                }
-            },
-            {
-                'selector': 'edges',
-                'style': {'opacity': 0.2}}
-        ]
 
 layout = html.Div([
     dbc.Container([
@@ -183,9 +121,13 @@ layout = html.Div([
             html.P(children='The network has been created using the characters as nodes and the links between the character pages as edges. '
                                     'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified. '
                                     'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as there is a very large difference between the number of connections). '
-                                     'Choose whether you want to see the full network or only the Giant Connected Component (GCC) below: '
+                                     'Choose whether you want to see the full network or only the Giant Connected Component (GCC) below. Zoom in on the nodes to see name and features for the nodes.'
                 )
         ]),
+        dbc.Row([
+            html.P(children='Node that the graph takes a while to load due to its size. There is also some shaking because the solver used to determine the node position struggles to find a non-overlapping, stable layout. '
+                )
+        ])
     ]),
     dcc.RadioItems(
             id='graph_type',
@@ -194,46 +136,38 @@ layout = html.Div([
             labelStyle={'display': 'inline-block', 'marginLeft':120}
     ),
      html.Div(children = [
-            dbc.Row([
-                dbc.Col(
-                html.H5(id = 'cytoscape-title',
-                children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"]),
-                #className="text-left"
-                )
-            ],style ={"justify-content":"center",'width': '40', 'font-weight': 'bold', 'marginLeft': 160, 'marginTop':30}
-            ),
-             dbc.Row([
-                dbc.Col(
-                html.P(id = 'cytoscape-subtitle', 
-                children=["Isolated nodes: "+str(len(list(nx.isolates(G))))]),
-                #className="text-center"
-                )
-            ], style ={"justify-content":"center",'width': '40', 'font-weight': 'bold', 'marginLeft': 280}
-            )
-    ]
+         # LEFT HAND SIDE
+         html.Div([
+             html.H5(id = 'graph-title',
+                children = ["Network with "+ str(G.number_of_nodes())+ " nodes and "+ str(G.number_of_edges())+" edges"],
+                className="text-center"
+                ),
+            html.P(id = 'graph-subtitle', 
+                children=["Isolated nodes: "+str(len(list(nx.isolates(G))))],
+                className="text-center"
+                ), 
+            html.Iframe(
+                id = 'pyvis-graph',
+                src="assets/GCC.html", 
+                style={"width":"100%", 
+                        "height":"600px"}
+                        )
+         ], style = {"width":"59%", "marginLeft":10}
+         ),
+        # RIGHT HAND SIDE  
+        html.Div([
+            # Degree distribution title
+            html.H5(
+                children = ["Degree distribution"],
+                className="text-center"
+                ),
+            # Degree distribution plot
+            dcc.Graph(id = "scatter_distribution") 
+        ], style = {"width":"39%"}
+        )
+     ],style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center","marginTop":20, "marginBottom":10}
     ),
-    # Network
-     html.Div([
-            cyto.Cytoscape(
-                id='cytoscape-graph',
-                layout={'name': 'preset'},
-                #stylesheet=default_stylesheet,
-                style={'width': '45%', 'height': '600px'},
-                stylesheet=stylesheet_cyto,
-                elements=cyto_G['nodes'] + cyto_G['edges']  # Denne her skal i funktion  
-            ),
-                html.P(id='cytoscape-tapNodeData-output-explore'),
-                html.P(id='cytoscape-tapEdgeData-output-explore'),
-                html.P(id='cytoscape-mouseoverNodeData-output-explore'),
-                html.P(id='cytoscape-mouseoverEdgeData-output-explore'),
-            
-            # Degree distributions
-            html.Div([dcc.Graph(id = "scatter_distribution")
-                    ]
-            ), 
 
-        ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-     ),
     dbc.Container([
         dbc.Row([
             html.P(children=[
@@ -270,7 +204,7 @@ layout = html.Div([
     ),
     dbc.Container([
         dbc.Row([
-            html.P("Overall, we can see that the Harry Potter resembles a real-world network "
+            html.P("Overall, we can see that the Wizarding World resembles a real-world network "
                     "with a few highly connected hubs such as Harry Potter and Voldemort, the main antagonist and protagonist of the Harry Potter world, "
                     "and many characters that only have very few connections. "
                     "If you want to learn more about the characteristics of the network, see the explainer notebook. Otherwise the next page in our website is about exploring the different ties and connections in our network even further."
@@ -295,11 +229,9 @@ def update_columns(value):
                     "freq":"Frequency"}, inplace = True)
     df_stat.rename(columns={'name':'Name','species': 'Species','gender':'Gender','house':'House','blood':'Blood-status'}, inplace =True)
     stat_cols = list(df_stat.columns)
-    #stat_cols = [c.capitalize() for c in stat_cols] 
 
     df1 = df.rename(columns={'name':'Name','species': 'Species','gender':'Gender','house':'House','blood':'Blood-status'})
     all_cols = list(df1.columns)
-    #all_cols = [c.capitalize() for c in all_cols] 
 
     if value == 'Statistics':
         columns = [{"name": i, "id": i} for i in stat_cols]
@@ -396,9 +328,10 @@ def update_graph(choice):
     return fig, fig2, fig3, fig4
 
 @app.callback([Output('scatter_distribution', 'figure')],
-              [Output('cytoscape-graph', 'elements')],
-              [Output('cytoscape-title', 'children')],
-              [Output('cytoscape-subtitle', 'children')],
+              #[Output('cytoscape-graph', 'elements')],
+              [Output('pyvis-graph', 'src')],
+              [Output('graph-title', 'children')],
+              [Output('graph-subtitle', 'children')],
               [Input('graph_type', 'value')])
 
 def update_network(value):
@@ -406,10 +339,10 @@ def update_network(value):
     # Decide if using full network or GCC
     if value == 'Full network': 
         graph = G
-        elements = cyto_G['nodes'] + cyto_G['edges']
+        src = 'assets/G.html'
     else: 
         graph = GCC
-        elements = cyto_GCC['nodes'] + cyto_GCC['edges']
+        src = 'assets/GCC.html'
 
     # Get degree values from graph 
     in_degree_vals = list(nx.get_node_attributes(graph,'in_degree').values())
@@ -447,7 +380,7 @@ def update_network(value):
                         mode='markers',
                         marker=marker_layout_out,
                         hoverinfo='none',
-                        name='Out-degrees', 
+                        name='Out-degree', 
                         legendgroup = '1'),
                 row=1, col=1
                 )
@@ -463,7 +396,7 @@ def update_network(value):
                         mode='markers',
                         marker=marker_layout_out,
                         hoverinfo='none',
-                        name='Out-degrees',
+                        name='Out-degree',
                         legendgroup = '2'),
                 row=2, col=1
                 )
@@ -477,7 +410,7 @@ def update_network(value):
     fig.update_yaxes(title_text="log(Count)", row=2, col=1, type="log")
 
     # Update title and height
-    fig.update_layout(title_text="Degree distribution", height=800)
+    fig.update_layout(height=700)
 
     fig.update_layout(
         legend=dict(
@@ -493,37 +426,20 @@ def update_network(value):
             x=0.99, 
             bgcolor = 'rgba(0,0,0,0)'
         ),
-        legend_tracegroupgap = 300,
-        title=dict(
-            font=dict(
-                #family="Courier",
-                size=20,
-                color="black"
-            )   
-        ) 
+        legend_tracegroupgap = 250
+        #title=dict(
+        #    font=dict(
+        #        #family="Courier",
+        #        size=20,
+        #        color="black"
+        #    )   
+        #) 
     )
 
     title = "Network with "+ str(graph.number_of_nodes())+ " nodes and "+ str(graph.number_of_edges())+" edges"
     subtitle = "Isolated nodes: "+str(len(list(nx.isolates(graph))))
 
-    return [go.Figure(fig),elements, title, subtitle] #{'data': fig.data, 'layout': fig.layout}
-
-
-@app.callback(Output('cytoscape-mouseoverNodeData-output-explore', 'children'),
-              Input('cytoscape-graph', 'tapNodeData'))
-
-def displayTapNodeData(data):
-    if data:
-        return "You recently clicked/tapped on the individual: " + data['name']
-
-@app.callback(Output('cytoscape-tapEdgeData-output-explore', 'children'),
-              Input('cytoscape-graph', 'tapEdgeData'))
-
-def displayTapEdgeData(data):
-    if data:
-        return "You recently clicked/tapped the edge between " + \
-               data['source'].upper() + " and " + data['target'].upper()
-
+    return [go.Figure(fig),src, title, subtitle] #{'data': fig.data, 'layout': fig.layout}
 
 @app.callback([Output('degree-tabel', 'data'),
               Output('degree-tabel', 'columns')],
