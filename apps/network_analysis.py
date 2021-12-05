@@ -18,7 +18,7 @@ from app import app
 # server = app.server
 cyto.load_extra_layouts()
 
-cyto_style = [
+cyto_default_style = [
             # Class selectors
             {
                 'selector': 'node',
@@ -60,55 +60,137 @@ cyto_style = [
                     'background-color': 'purple',
                     'line-color': 'purple'
                 }
-            }
+            },
+            # {
+            # 'selector': ':selected',
+            #     'css': {
+            #         'background-color': 'SteelBlue',
+            #         'line-color': 'black',
+            #         'target-arrow-color': 'black',
+            #         'source-arrow-color': 'black',
+            #         'text-outline-width': 3,
+            #         "z-index": "999",
+            #         'text-outline-color': 'orange'
+            #         }
+            # },
         ]
 
 path = os.getcwd().replace("\\", "/")
 with open(path + "/family_links_cyto.json") as json_file:
     links = json.load(json_file)
+#Get bi-directional edge data
+with open(path + "/family_links.json") as json_file:
+    family_links = json.load(json_file)
+
+#print(links['nodes']['data'])
+
+#Agg graphs
+houses = ['unknown',
+ 'Hufflepuff',
+ 'Slytherin',
+ 'Gryffindor',
+ 'Ravenclaw',
+ 'Thunderbird',
+ 'Pukwudgie',
+ 'Horned',
+ 'Wampus']
+
+# with open(path + "/links.json") as json_file:
+#     global_links = json.load(json_file)
+# G_houses = nx.Graph()
+# G_houses.add_nodes_from(houses)
+# G = nx.DiGraph(global_links)
+# with open(path + "/attributes.json") as json_file:
+#     attributes = json.load(json_file)
+# nx.set_node_attributes(G, attributes)
+# gcc = max(nx.weakly_connected_components(G), key = len)
+# GCC = G.subgraph(gcc)
+# for edge in list(GCC.edges()):
+#     node1, node2 = edge[0],edge[1]
+#     print(node1, node2)
+#     house1, house2 = df[df['name']==node1].house.item(), df[df['name']==node2].house.item()
+
+#     if (house1 != 'unknown') & (house2 != 'unknown') & (house1 != house2):
+#         if G_houses.has_edge(house1, house2):
+#             G_houses[house1][house2]['weight'] += 1 
+#         else: 
+#             G_houses.add_edge(house1, house2, weight=1)
 
 
-layout = html.Div([
-    html.Div([
-        dcc.Slider(
-        id='my-slider',
-        min=1,
-        max=len(links['nodes']),
-        step=1,
-        tooltip={"placement": "bottom", "always_visible": True},
-        value=100,
-        ),
-    cyto.Cytoscape(
-        id='cytoscape-hp-family',
-        layout={'name': 'cose-bilkent'}, #circle, #close-bilkent
-        #stylesheet=default_stylesheet,
-        stylesheet=cyto_style,
-        elements=links['nodes']+links['edges'],
-        style={'width': '100%', 'height': '100%'}
-        )
-    ], style={'width': '40%', 'height': '100%'}),
-    html.Div([
-    dcc.Graph(id='live-update-bar-graph'),
-    html.P(id='cytoscape-tapNodeData-output'),
-    html.P(id='cytoscape-tapEdgeData-output'),
-    html.P(id='cytoscape-mouseoverNodeData-output'),
-    html.P(id='cytoscape-mouseoverEdgeData-output')
-    ],  style={'width': '40%', 'height': '100%'})
+# Find largest connected component in graph 
+gcc = max(nx.weakly_connected_components(G), key = len)
 
-], style ={"display": "flex", "justify-content": "center", "width": "90vw", "height" : "60vh"})
+# Define the largest connected component (gcc) as a graph 
+GCC = G.subgraph(gcc)
 
-@app.callback(Output('cytoscape-mouseoverNodeData-output', 'children'),
-              Input('cytoscape-hp-family', 'tapNodeData'))
-def displayTapNodeData(data):
-    if data:
-        return "You recently clicked/tapped on the individual: " + data['name']
+layout = html.Div([            
+                html.Div([
+                    html.H1("Network analysis"),
+                    html.H5("On this page you can explore the familial relationships between the characters of the harry potter universe")
+                ], style = {'text-align': 'center'}),
+                html.Div([
+                    html.Div([
+                        dcc.Slider(
+                        id='my-slider',
+                        min=1,
+                        max=len(links['nodes']),
+                        step=1,
+                        tooltip={"placement": "bottom", "always_visible": True},
+                        value=len(links['nodes'])-1,
+                        ),
+                    cyto.Cytoscape(
+                        id='cytoscape-hp-family',
+                        layout={'name': 'cose-bilkent',
+                            'nodeDimensionsIncludeLabels': 'true',
+                            'edgeElasticity': '1',
+                            #'idealEdgeLength': '1',
+                            'nodeRepulsion': '9000',}, #circle, #close-bilkent
+                        #stylesheet=default_stylesheet,
+                        stylesheet=cyto_default_style,
+                        elements=links['nodes']+links['edges'],
+                        style={'width': '100%', 'height': '100%', }
+                        )
+                    ], style={'width': '40%', 'height': '100%'}),
+                    html.Div([
+                        dcc.Graph(id='live-update-bar-graph'),
+                        html.H5('The family the of selected character:', id='selected-character-text'),
+                        dcc.Graph(id='live-character-network-graph'),
+                    ],  style={'width': '40%', 'height': '100%', 'text-align': 'center'})
+            ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
+            html.Div([
+                    html.H1("Aggregated graphs"),
+                    html.H5("Explore the relationships on a more global scale")
+                ],
+                style={'marginTop': '10vh'}),
+            html.Div([
+                    # cyto.Cytoscape(
+                    #     id='cytoscape-agg-houses',
+                    #     layout={'name': 'circle'}, #circle, #close-bilkent
+                    #     #stylesheet=default_stylesheet,
+                    #     stylesheet=cyto_default_style,
+                    #     elements=links['nodes']+links['edges'],
+                    #     style={'width': '100%', 'height': '100%'}
+                    #     )
+            ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
+])
 
-@app.callback(Output('cytoscape-tapEdgeData-output', 'children'),
-              Input('cytoscape-hp-family', 'tapEdgeData'))
-def displayTapEdgeData(data):
-    if data:
-        return "You recently clicked/tapped the edge between " + \
-               data['source'].upper() + " and " + data['target'].upper()
+@app.callback(Output('selected-character-text', 'graph'),
+              Input('cytoscape-hp-family', 'tapNodeData'),)
+def displayTapNodeData(nodedata):
+    if nodedata:
+        return nodedata['id']
+    return "The network of the selected character:"
+
+@app.callback(Output('live-character-network-graph', 'children'),
+              Input('cytoscape-hp-family', 'tapNode'),
+              State('cytoscape-hp-family', 'elements'))
+def displayTapNodeData2(nodedata, elements):
+    char_list = []
+    for node in elements[0]:
+        for edge in nodedata['edgesData']:
+            if edge['target'] == node['data']['id']:
+                char_list.append(node)
+    return get_graph(char_list)
 
 @app.callback(Output('cytoscape-hp-family', 'elements'),
               Output('live-update-bar-graph', 'figure'),
@@ -201,6 +283,91 @@ def get_graph(node_elements):
             colors[i] = "#740001"    
     return px.bar(x=frequency.keys(),y=frequency, color=colors, color_discrete_map="identity")
 
+
+@app.callback(Output('cytoscape-hp-family', 'stylesheet'),
+              [Input('cytoscape-hp-family', 'tapNode'),
+              Input('cytoscape-hp-family', 'selectedNodeData')])
+def change_stylesheet_of_graph(node, selectedNodeData):
+    ctx = dash.callback_context
+
+    #If no node is tapped, return the default styling
+    if not selectedNodeData:
+       return  cyto_default_style
+
+    #If a node is selected, traverse the graph for connected nodes, and then change their color.
+    cyto_style = [{
+        "selector": 'node',
+        'style': {
+            'opacity': 0.3,
+        }
+    }, {
+        'selector': 'edge',
+        'style': {
+            'opacity': 0.2,
+            "curve-style": "bezier",
+        }
+    }, {
+        "selector": 'node[id = "{}"]'.format(node['data']['id']),
+        "style": {
+            'background-color': 'orange',
+            "border-color": "black",
+            "border-width": 2,
+            "border-opacity": 1,
+            "opacity": 1,
+            "content": "data(id)",
+            "font-size": 20,
+            'z-index': 9999
+        }
+    }]
+    
+    following_color = "black"
+    follower_color = "black"
+    for edge in node['edgesData']:
+        if edge['source'] == node['data']['id']:
+            cyto_style.append({
+                "selector": 'node[id = "{}"]'.format(edge['target']),
+                "style": {
+                    'background-color': following_color,
+                    'content': 'data(id)',
+                    'opacity': 0.9
+                }
+            })
+            cyto_style.append({
+                "selector": 'edge[id= "{}"]'.format(edge['id']),
+                "style": {
+                    "line-color": following_color,
+                    'opacity': 0.6,
+                    'z-index': 5000
+                }
+            })
+
+        if edge['target'] == node['data']['id']:
+            cyto_style.append({
+                "selector": 'node[id = "{}"]'.format(edge['source']),
+                "style": {
+                    'background-color': follower_color,
+                    'opacity': 0.9,
+                    'z-index': 9900,
+                    'content': 'data(id)',
+                }
+            })
+            cyto_style.append({
+                "selector": 'edge[id= "{}"]'.format(edge['id']),
+                "style": {
+                    "line-color": follower_color,
+                    'opacity': 6,
+                    'z-index': 5000
+                }
+            })
+            #         'background-color': 'SteelBlue',
+            #         'line-color': 'black',
+            #         'target-arrow-color': 'black',
+            #         'source-arrow-color': 'black',
+            #         'text-outline-width': 3,
+            #         "z-index": "999",
+            #         'text-outline-color': 'orange'
+            #         }
+    return cyto_style
 
 if __name__ == '__main__':
     app.run_server(debug=True)
