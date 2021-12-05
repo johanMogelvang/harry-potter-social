@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Newspaper seller", "in_degree": 1, "label": "Newspaper seller", "out_degree": 2, "pos": [2.2428730733862525, -1.7391841821679306], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eNewspaper seller\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "unknown", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Unidentified newspaper vendor", "in_degree": 1, "label": "Unidentified newspaper vendor", "out_degree": 1, "pos": [8.219661344872707, 5.996477283173349], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eUnidentified newspaper vendor\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 2, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Penelope Taylor", "in_degree": 0, "label": "Penelope Taylor", "out_degree": 2, "pos": [2.2667267499593633, 3.347023144973702], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003ePenelope Taylor\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 9, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Jamie Wolpert (in-universe)", "in_degree": 7, "label": "Jamie Wolpert (in-universe)", "out_degree": 2, "pos": [3.6298665095866323, 4.53906380719093], "shape": "dot", "size": 22, "species": "Human", "title": "\u003cb\u003eJamie Wolpert (in-universe)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 4, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Sofie", "in_degree": 0, "label": "Sofie", "out_degree": 4, "pos": [-3.239697492225251, 0.13026652708379213], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eSofie\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "David Yates (in-universe)", "in_degree": 1, "label": "David Yates (in-universe)", "out_degree": 2, "pos": [-5.5296393429781014, -0.658985380963927], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eDavid Yates (in-universe)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Oliver Wiseman", "in_degree": 0, "label": "Oliver Wiseman", "out_degree": 1, "pos": [4.009629994345012, 5.15607925981908], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eOliver Wiseman\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 2, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "Sam\u0027s owner", "in_degree": 0, "label": "Sam\u0027s owner", "out_degree": 2, "pos": [-10.522491970224966, 0.038015441368655825], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eSam\u0027s owner\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}, {"blood": "unknown", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Sam (dog)", "in_degree": 1, "label": "Sam (dog)", "out_degree": 1, "pos": [3.967167782807236, 5.265273020659962], "shape": "dot", "size": 20, "species": "Dog", "title": "\u003cb\u003eSam (dog)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Dog \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 25"}, {"blood": "Muggle", "color": "#9ADB95", "colour": "#9ADB95", "community": 25, "community_colour": "#9ADB95", "community_names": ["Jamie Wolpert (in-universe)", "Sofie", "Newspaper seller"], "degree": 1, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Anji Oliver", "in_degree": 0, "label": "Anji Oliver", "out_degree": 1, "pos": [4.129085852760678, 5.192551837221703], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eAnji Oliver\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 25"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Newspaper seller", "to": "Unidentified newspaper vendor", "weight": 1}, {"color": "lightgrey", "from": "Penelope Taylor", "to": "Jamie Wolpert (in-universe)", "weight": 1}, {"color": "lightgrey", "from": "Sofie", "to": "David Yates (in-universe)", "weight": 1}, {"color": "lightgrey", "from": "Oliver Wiseman", "to": "Jamie Wolpert (in-universe)", "weight": 1}, {"color": "lightgrey", "from": "Sam\u0027s owner", "to": "Sam (dog)", "weight": 1}, {"color": "lightgrey", "from": "Sam\u0027s owner", "to": "Jamie Wolpert (in-universe)", "weight": 1}, {"color": "lightgrey", "from": "Sam (dog)", "to": "Jamie Wolpert (in-universe)", "weight": 1}, {"color": "lightgrey", "from": "Jamie Wolpert (in-universe)", "to": "Anji Oliver", "weight": 1}, {"color": "lightgrey", "from": "Jamie Wolpert (in-universe)", "to": "Unidentified newspaper vendor", "weight": 1}, {"color": "lightgrey", "from": "Jamie Wolpert (in-universe)", "to": "David Yates (in-universe)", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "plum", "font": {"color": "black"}, "id": "Movie 1", "label": "Movie 1", "movie": "Harry Potter and the Philosopher\u0027s Stone", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Philosopher\u0027s Stone"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 1", "label": "Topic 1", "shape": "dot", "size": 10, "title": "Words: deatheater, unforgivable, sing, counsel, dress, maze, darkest, guest, pumpkin, crime", "words": "deatheater, unforgivable, sing, counsel, dress, maze, darkest, guest, pumpkin, crime"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 2", "label": "Topic 2", "shape": "dot", "size": 10, "title": "Words: restricted, considered, shock, inch, passage, insist, wanting, handle, sacrificed, captain", "words": "restricted, considered, shock, inch, passage, insist, wanting, handle, sacrificed, captain"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 3", "label": "Topic 3", "shape": "dot", "size": 10, "title": "Words: prince, burke, borgin, romilda, requirement, shelf, traveling, felix, party, yer", "words": "prince, burke, borgin, romilda, requirement, shelf, traveling, felix, party, yer"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 4", "label": "Topic 4", "shape": "dot", "size": 10, "title": "Words: smashed, army, decree, defeat, hermy, hated, knowledge, hit, belief, wound", "words": "smashed, army, decree, defeat, hermy, hated, knowledge, hit, belief, wound"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 6", "label": "Topic 6", "shape": "dot", "size": 10, "title": "Words: mistress, sluggy, payment, orace, feeble, woken, sleepwalk, unfailingly, distaste, mown", "words": "mistress, sluggy, payment, orace, feeble, woken, sleepwalk, unfailingly, distaste, mown"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 8", "label": "Topic 8", "shape": "dot", "size": 10, "title": "Words: salazar, parseltongue, fawkes, daughter, clock, serve, pot, aaaah, colin, bedroom", "words": "salazar, parseltongue, fawkes, daughter, clock, serve, pot, aaaah, colin, bedroom"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 10", "label": "Topic 10", "shape": "dot", "size": 10, "title": "Words: hippogriff, fill, unlikely, expert, st, group, learned, godfather, kindly, broaden", "words": "hippogriff, fill, unlikely, expert, st, group, learned, godfather, kindly, broaden"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 11", "label": "Topic 11", "shape": "dot", "size": 10, "title": "Words: partner, bonnet, longing, broke, lure, hoodwinked, faint, renounced, swimming, vein", "words": "partner, bonnet, longing, broke, lure, hoodwinked, faint, renounced, swimming, vein"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 12", "label": "Topic 12", "shape": "dot", "size": 10, "title": "Words: chess, swish, preoccupied, crash, trevor, ticket, deepest, whoo, released, terribly", "words": "chess, swish, preoccupied, crash, trevor, ticket, deepest, whoo, released, terribly"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 13", "label": "Topic 13", "shape": "dot", "size": 10, "title": "Words: river, confringo, needed, touching, arrived, affect, threat, view, remain, raining", "words": "river, confringo, needed, touching, arrived, affect, threat, view, remain, raining"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 14", "label": "Topic 14", "shape": "dot", "size": 10, "title": "Words: cross, shail, miracle, thankful, boat, lied, consequently, conveyed, exchange, matching", "words": "cross, shail, miracle, thankful, boat, lied, consequently, conveyed, exchange, matching"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 15", "label": "Topic 15", "shape": "dot", "size": 10, "title": "Words: circumstance, bowl, unlike, bottle, trunk, loo, academic, twist, menace, plotting", "words": "circumstance, bowl, unlike, bottle, trunk, loo, academic, twist, menace, plotting"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 16", "label": "Topic 16", "shape": "dot", "size": 10, "title": "Words: choosen, gilliweed, weasly, kitchen, lad, personal, everybody, loss, short, irish", "words": "choosen, gilliweed, weasly, kitchen, lad, personal, everybody, loss, short, irish"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 17", "label": "Topic 17", "shape": "dot", "size": 10, "title": "Words: romania, queen, p, jump, alohomora, weak, wingardium, stranger, merry, knight", "words": "romania, queen, p, jump, alohomora, weak, wingardium, stranger, merry, knight"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 19", "label": "Topic 19", "shape": "dot", "size": 10, "title": "Words: reg, locket, enchantment, wife, tale, recently, cold, dinner, arry, stupefy", "words": "reg, locket, enchantment, wife, tale, recently, cold, dinner, arry, stupefy"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 2", "label": "Movie 2", "movie": "Harry Potter and the Chamber of Secrets", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Chamber of Secrets"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 3", "label": "Movie 3", "movie": "Harry Potter and the Prisoner of Azkaban", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Prisoner of Azkaban"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 18", "label": "Topic 18", "shape": "dot", "size": 10, "title": "Words: rowena, advantage, war, instruction, possessor, imperio, extensive, despair, success, incense", "words": "rowena, advantage, war, instruction, possessor, imperio, extensive, despair, success, incense"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 4", "label": "Movie 4", "movie": "Harry Potter and the Gobelt of Fire", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Gobelt of Fire"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 5", "label": "Topic 5", "shape": "dot", "size": 10, "title": "Words: identify, regarding, inevitable, studied, climb, underestimate, disconnected, laid, refused, petrificus", "words": "identify, regarding, inevitable, studied, climb, underestimate, disconnected, laid, refused, petrificus"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 7", "label": "Topic 7", "shape": "dot", "size": 10, "title": "Words: bisected, ninth, squeeze, bogey, tomb, drinker, chess, wanting, repeat, bank", "words": "bisected, ninth, squeeze, bogey, tomb, drinker, chess, wanting, repeat, bank"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 9", "label": "Topic 9", "shape": "dot", "size": 10, "title": "Words: forum, determines, solitary, grudgingly, traveler, enhance, identification, bank, rowena, squeeze", "words": "forum, determines, solitary, grudgingly, traveler, enhance, identification, bank, rowena, squeeze"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 5", "label": "Movie 5", "movie": "Harry Potter and the Order of the Phoenix", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Order of the Phoenix"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 6", "label": "Movie 6", "movie": "Harry Potter and the Half-Blood Prince", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Half-Blood Prince"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 7", "label": "Movie 7", "movie": "Harry Potter and the Deathly Hallows Part 1", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Deathly Hallows Part 1"}, {"color": "plum", "font": {"color": "black"}, "id": "Movie 8", "label": "Movie 8", "movie": "Harry Potter and the Deathly Hallows Part 2", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Deathly Hallows Part 2"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Movie 1", "to": "Topic 1", "weight": 1, "width": 0.13288801535964012}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 2", "weight": 1, "width": 1.1806506663560867}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 3", "weight": 1, "width": 0.1250765472650528}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 4", "weight": 1, "width": 0.1207488588988781}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 6", "weight": 1, "width": 0.12702959589660168}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 8", "weight": 1, "width": 0.24908814579248428}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 10", "weight": 1, "width": 1.3539786636829376}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 11", "weight": 1, "width": 0.11867447756230831}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 12", "weight": 1, "width": 0.842931792140007}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 13", "weight": 1, "width": 0.1269852090626955}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 14", "weight": 1, "width": 0.11658611707389355}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 15", "weight": 1, "width": 0.11257677339017391}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 16", "weight": 1, "width": 0.129252215847373}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 17", "weight": 1, "width": 4.557777643203735}, {"color": "lightgrey", "from": "Movie 1", "to": "Topic 19", "weight": 1, "width": 0.3145688399672508}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 1", "weight": 1, "width": 0.11463779024779797}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 2", "weight": 1, "width": 0.1226214598864317}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 3", "weight": 1, "width": 0.15806498005986214}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 4", "weight": 1, "width": 0.14808730222284794}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 8", "weight": 1, "width": 7.24962055683136}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 10", "weight": 1, "width": 0.306156687438488}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 11", "weight": 1, "width": 0.10756500996649265}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 12", "weight": 1, "width": 0.11043566279113293}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 13", "weight": 1, "width": 0.10268671438097954}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 15", "weight": 1, "width": 0.499810092151165}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 16", "weight": 1, "width": 0.10449453257024288}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 17", "weight": 1, "width": 0.1603381335735321}, {"color": "lightgrey", "from": "Movie 2", "to": "Topic 19", "weight": 1, "width": 0.2515780180692673}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 1", "weight": 1, "width": 1.2336206436157227}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 2", "weight": 1, "width": 0.1311966311186552}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 3", "weight": 1, "width": 0.13320641592144966}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 4", "weight": 1, "width": 0.2570931985974312}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 8", "weight": 1, "width": 1.2665076553821564}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 10", "weight": 1, "width": 4.970150589942932}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 11", "weight": 1, "width": 0.10448731482028961}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 12", "weight": 1, "width": 0.35051707178354263}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 13", "weight": 1, "width": 0.17076384276151657}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 14", "weight": 1, "width": 0.10050536133348942}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 15", "weight": 1, "width": 0.10806823149323463}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 16", "weight": 1, "width": 0.10832180269062519}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 17", "weight": 1, "width": 0.21142160519957542}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 18", "weight": 1, "width": 0.10625341907143593}, {"color": "lightgrey", "from": "Movie 3", "to": "Topic 19", "weight": 1, "width": 0.362321138381958}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 1", "weight": 1, "width": 3.6048850417137146}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 2", "weight": 1, "width": 0.13632353395223618}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 3", "weight": 1, "width": 0.14260157011449337}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 4", "weight": 1, "width": 0.10499738156795502}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 5", "weight": 1, "width": 0.10043537244200706}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 6", "weight": 1, "width": 0.10071404278278351}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 7", "weight": 1, "width": 0.10043537244200706}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 8", "weight": 1, "width": 0.15426908619701862}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 9", "weight": 1, "width": 0.10043537244200706}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 10", "weight": 1, "width": 0.13313649222254753}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 11", "weight": 1, "width": 0.3853579983115196}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 12", "weight": 1, "width": 0.1156964898109436}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 13", "weight": 1, "width": 0.2619667164981365}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 14", "weight": 1, "width": 0.15050357207655907}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 15", "weight": 1, "width": 0.1113020721822977}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 16", "weight": 1, "width": 3.8455983996391296}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 17", "weight": 1, "width": 0.22844616323709488}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 18", "weight": 1, "width": 0.10043536312878132}, {"color": "lightgrey", "from": "Movie 4", "to": "Topic 19", "weight": 1, "width": 0.12246011756360531}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 1", "weight": 1, "width": 0.13991134241223335}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 2", "weight": 1, "width": 0.11787221767008305}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 3", "weight": 1, "width": 0.1650734432041645}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 4", "weight": 1, "width": 2.4900324642658234}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 6", "weight": 1, "width": 0.1172054186463356}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 8", "weight": 1, "width": 0.25646306574344635}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 9", "weight": 1, "width": 0.10742595419287682}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 10", "weight": 1, "width": 5.088826417922974}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 11", "weight": 1, "width": 0.15648653730750084}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 13", "weight": 1, "width": 0.13018791563808918}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 14", "weight": 1, "width": 0.11849591508507729}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 15", "weight": 1, "width": 0.13999774120748043}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 16", "weight": 1, "width": 0.25374026969075203}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 17", "weight": 1, "width": 0.1787322759628296}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 18", "weight": 1, "width": 0.12565932236611843}, {"color": "lightgrey", "from": "Movie 5", "to": "Topic 19", "weight": 1, "width": 0.12054990045726299}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 1", "weight": 1, "width": 0.1302497647702694}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 2", "weight": 1, "width": 2.434603124856949}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 3", "weight": 1, "width": 3.4672677516937256}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 6", "weight": 1, "width": 0.17219766974449158}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 10", "weight": 1, "width": 0.4237224906682968}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 13", "weight": 1, "width": 0.11332988739013672}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 15", "weight": 1, "width": 1.8626230955123901}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 16", "weight": 1, "width": 0.3584666922688484}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 17", "weight": 1, "width": 0.10027024894952774}, {"color": "lightgrey", "from": "Movie 6", "to": "Topic 19", "weight": 1, "width": 0.20905015990138054}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 1", "weight": 1, "width": 0.10166057385504246}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 2", "weight": 1, "width": 0.10017070919275284}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 3", "weight": 1, "width": 0.10186966508626938}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 10", "weight": 1, "width": 0.1056996826082468}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 11", "weight": 1, "width": 0.10540436953306198}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 13", "weight": 1, "width": 2.6598763465881348}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 15", "weight": 1, "width": 0.10001584887504578}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 17", "weight": 1, "width": 0.11738505214452744}, {"color": "lightgrey", "from": "Movie 7", "to": "Topic 19", "weight": 1, "width": 5.682216286659241}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 1", "weight": 1, "width": 0.5630893632769585}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 2", "weight": 1, "width": 1.3419009745121002}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 3", "weight": 1, "width": 0.5068709701299667}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 4", "weight": 1, "width": 0.4324353113770485}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 5", "weight": 1, "width": 0.2541237138211727}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 6", "weight": 1, "width": 0.1644892618060112}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 7", "weight": 1, "width": 0.16449272632598877}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 8", "weight": 1, "width": 0.41472285985946655}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 9", "weight": 1, "width": 0.20928168669342995}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 10", "weight": 1, "width": 0.5473792552947998}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 11", "weight": 1, "width": 0.25465594604611397}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 12", "weight": 1, "width": 0.21538782864809036}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 13", "weight": 1, "width": 1.404518485069275}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 14", "weight": 1, "width": 0.520230308175087}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 15", "weight": 1, "width": 0.307801328599453}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 16", "weight": 1, "width": 0.7180672883987427}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 17", "weight": 1, "width": 0.3861246258020401}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 18", "weight": 1, "width": 1.0085118561983109}, {"color": "lightgrey", "from": "Movie 8", "to": "Topic 19", "weight": 1, "width": 0.58591578155756}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0.5,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -100,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Eduardo Lima (in-universe)", "in_degree": 1, "label": "Eduardo Lima (in-universe)", "out_degree": 4, "pos": [-3.243565871864486, 7.392795875845578], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eEduardo Lima (in-universe)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Mina Lima", "in_degree": 4, "label": "Mina Lima", "out_degree": 3, "pos": [-2.6504657490056305, 4.014471906695933], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eMina Lima\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Eduardo Lima Filho", "in_degree": 1, "label": "Eduardo Lima Filho", "out_degree": 4, "pos": [-3.33655745613812, 7.271047924432426], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eEduardo Lima Filho\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 4, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "E. Lima", "in_degree": 3, "label": "E. Lima", "out_degree": 1, "pos": [-2.5036324783001107, 7.6054704456774935], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eE. Lima\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Edwardus Lima", "in_degree": 4, "label": "Edwardus Lima", "out_degree": 1, "pos": [-3.628848316936553, 6.16520252687767], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eEdwardus Lima\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 8, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "M. Mina", "in_degree": 4, "label": "M. Mina", "out_degree": 4, "pos": [-0.8516671290431439, 7.7364733352005715], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eM. Mina\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 6, "font": {"color": "black"}, "gender": "Female", "house": "Gryffindor", "id": "Miraphora Mina (Hogwarts student)", "in_degree": 3, "label": "Miraphora Mina (Hogwarts student)", "out_degree": 3, "pos": [-0.23631301956663478, 7.716685024377861], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eMiraphora Mina (Hogwarts student)\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 6, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Miraphora Mina (Ministry employee)", "in_degree": 3, "label": "Miraphora Mina (Ministry employee)", "out_degree": 3, "pos": [-0.3609559663712103, 7.695023763961095], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eMiraphora Mina (Ministry employee)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}, {"blood": "unknown", "color": "#9151E3", "colour": "#9151E3", "community": 24, "community_colour": "#9151E3", "community_names": ["Mina Lima", "Ruth Mina", "M. Mina"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "Gryffindor", "id": "Ruth Mina", "in_degree": 3, "label": "Ruth Mina", "out_degree": 4, "pos": [-0.14290831157656858, 6.689249420043671], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eRuth Mina\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 24"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Eduardo Lima (in-universe)", "to": "Mina Lima", "weight": 1}, {"color": "lightgrey", "from": "Eduardo Lima (in-universe)", "to": "Eduardo Lima Filho", "weight": 1}, {"color": "lightgrey", "from": "Eduardo Lima (in-universe)", "to": "E. Lima", "weight": 1}, {"color": "lightgrey", "from": "Eduardo Lima (in-universe)", "to": "Edwardus Lima", "weight": 1}, {"color": "lightgrey", "from": "E. Lima", "to": "Eduardo Lima Filho", "weight": 1}, {"color": "lightgrey", "from": "E. Lima", "to": "M. Mina", "weight": 1}, {"color": "lightgrey", "from": "M. Mina", "to": "Miraphora Mina (Hogwarts student)", "weight": 1}, {"color": "lightgrey", "from": "M. Mina", "to": "Miraphora Mina (Ministry employee)", "weight": 1}, {"color": "lightgrey", "from": "M. Mina", "to": "Ruth Mina", "weight": 1}, {"color": "lightgrey", "from": "Mina Lima", "to": "Edwardus Lima", "weight": 1}, {"color": "lightgrey", "from": "Mina Lima", "to": "Eduardo Lima Filho", "weight": 1}, {"color": "lightgrey", "from": "Eduardo Lima Filho", "to": "Edwardus Lima", "weight": 1}, {"color": "lightgrey", "from": "Miraphora Mina (Ministry employee)", "to": "Miraphora Mina (Hogwarts student)", "weight": 1}, {"color": "lightgrey", "from": "Miraphora Mina (Ministry employee)", "to": "Ruth Mina", "weight": 1}, {"color": "lightgrey", "from": "Miraphora Mina (Hogwarts student)", "to": "Ruth Mina", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

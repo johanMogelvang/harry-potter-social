@@ -58,24 +58,25 @@ layout = html.Div([
         ),
     ]),
     html.Div([
-        html.H5("Movies", style = {'display': 'inline'}),
-        html.H5("Books", style = {'display': 'inline'})],
-        style = {'marginLeft': 80, 'marginRight': 80}),
-    html.Div([
-        html.Img(
+        html.Div([
+            html.H5("Movies"),
+            html.Img(
             id = "sentiment_movies",
             src = "assets/Sentiment/chap_sentiment_movies.png", 
-            style={'height': '45%', 'width': "45%"}
+            style={'height': '100%', 'width': "90%"}
                 )
-        ,
-        html.Img(
-            id = "sentiment_books",
-            src = "assets/Sentiment/chap_sentiment_books.png", 
-            style = {'height':'45%', 'width': "45%"}
-        )
-        ], style = {'width': '100vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'}
+            ],
+        style = {'width': '50%', 'text-align': 'center'}),
+        html.Div( [
+            html.H5("Books"),
+            html.Img(
+                id = "sentiment_books",
+                src = "assets/Sentiment/chap_sentiment_books.png", 
+                style = {'height':'100%', 'width': "90%"}
+            )],
+            style = {'width': '50%', 'text-align': 'center'}), 
+    ], style = {'width': '95vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap', 'marginBottom': '60px'}
     ),
-    html.P(""),
 
     html.Div([
         html.P(

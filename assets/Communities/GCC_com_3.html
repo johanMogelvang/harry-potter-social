@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 5, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Gilderoy Lockhart\u0027s mother", "in_degree": 1, "label": "Gilderoy Lockhart\u0027s mother", "out_degree": 4, "pos": [-4.454501915510458, -1.520936114332498], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGilderoy Lockhart\u0027s mother\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 3"}, {"blood": "Muggle", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Gilderoy Lockhart\u0027s father", "in_degree": 1, "label": "Gilderoy Lockhart\u0027s father", "out_degree": 4, "pos": [-6.813369642219782, -2.602284769302102], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGilderoy Lockhart\u0027s father\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 3"}, {"blood": "Squib", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 4, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Gilderoy Lockhart\u0027s sisters", "in_degree": 2, "label": "Gilderoy Lockhart\u0027s sisters", "out_degree": 2, "pos": [-3.5034753175471827, -0.8265116265908511], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGilderoy Lockhart\u0027s sisters\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Squib \u003c/br\u003eCommunity: 3"}, {"blood": "unknown", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 20, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Miriam Strout", "in_degree": 9, "label": "Miriam Strout", "out_degree": 11, "pos": [-2.532327980641693, -0.5022797163518947], "shape": "dot", "size": 25, "species": "Human", "title": "\u003cb\u003eMiriam Strout\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 3"}, {"blood": "unknown", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Agnes", "in_degree": 3, "label": "Agnes", "out_degree": 4, "pos": [-3.7168360562169807, -3.650684004663737], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eAgnes\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 3"}, {"blood": "unknown", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 3, "font": {"color": "black"}, "gender": "Female", "house": "Slytherin", "id": "Agnes Monkleigh", "in_degree": 1, "label": "Agnes Monkleigh", "out_degree": 2, "pos": [-2.4339964078081726, -3.0562153743609874], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eAgnes Monkleigh\u003c/b\u003e \u003c/br\u003eHouse: Slytherin \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 3"}, {"blood": "unknown", "color": "#F5FAAE", "colour": "#F5FAAE", "community": 3, "community_colour": "#F5FAAE", "community_names": ["Miriam Strout", "Gilderoy Lockhart\u0027s sisters", "Gilderoy Lockhart\u0027s mother"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Agnes\u0027s son", "in_degree": 1, "label": "Agnes\u0027s son", "out_degree": 2, "pos": [-5.266833819464901, -4.397306639908242], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eAgnes\u0027s son\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 3"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s mother", "to": "Gilderoy Lockhart\u0027s father", "weight": 1}, {"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s mother", "to": "Gilderoy Lockhart\u0027s sisters", "weight": 1}, {"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s mother", "to": "Miriam Strout", "weight": 1}, {"color": "lightgrey", "from": "Agnes", "to": "Agnes Monkleigh", "weight": 1}, {"color": "lightgrey", "from": "Agnes", "to": "Agnes\u0027s son", "weight": 1}, {"color": "lightgrey", "from": "Agnes", "to": "Miriam Strout", "weight": 1}, {"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s father", "to": "Gilderoy Lockhart\u0027s sisters", "weight": 1}, {"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s father", "to": "Miriam Strout", "weight": 1}, {"color": "lightgrey", "from": "Gilderoy Lockhart\u0027s sisters", "to": "Miriam Strout", "weight": 1}, {"color": "lightgrey", "from": "Agnes\u0027s son", "to": "Miriam Strout", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

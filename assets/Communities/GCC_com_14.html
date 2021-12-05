@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "Muggle", "color": "#E41209", "colour": "#E41209", "community": 14, "community_colour": "#E41209", "community_names": ["Eustace Fawley", "Martin Miggs", "Eustace Fawley\u0027s uncle"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Martin Miggs", "in_degree": 1, "label": "Martin Miggs", "out_degree": 1, "pos": [1.6280167874873404, -4.806104361180223], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eMartin Miggs\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 14"}, {"blood": "Pure-blood", "color": "#E41209", "colour": "#E41209", "community": 14, "community_colour": "#E41209", "community_names": ["Eustace Fawley", "Martin Miggs", "Eustace Fawley\u0027s uncle"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "Hufflepuff", "id": "Eustace Fawley", "in_degree": 2, "label": "Eustace Fawley", "out_degree": 1, "pos": [1.737903858401099, -6.645530125047902], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eEustace Fawley\u003c/b\u003e \u003c/br\u003eHouse: Hufflepuff \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 14"}, {"blood": "Pure-blood", "color": "#E41209", "colour": "#E41209", "community": 14, "community_colour": "#E41209", "community_names": ["Eustace Fawley", "Martin Miggs", "Eustace Fawley\u0027s uncle"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Eustace Fawley\u0027s father", "in_degree": 0, "label": "Eustace Fawley\u0027s father", "out_degree": 1, "pos": [-4.3376473450612405, 8.983331013895748], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eEustace Fawley\u0027s father\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 14"}, {"blood": "Pure-blood", "color": "#E41209", "colour": "#E41209", "community": 14, "community_colour": "#E41209", "community_names": ["Eustace Fawley", "Martin Miggs", "Eustace Fawley\u0027s uncle"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Eustace Fawley\u0027s uncle", "in_degree": 0, "label": "Eustace Fawley\u0027s uncle", "out_degree": 1, "pos": [1.7620048724357482, -7.448567114576486], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eEustace Fawley\u0027s uncle\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 14"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Martin Miggs", "to": "Eustace Fawley", "weight": 1}, {"color": "lightgrey", "from": "Eustace Fawley\u0027s father", "to": "Eustace Fawley", "weight": 1}, {"color": "lightgrey", "from": "Eustace Fawley", "to": "Eustace Fawley\u0027s uncle", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

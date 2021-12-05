@@ -1,0 +1,132 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"book": "Harry Potter and the Philosopher\u0027s Stone", "color": "plum", "font": {"color": "black"}, "id": "Book 1", "label": "Book 1", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Philosopher\u0027s Stone"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 17", "label": "Topic 17", "shape": "dot", "size": 10, "title": "Words: bartender, mommy, stonewall, mystry, hamburger, norberts, algie, stalagmite, askin, figgs", "words": "bartender, mommy, stonewall, mystry, hamburger, norberts, algie, stalagmite, askin, figgs"}, {"book": "Harry Potter and the Chamber of Secrets", "color": "plum", "font": {"color": "black"}, "id": "Book 2", "label": "Book 2", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Chamber of Secrets"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 3", "label": "Topic 3", "shape": "dot", "size": 10, "title": "Words: infirmary, gadding, potente, justins, booster, lacewing, flowerpot, squint, autobiography, raid", "words": "infirmary, gadding, potente, justins, booster, lacewing, flowerpot, squint, autobiography, raid"}, {"book": "Harry Potter and the Prisoner of Azkaban", "color": "plum", "font": {"color": "black"}, "id": "Book 3", "label": "Book 3", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Prisoner of Azkaban"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 10", "label": "Topic 10", "shape": "dot", "size": 10, "title": "Words: dissendium, flashlight, binky, palmistry, hinkypunk, stretcher, acceleration, mdear, menagerie, sabotage", "words": "dissendium, flashlight, binky, palmistry, hinkypunk, stretcher, acceleration, mdear, menagerie, sabotage"}, {"book": "Harry Potter and the Goblet of Fire", "color": "plum", "font": {"color": "black"}, "id": "Book 4", "label": "Book 4", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Goblet of Fire"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 15", "label": "Topic 15", "shape": "dot", "size": 10, "title": "Words: berthas, jury, counterjinxes, misfortune, lodging, wonderfully, abercrombie, planner, karkuss, shark", "words": "berthas, jury, counterjinxes, misfortune, lodging, wonderfully, abercrombie, planner, karkuss, shark"}, {"book": "Harry Potter and the Order of the Phoenix", "color": "plum", "font": {"color": "black"}, "id": "Book 5", "label": "Book 5", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Order of the Phoenix"}, {"book": "Harry Potter and the Half-Blood Prince", "color": "plum", "font": {"color": "black"}, "id": "Book 6", "label": "Book 6", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Half-Blood Prince"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 11", "label": "Topic 11", "shape": "dot", "size": 10, "title": "Words: robbed, burial, imitate, snogged, spectrespecs, robin, cadwallader, piano, sanguini, witherwings", "words": "robbed, burial, imitate, snogged, spectrespecs, robin, cadwallader, piano, sanguini, witherwings"}, {"book": "Harry Potter and the Deathly Hallows", "color": "plum", "font": {"color": "black"}, "id": "Book 7", "label": "Book 7", "shape": "dot", "size": 10, "title": "Title: Harry Potter and the Deathly Hallows"}, {"color": "teal", "font": {"color": "black"}, "id": "Topic 6", "label": "Topic 6", "shape": "dot", "size": 10, "title": "Words: nurmengard, hawthorn, albert, crib, clankers, headdress, romulus, solidified, riverbank, grindelvald", "words": "nurmengard, hawthorn, albert, crib, clankers, headdress, romulus, solidified, riverbank, grindelvald"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Book 1", "to": "Topic 17", "weight": 1, "width": 9.99675452709198}, {"color": "lightgrey", "from": "Book 2", "to": "Topic 3", "weight": 1, "width": 9.997552037239075}, {"color": "lightgrey", "from": "Book 3", "to": "Topic 10", "weight": 1, "width": 9.997950196266174}, {"color": "lightgrey", "from": "Book 4", "to": "Topic 15", "weight": 1, "width": 9.999054074287415}, {"color": "lightgrey", "from": "Book 5", "to": "Topic 15", "weight": 1, "width": 9.999338388442993}, {"color": "lightgrey", "from": "Book 6", "to": "Topic 11", "weight": 1, "width": 9.998999834060669}, {"color": "lightgrey", "from": "Book 7", "to": "Topic 6", "weight": 1, "width": 8.059942126274109}, {"color": "lightgrey", "from": "Book 7", "to": "Topic 10", "weight": 1, "width": 1.9393283128738403}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0.5,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -100,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

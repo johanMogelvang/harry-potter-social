@@ -29,13 +29,18 @@ w = 500
 
 fig = px.bar(df_barplot, x = "Size", y = "Communities", orientation = 'h', color = 'Colours', color_discrete_map="identity")
 
-fig.update_layout(title = "Sizes of communities in the best partition",
-                   xaxis_title = 'Size', 
-                   yaxis_title = 'Communities', width = 1400, height = 600)
+fig.update_layout(title = dict(
+                        text='<b>Sizes of communities - Louvian partition</b>',
+                        x = 0.5,
+                        font = dict(size=20)
+                    ),
+                  xaxis_title = 'Size', 
+                  yaxis_title = 'Communities', 
+                  width = 1400, height = 600)
 
 
 cyto.load_extra_layouts()
-#stylesheet_cyto = ?
+
 default_stylesheet = [
     {
         'selector': 'node',
@@ -89,10 +94,11 @@ layout = html.Div([
     html.Div([
         html.P("The Wizarding World is a large network of many different characters connected across different family houses, "
             "school houses etc. Have you thought about what the best way to split the network of the Wizarding World into "
-            "communities? Will it be best to split the network into school houses? Blood status? Or something entirely "
-            "different? This page will answer this, where we have examined partitions based on school houses, species, "
-            "blood status and the Louvian partition. ", style = {'marginLeft': 60, 'marginRight': 60}
+            "communities might be? Will it be best to split the network into school houses? Blood status? Or something "
+            "entirely different? This page will answer this, where we have examined partitions based on school houses, "
+            "species, blood status and the Louvian partition. ", style = {'marginLeft': 60, 'marginRight': 60}
             ),
+        html.H4("Properties of the different partitions", style = {'text-align': 'center'})
     ]),
     # Table (communities) 
     html.Div([
@@ -118,9 +124,17 @@ layout = html.Div([
     ],style={"justify-content":"center", 'width': '80vw','marginLeft':80}
     ),
 
-    html.P("", style = {'marginLeft': 60, 'marginRight': 60}),
+    html.Div([
+        html.P("In the table the properties of the different partitions can be seen. Splitting the network into "
+               "communities based on species is definitely not a good partition. But did you expect this? "
+               "Out of these partitions the one which has the highest modularity score is the Louvian partition, "
+               "with a modularity of almost 0.50. Are you interested in seeing the different sizes of the communties? "
+               "Or how the network looks like when the nodes are coloured by community? "
+        , style = {'marginLeft': 60, 'marginRight': 60, 'marginTop': 20}),
+        ]
+    ),
 
-    # Graph 
+    # Barplot 
     html.Div([
         html.Div([
             dcc.Graph(id = 'plot_com_sizes', figure = fig),])
@@ -130,21 +144,60 @@ layout = html.Div([
     # indsæt graf farvet efter bedste partition
     # for the best partition of graph into communities
     # Network
+    html.H3(children = ["The Wizarding Wolrd divided into communities"], style = {'text-align': 'center'}),
+    
     html.Div([
-        cyto.Cytoscape(
-            id='cytoscape-graph',
-            layout={'name': 'preset'},
-            #stylesheet=default_stylesheet,
-            style={'width': '45%', 'height': '600px'},
-            stylesheet=stylesheet_cyto,
-            elements=cyto_GCC['nodes'] + cyto_GCC['edges']  
-        ),
-            html.P(id='cytoscape-tapNodeData-output-explore'),
-            html.P(id='cytoscape-tapEdgeData-output-explore'),
-            html.P(id='cytoscape-mouseoverNodeData-output-explore'),
-            html.P(id='cytoscape-mouseoverEdgeData-output-explore'),
+        html.Div([
+            html.H5(children = ["Full network"], style = {'text-align': 'center'}),
+            cyto.Cytoscape(
+                id='cytoscape-com',
+                layout={'name': 'preset'},
+                        stylesheet = stylesheet_cyto,
+                        elements = cyto_GCC['nodes'] + cyto_GCC['edges'] ,
+                        style = {'width': '100%', 'height': '100%'}
+                        )
+                    ], style={'width': '45%', 'height': '100%'}),
 
-    ], style ={"display":"flex",'flex-wrap':'wrap', "justify-content":"center"}
-    ),
-]),
+            html.Div([
+                html.Div([
+                        html.H5(id = 'graph-title', children = ["Community 0"], style = {'text-align': 'center'}),
+                        dcc.Slider(
+                        id = 'network-slider',
+                        min = 0,
+                        max = len(communities)-1,
+                        step = 1,
+                        value = 0)
+                    ], style = {'width': '100%'}),
+                    html.Div([
+                        html.Iframe(id = "com-graph", src="/assets/Communities/GCC_com_0.html", style={"width":"100%", "height":"400px"})
+                        ], 
+                    )
+            ],  style={'width': '45%', 'height': '100%'})
 
+        ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
+
+    html.Div([
+        html.P(children = [
+            html.Span("Have you tried looking at the communities? Do they make sense? If you use the slider to go to " \
+                      "community 1 it can be seen that the largest nodes are "),
+            html.Span("Newton Scamander, Gellert Grindewald, Nagini, Credence Barebone and Leta Lestrage. "
+                    , style= {"font-weight": "bold"}),
+            html.Span("With a little knowledge about the Wizarding World, you can identify these characters as belonging "\
+                      "to the "),
+            html.Span("Fantastic Beasts universe, ", style= {"font-style": "italic"}),
+            html.Span("with ties to the "),
+            html.Span("Harry Potter universe. ", style= {"font-style": "italic"}),
+            html.Span("You might discover other fascinating communities, if you explore the slider options. "),
+            ])
+    ], style ={"display": "flex", "justify-content": "center", 'marginLeft': 60, 'marginRight': 60, 'marginTop': 20})
+])
+
+@app.callback([Output('com-graph', 'src')],
+              [Output('graph-title', 'children')],
+              [Input('network-slider', 'value')])
+
+def update_graph(value):
+    src = "/assets/Communities/GCC_com_{}.html".format(value)
+    title = "Community {}".format(value)
+    
+    return src, title
