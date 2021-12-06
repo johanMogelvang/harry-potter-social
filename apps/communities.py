@@ -195,7 +195,6 @@ layout = html.Div([
 @app.callback([Output('com-graph', 'src')],
               [Output('graph-title-com', 'children')],
               [Input('network-slider', 'value')])
-
 def update_graph(value):
     src = "/assets/Communities/GCC_com_{}.html".format(value)
     title = "Community {}".format(value)
