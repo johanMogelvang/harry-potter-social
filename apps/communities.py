@@ -160,7 +160,7 @@ layout = html.Div([
 
             html.Div([
                 html.Div([
-                        html.H5(id = 'graph-title', children = ["Community 0"], style = {'text-align': 'center'}),
+                        html.H5(id = 'graph-title-com', children = ["Community 0"], style = {'text-align': 'center'}),
                         dcc.Slider(
                         id = 'network-slider',
                         min = 0,
@@ -193,7 +193,7 @@ layout = html.Div([
 ])
 
 @app.callback([Output('com-graph', 'src')],
-              [Output('graph-title', 'children')],
+              [Output('graph-title-com', 'children')],
               [Input('network-slider', 'value')])
 
 def update_graph(value):

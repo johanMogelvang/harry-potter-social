@@ -69,10 +69,10 @@ layout = html.Div([
             html.Iframe(id = "graph", src="/assets/Topics/G_topics_books.html", style={"width":"100%", "height":"800px"})
         ], style = {'width': '45%', 'text-align': 'center', 'marginLeft': 60}),
         html.Div([
-            html.P(id = "text_graph", style = { 'marginRight': 60, 'display': 'inline-block', 'vertical-align': 'middle'}
+            html.P(id = "text_graph", style = { 'marginRight': 60, 'display': 'inline-block'}
             )
-        ], style = {'width': '45%'})
-    ], style = {'width': '95vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'})
+        ], style = {'width': '45%', 'vertical-align': 'middle'})
+    ], style = {'width': '95vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap', 'vertical-align': 'middle'})
 ])
 
 
