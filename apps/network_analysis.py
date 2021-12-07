@@ -84,13 +84,40 @@ cyto_default_style = [
             # },
         ]
 
+cyto_house_style = cyto_default_style.copy()
+cyto_house_style.append({
+        'selector': 'edge',
+        'style': {
+            'width': 'mapData(weight, 0, 1500, 5, 30)',
+            'label': 'data(weight)',
+        }
+})
+cyto_house_style.append(  
+    {
+        'selector': 'node',
+        'style': {
+            'width': '50',
+            'height': '50',
+        }
+})
+cyto_house_style.append(  
+    {
+        'selector': ':selected',
+        'style': {
+            'color': 'orange',
+            'target-arrow-color': 'black',
+                    'source-arrow-color': 'black',
+                    'text-outline-width': 3,
+                    "z-index": "999",
+        }
+})
+
+
 path = os.getcwd().replace("\\", "/")
 with open(path + "/family_links_cyto.json") as json_file:
     links = json.load(json_file)
-#Get bi-directional edge data
-with open(path + "/family_links.json") as json_file:
-    family_links = json.load(json_file)
-
+with open(path + "/house_graph_cyto.json") as json_file:
+    house_cyto = json.load(json_file)
 #Load into nx object
 dic = {    'data': [],
     'directed': False,
@@ -116,22 +143,23 @@ houses = ['unknown',
  'Horned',
  'Wampus']
 
-layout = html.Div([            
-                html.Div([
-                    html.Div([
-                        html.H1("Network analysis"),
-                        ], style={'text-align': 'center', "justify-content": "center", 'width':'100vw'}
-                    ),
-                    html.Div([
-                                html.H5("""On this page you can explore the familial relationships between the characters of the harry potter universe.
-                                On this page you can explore the familial relationships between the characters of the harry potter universe.On this page you can explore the familial relationships between the
-                                 characters of the harry potter universe.On this page you can explore the familial relationships between the characters of th
-                                 e harry potter universe.On this page you can explore the familial relationships between th
-                                 e characters of the harry potter universe.On this page you can explore
-                                  the familial relationships between the characte
-                                  rs of the harry potter universe."""),
-                    ], style={'width':'30vw', 'text-align': 'center'}), 
-                ], style = {"justify-content": "center", 'width':'100vw'}),
+placeholder_graph = px.bar(template='simple_white')
+
+layout = html.Div([      
+                dbc.Container([
+                    dbc.Row([
+                            dbc.Col(html.H1("Network analysis", className="text-center")
+                    , className="mb-5 mt-5")
+                    ]),
+                    dbc.Row([
+                        dbc.Col(html.P(children='On this page you can interactively explore the network of the wizzarding world, as collected from the HP Wiki.'
+                                                'This first graph illustrates the families of the wizzarding world, each node representing a character, and a link between them representing familial ties.'
+                                                'You can select characters to highlight only their immediate family, and with that show a distribution of which house their immediate family is part of.'
+                                                'For some of the nodes, it might be a bit hard to make out who they represent, so you can zoom in on the graph, if you want to take a closer look.'
+                                     )
+                    , className="mb-4")
+                    ]),
+                ]),      
                 html.Div([
                     html.Div([
                         dcc.Slider(
@@ -156,12 +184,12 @@ layout = html.Div([
                         elements=links['nodes']+links['edges'],
                         style={'width': '100%', 'height': '100%', }
                         )
-                    ], style={'width': '40%', 'height': '100%'}),
+                    ], style={'width': '55%', 'height': '100%'}),
                     html.Div([
-                        dcc.Graph(id='live-update-bar-graph'),
+                        dcc.Graph(id='live-update-bar-graph', style={'height':'50%'}),
                         html.H5('The family the of selected character:', id='selected-character-text'),
-                        dcc.Graph(id='live-character-network-graph'),
-                    ],  style={'width': '40%', 'height': '100%', 'text-align': 'center'})
+                        dcc.Graph(figure={}, id='live-character-network-graph', style={'height':'50%'}),
+                    ],  style={'width': '35%', 'height': '100%', 'text-align': 'center'})
             ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
             html.Div([
                     html.H1("Aggregated graphs"),
@@ -169,14 +197,14 @@ layout = html.Div([
                 ],
                 style={'marginTop': '10vh'}),
             html.Div([
-                    # cyto.Cytoscape(
-                    #     id='cytoscape-agg-houses',
-                    #     layout={'name': 'circle'}, #circle, #close-bilkent
-                    #     #stylesheet=default_stylesheet,
-                    #     stylesheet=cyto_default_style,
-                    #     elements=links['nodes']+links['edges'],
-                    #     style={'width': '100%', 'height': '100%'}
-                    #     )
+                    cyto.Cytoscape(
+                        id='cytoscape-agg-houses',
+                        layout={'name': 'circle'}, #circle, #close-bilkent
+                        #stylesheet=default_stylesheet,
+                        stylesheet=cyto_house_style,
+                        elements=house_cyto['nodes'] + house_cyto['edges'],
+                        style={'width': '100%', 'height': '100%'}
+                        )
             ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
             html.A(children=0, id="style-refresher"),
             html.H1("refreshed:", id="refresh-id"),
@@ -305,7 +333,13 @@ def get_graph(node_elements):
             colors[i] = "#0E1A40"
         elif house == "Gryffindor":
             colors[i] = "#740001"    
-    return px.bar(x=frequency.keys(),y=frequency, color=colors, color_discrete_map="identity")
+    if frequency:
+        fig = px.bar(x=frequency.keys(),y=frequency, color=colors, color_discrete_map="identity", template='simple_white')
+    else:
+        fig = px.bar(template='simple_white')
+    fig.update_yaxes(visible=True, showticklabels=True, title='')
+    fig.update_xaxes(visible=True, showticklabels=True, title='')
+    return fig
 
 
 @app.callback(Output('cytoscape-hp-family', 'stylesheet'),
