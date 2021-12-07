@@ -9,6 +9,7 @@ from dash.dependencies import Input, Output, State
 import plotly.express as px
 import networkx as nx
 import pandas as pd
+import plotly.graph_objects as go
 
 
 
@@ -24,6 +25,14 @@ cyto_default_style = [
                 'selector': 'node',
                 'style': {
                 'content': 'data(id)',
+                'height': 25,
+                'width' : 25,
+                }
+            },
+            {
+                'selector': 'edge',
+                'style': {
+                'width' : 1,
                 }
             },
             {
@@ -82,8 +91,20 @@ with open(path + "/family_links_cyto.json") as json_file:
 with open(path + "/family_links.json") as json_file:
     family_links = json.load(json_file)
 
-#print(links['nodes']['data'])
+#Load into nx object
+dic = {    'data': [],
+    'directed': False,
+    'multigraph': False,
+    'elements': links}
+G=nx.cytoscape_graph(dic)
+#Sort components by size
+components_sorted = sorted(nx.connected_components(G), key=len, reverse=True)
+G2 = G.subgraph(set().union(*sorted(nx.connected_components(G), key=len, reverse=True)[:5]))
+links = nx.cytoscape_data(G2)['elements']
+for node in links['nodes']:
+    node.update({'classes': node['data']['house']})
 
+#print(links['nodes']['data'])
 #Agg graphs
 houses = ['unknown',
  'Hufflepuff',
@@ -95,54 +116,39 @@ houses = ['unknown',
  'Horned',
  'Wampus']
 
-# with open(path + "/links.json") as json_file:
-#     global_links = json.load(json_file)
-# G_houses = nx.Graph()
-# G_houses.add_nodes_from(houses)
-# G = nx.DiGraph(global_links)
-# with open(path + "/attributes.json") as json_file:
-#     attributes = json.load(json_file)
-# nx.set_node_attributes(G, attributes)
-# gcc = max(nx.weakly_connected_components(G), key = len)
-# GCC = G.subgraph(gcc)
-# for edge in list(GCC.edges()):
-#     node1, node2 = edge[0],edge[1]
-#     print(node1, node2)
-#     house1, house2 = df[df['name']==node1].house.item(), df[df['name']==node2].house.item()
-
-#     if (house1 != 'unknown') & (house2 != 'unknown') & (house1 != house2):
-#         if G_houses.has_edge(house1, house2):
-#             G_houses[house1][house2]['weight'] += 1 
-#         else: 
-#             G_houses.add_edge(house1, house2, weight=1)
-
-
-# Find largest connected component in graph 
-gcc = max(nx.weakly_connected_components(G), key = len)
-
-# Define the largest connected component (gcc) as a graph 
-GCC = G.subgraph(gcc)
-
 layout = html.Div([            
                 html.Div([
-                    html.H1("Network analysis"),
-                    html.H5("On this page you can explore the familial relationships between the characters of the harry potter universe")
-                ], style = {'text-align': 'center'}),
+                    html.Div([
+                        html.H1("Network analysis"),
+                        ], style={'text-align': 'center', "justify-content": "center", 'width':'100vw'}
+                    ),
+                    html.Div([
+                                html.H5("""On this page you can explore the familial relationships between the characters of the harry potter universe.
+                                On this page you can explore the familial relationships between the characters of the harry potter universe.On this page you can explore the familial relationships between the
+                                 characters of the harry potter universe.On this page you can explore the familial relationships between the characters of th
+                                 e harry potter universe.On this page you can explore the familial relationships between th
+                                 e characters of the harry potter universe.On this page you can explore
+                                  the familial relationships between the characte
+                                  rs of the harry potter universe."""),
+                    ], style={'width':'30vw', 'text-align': 'center'}), 
+                ], style = {"justify-content": "center", 'width':'100vw'}),
                 html.Div([
                     html.Div([
                         dcc.Slider(
                         id='my-slider',
                         min=1,
-                        max=len(links['nodes']),
+                        max=len(components_sorted),
                         step=1,
                         tooltip={"placement": "bottom", "always_visible": True},
-                        value=len(links['nodes'])-1,
+                        value=5,
                         ),
                     cyto.Cytoscape(
                         id='cytoscape-hp-family',
                         layout={'name': 'cose-bilkent',
                             'nodeDimensionsIncludeLabels': 'true',
+                            #'idealEdgeLength': 3,
                             'edgeElasticity': '1',
+                            'numIter': 10000,
                             #'idealEdgeLength': '1',
                             'nodeRepulsion': '9000',}, #circle, #close-bilkent
                         #stylesheet=default_stylesheet,
@@ -172,25 +178,36 @@ layout = html.Div([
                     #     style={'width': '100%', 'height': '100%'}
                     #     )
             ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
+            html.A(children=0, id="style-refresher"),
+            html.H1("refreshed:", id="refresh-id"),
 ])
 
-@app.callback(Output('selected-character-text', 'graph'),
+@app.callback(Output('selected-character-text', 'children'),
               Input('cytoscape-hp-family', 'tapNodeData'),)
 def displayTapNodeData(nodedata):
     if nodedata:
-        return nodedata['id']
-    return "The network of the selected character:"
+        return "The family of " + nodedata['id'] + ":"
+    return "The family of the selected character:"
 
-@app.callback(Output('live-character-network-graph', 'children'),
-              Input('cytoscape-hp-family', 'tapNode'),
-              State('cytoscape-hp-family', 'elements'))
-def displayTapNodeData2(nodedata, elements):
+@app.callback(Output('live-character-network-graph', 'figure'),
+              Input('cytoscape-hp-family', 'tapNode'),)
+def displayTapNodeData2(nodedata):
     char_list = []
-    for node in elements[0]:
-        for edge in nodedata['edgesData']:
-            if edge['target'] == node['data']['id']:
-                char_list.append(node)
-    return get_graph(char_list)
+    chars = set()
+    if nodedata:
+        for node in links['nodes']:
+            for edge in nodedata['edgesData']:
+                if edge['target'] == node['data']['id']:
+                    if edge['target'] not in chars:
+                        char_list.append(node)
+                        chars.add( edge['target'])
+            for edge in nodedata['edgesData']:
+                if edge['source'] == node['data']['id']:
+                    if edge['source'] not in chars:
+                        char_list.append(node)
+                        chars.add( edge['target'])
+        return get_graph(char_list)
+    return go.Figure()
 
 @app.callback(Output('cytoscape-hp-family', 'elements'),
               Output('live-update-bar-graph', 'figure'),
@@ -199,6 +216,12 @@ def displayTapNodeData2(nodedata, elements):
 def update_elements(slider_value, elements):
     current_nodes, deleted_nodes = get_current_and_deleted_nodes(elements)
     difference = int(slider_value) - len(current_nodes)
+
+    subgraph = G.subgraph(set().union(*sorted(nx.connected_components(G), key=len, reverse=True)[:slider_value]))
+    cy_elements = nx.cytoscape_data(subgraph)['elements']
+    for node in cy_elements['nodes']:
+        node.update({'classes': node['data']['house']})
+    return [cy_elements['nodes'] + cy_elements['edges'], get_graph(cy_elements['nodes'])]
     # If the slider value has increased
     if difference >= 1:
         for i in range(difference):
@@ -244,6 +267,7 @@ def get_current_and_deleted_nodes(elements):
 
     # get deleted nodes
     node_ids = {n['data']['id'] for n in current_nodes}
+    
     for n in links['nodes']:
         if n['data']['id'] not in node_ids:
             deleted_nodes.append(n)
@@ -286,13 +310,15 @@ def get_graph(node_elements):
 
 @app.callback(Output('cytoscape-hp-family', 'stylesheet'),
               [Input('cytoscape-hp-family', 'tapNode'),
-              Input('cytoscape-hp-family', 'selectedNodeData')])
-def change_stylesheet_of_graph(node, selectedNodeData):
+              Input('cytoscape-hp-family', 'selectedNodeData'),
+              Input('style-refresher', 'children'),])
+def change_stylesheet_of_graph(node, selectedNodeData, style_refresher):
     ctx = dash.callback_context
 
     #If no node is tapped, return the default styling
     if not selectedNodeData:
-       return  cyto_default_style
+        refresh_style = cyto_default_style.copy()
+        return  refresh_style
 
     #If a node is selected, traverse the graph for connected nodes, and then change their color.
     cyto_style = [{

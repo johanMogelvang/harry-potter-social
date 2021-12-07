@@ -36,7 +36,7 @@ NAVBAR_STYLE={"background-repeat": "no-repeat",
 "width":"100%",
 "z-index": "999"}
 
-CONTENT_STYLE={"margin-top":"70px"}
+CONTENT_STYLE={"margin-top":"65px"}
 
 navbar = dbc.Navbar(
     html.Div(

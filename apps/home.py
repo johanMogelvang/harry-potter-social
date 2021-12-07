@@ -14,6 +14,17 @@ from app import app
 card_width = "25rem"
 
 layout = html.Div([
+    html.Div(
+            [html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", style={'width': '100vw',
+            'height': 'auto', 'color':'white'})],
+            style={'position': 'absolute', 'top':'20vh', 'text-align': 'center'}
+        ),
+        html.Div(
+            [html.Img(src="assets/hogwarts.jpg", style={'width': '100vw',
+            'height': 'auto'})],
+            style={'width':'100vh'}
+        ),
+        
     dbc.Container([
         dbc.Row([
             dbc.Col(html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", className="text-center")
@@ -23,15 +34,6 @@ layout = html.Div([
         #    dbc.Col(html.Img(src="/assets/logo.png", 
         #                    height="50px"), style={'textAlign': 'center'}),
         #    ]),
-       
-        dbc.Row([
-            dbc.Col(
-                gif.GifPlayer(gif="assets/HP.gif", still='assets/HP_cristmas_gif.png', autoplay =True),
-                width = "100px",
-                style={'textAlign': 'center'}
-            ), 
-        ]
-        ),
 
         dbc.Row([
             dbc.Col(html.H5(children="")
