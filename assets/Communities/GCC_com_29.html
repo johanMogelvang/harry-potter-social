@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "Half-blood", "color": "#85A3DC", "colour": "#85A3DC", "community": 29, "community_colour": "#85A3DC", "community_names": ["Bowman Wright", "Bowman Wright\u0027s mother", "Bowman Wright\u0027s father"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Bowman Wright", "in_degree": 2, "label": "Bowman Wright", "out_degree": 3, "pos": [9.507912952066931, -2.154658712497182], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eBowman Wright\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Half-blood \u003c/br\u003eCommunity: 29"}, {"blood": "unknown", "color": "#85A3DC", "colour": "#85A3DC", "community": 29, "community_colour": "#85A3DC", "community_names": ["Bowman Wright", "Bowman Wright\u0027s mother", "Bowman Wright\u0027s father"], "degree": 3, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Bowman Wright\u0027s mother", "in_degree": 1, "label": "Bowman Wright\u0027s mother", "out_degree": 2, "pos": [9.64942974086628, -2.122777408200699], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eBowman Wright\u0027s mother\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 29"}, {"blood": "Muggle", "color": "#85A3DC", "colour": "#85A3DC", "community": 29, "community_colour": "#85A3DC", "community_names": ["Bowman Wright", "Bowman Wright\u0027s mother", "Bowman Wright\u0027s father"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Bowman Wright\u0027s father", "in_degree": 2, "label": "Bowman Wright\u0027s father", "out_degree": 1, "pos": [9.574476474877859, -2.04106903533186], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eBowman Wright\u0027s father\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 29"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Bowman Wright", "to": "Bowman Wright\u0027s mother", "weight": 1}, {"color": "lightgrey", "from": "Bowman Wright", "to": "Bowman Wright\u0027s father", "weight": 1}, {"color": "lightgrey", "from": "Bowman Wright\u0027s father", "to": "Bowman Wright\u0027s mother", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

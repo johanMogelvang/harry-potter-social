@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 3, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Celestina Warbeck\u0027s father", "in_degree": 1, "label": "Celestina Warbeck\u0027s father", "out_degree": 2, "pos": [0.8673518666992273, -8.828688094965324], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u0027s father\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "Half-blood", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 14, "font": {"color": "black"}, "gender": "Female", "house": "Gryffindor", "id": "Celestina Warbeck", "in_degree": 10, "label": "Celestina Warbeck", "out_degree": 4, "pos": [-1.069611566330517, -5.3886895638712815], "shape": "dot", "size": 23, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Half-blood \u003c/br\u003eCommunity: 18"}, {"blood": "Muggle", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 3, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Celestina Warbeck\u0027s mother", "in_degree": 0, "label": "Celestina Warbeck\u0027s mother", "out_degree": 3, "pos": [0.9777138505564689, -8.926949915517621], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u0027s mother\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Muggle \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 6, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Irving Warble", "in_degree": 5, "label": "Irving Warble", "out_degree": 1, "pos": [0.5452178007415565, -8.196692352286867], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eIrving Warble\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "Half-blood", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Celestina Warbeck\u0027s son", "in_degree": 0, "label": "Celestina Warbeck\u0027s son", "out_degree": 2, "pos": [1.0220153431033603, -8.702777147161175], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u0027s son\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Half-blood \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 4, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Devlin Whitehorn", "in_degree": 2, "label": "Devlin Whitehorn", "out_degree": 2, "pos": [2.376162416452735, -6.416461662560894], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eDevlin Whitehorn\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 8, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Glenda Chittock", "in_degree": 5, "label": "Glenda Chittock", "out_degree": 3, "pos": [1.361818100349357, -5.216871113128757], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGlenda Chittock\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 4, "font": {"color": "black"}, "gender": "Female", "house": "Ravenclaw", "id": "Ignatia Wildsmith", "in_degree": 1, "label": "Ignatia Wildsmith", "out_degree": 3, "pos": [2.7549476719153607, -6.056651722586711], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eIgnatia Wildsmith\u003c/b\u003e \u003c/br\u003eHouse: Ravenclaw \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 3, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "Lorcan d\u0027Eath", "in_degree": 0, "label": "Lorcan d\u0027Eath", "out_degree": 3, "pos": [-1.3910161012471771, -4.442844436075093], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eLorcan d\u0027Eath\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 2, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "Unidentified radio presenter", "in_degree": 0, "label": "Unidentified radio presenter", "out_degree": 2, "pos": [1.189263136191228, 10.449537090053594], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eUnidentified radio presenter\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Celestina Warbeck\u0027s first husband", "in_degree": 0, "label": "Celestina Warbeck\u0027s first husband", "out_degree": 1, "pos": [-8.273363632784292, -5.796924168438845], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u0027s first husband\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Celestina Warbeck\u0027s second husband", "in_degree": 0, "label": "Celestina Warbeck\u0027s second husband", "out_degree": 2, "pos": [0.7170211867911677, -8.707114546006034], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCelestina Warbeck\u0027s second husband\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}, {"blood": "unknown", "color": "#106632", "colour": "#106632", "community": 18, "community_colour": "#106632", "community_names": ["Celestina Warbeck", "Glenda Chittock", "Irving Warble"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Derwent Shimpling", "in_degree": 1, "label": "Derwent Shimpling", "out_degree": 0, "pos": [2.987186421867456, -6.587264133191434], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eDerwent Shimpling\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 18"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Celestina Warbeck\u0027s father", "to": "Celestina Warbeck", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s father", "to": "Celestina Warbeck\u0027s mother", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s father", "to": "Irving Warble", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s son", "to": "Celestina Warbeck", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s son", "to": "Irving Warble", "weight": 1}, {"color": "lightgrey", "from": "Devlin Whitehorn", "to": "Glenda Chittock", "weight": 1}, {"color": "lightgrey", "from": "Devlin Whitehorn", "to": "Ignatia Wildsmith", "weight": 1}, {"color": "lightgrey", "from": "Lorcan d\u0027Eath", "to": "Glenda Chittock", "weight": 1}, {"color": "lightgrey", "from": "Unidentified radio presenter", "to": "Glenda Chittock", "weight": 1}, {"color": "lightgrey", "from": "Unidentified radio presenter", "to": "Celestina Warbeck", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck", "to": "Glenda Chittock", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck", "to": "Irving Warble", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck", "to": "Celestina Warbeck\u0027s mother", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck", "to": "Celestina Warbeck\u0027s first husband", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck", "to": "Celestina Warbeck\u0027s second husband", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s mother", "to": "Irving Warble", "weight": 1}, {"color": "lightgrey", "from": "Celestina Warbeck\u0027s second husband", "to": "Irving Warble", "weight": 1}, {"color": "lightgrey", "from": "Ignatia Wildsmith", "to": "Derwent Shimpling", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

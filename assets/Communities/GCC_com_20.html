@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "Ravenclaw", "id": "Hortense Cooper", "in_degree": 3, "label": "Hortense Cooper", "out_degree": 4, "pos": [-1.7642665941347573, 5.590351715766917], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eHortense Cooper\u003c/b\u003e \u003c/br\u003eHouse: Ravenclaw \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 8, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Buckley Cooper", "in_degree": 5, "label": "Buckley Cooper", "out_degree": 3, "pos": [-2.6424664795937933, 7.197230369378347], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eBuckley Cooper\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 4, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Buckley Cooper\u0027s brother", "in_degree": 1, "label": "Buckley Cooper\u0027s brother", "out_degree": 3, "pos": [-2.4632193228120367, 6.944292545923405], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eBuckley Cooper\u0027s brother\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 5, "font": {"color": "black"}, "gender": "unknown", "house": "unknown", "id": "Cooper children", "in_degree": 3, "label": "Cooper children", "out_degree": 2, "pos": [-2.3760862729456234, 6.834114920465034], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eCooper children\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: unknown \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 9, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Dempster Wiggleswade", "in_degree": 4, "label": "Dempster Wiggleswade", "out_degree": 5, "pos": [-3.413114128822006, 8.393821664094748], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eDempster Wiggleswade\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 8, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Zamira Gulch", "in_degree": 4, "label": "Zamira Gulch", "out_degree": 4, "pos": [-3.5198176661991827, 8.727753013779514], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eZamira Gulch\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 8, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Grizel Hurtz", "in_degree": 4, "label": "Grizel Hurtz", "out_degree": 4, "pos": [-3.526856600242747, 8.875534802438157], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGrizel Hurtz\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 8, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Helbert Spleen", "in_degree": 4, "label": "Helbert Spleen", "out_degree": 4, "pos": [-3.702373388980647, 8.779927108079491], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eHelbert Spleen\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 2, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Elveira Elkins", "in_degree": 1, "label": "Elveira Elkins", "out_degree": 1, "pos": [-3.3595309730311986, 8.982055603541193], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eElveira Elkins\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 2, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Lilith Molesby", "in_degree": 1, "label": "Lilith Molesby", "out_degree": 1, "pos": [-3.4058838412982237, 9.167609511292278], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eLilith Molesby\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}, {"blood": "unknown", "color": "#59F402", "colour": "#59F402", "community": 20, "community_colour": "#59F402", "community_names": ["Dempster Wiggleswade", "Buckley Cooper", "Zamira Gulch"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Howland Coopey", "in_degree": 1, "label": "Howland Coopey", "out_degree": 1, "pos": [-3.687164697705154, 9.105873231834956], "shape": "dot", "size": 20, "species": "unknown", "title": "\u003cb\u003eHowland Coopey\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: unknown \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 20"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Hortense Cooper", "to": "Buckley Cooper", "weight": 1}, {"color": "lightgrey", "from": "Hortense Cooper", "to": "Buckley Cooper\u0027s brother", "weight": 1}, {"color": "lightgrey", "from": "Hortense Cooper", "to": "Cooper children", "weight": 1}, {"color": "lightgrey", "from": "Cooper children", "to": "Buckley Cooper\u0027s brother", "weight": 1}, {"color": "lightgrey", "from": "Cooper children", "to": "Buckley Cooper", "weight": 1}, {"color": "lightgrey", "from": "Dempster Wiggleswade", "to": "Zamira Gulch", "weight": 1}, {"color": "lightgrey", "from": "Dempster Wiggleswade", "to": "Grizel Hurtz", "weight": 1}, {"color": "lightgrey", "from": "Dempster Wiggleswade", "to": "Buckley Cooper", "weight": 1}, {"color": "lightgrey", "from": "Dempster Wiggleswade", "to": "Helbert Spleen", "weight": 1}, {"color": "lightgrey", "from": "Zamira Gulch", "to": "Elveira Elkins", "weight": 1}, {"color": "lightgrey", "from": "Zamira Gulch", "to": "Grizel Hurtz", "weight": 1}, {"color": "lightgrey", "from": "Zamira Gulch", "to": "Helbert Spleen", "weight": 1}, {"color": "lightgrey", "from": "Grizel Hurtz", "to": "Helbert Spleen", "weight": 1}, {"color": "lightgrey", "from": "Grizel Hurtz", "to": "Lilith Molesby", "weight": 1}, {"color": "lightgrey", "from": "Buckley Cooper", "to": "Buckley Cooper\u0027s brother", "weight": 1}, {"color": "lightgrey", "from": "Howland Coopey", "to": "Helbert Spleen", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

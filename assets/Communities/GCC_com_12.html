@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#38E74F", "colour": "#38E74F", "community": 12, "community_colour": "#38E74F", "community_names": ["Oswald Beamish", "Oswald (Niffler)", "Oswald"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Oswald (Niffler)", "in_degree": 1, "label": "Oswald (Niffler)", "out_degree": 1, "pos": [-1.577890957425577, -9.832512091918966], "shape": "dot", "size": 20, "species": "Niffler", "title": "\u003cb\u003eOswald (Niffler)\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Niffler \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 12"}, {"blood": "unknown", "color": "#38E74F", "colour": "#38E74F", "community": 12, "community_colour": "#38E74F", "community_names": ["Oswald Beamish", "Oswald (Niffler)", "Oswald"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Oswald", "in_degree": 0, "label": "Oswald", "out_degree": 2, "pos": [-1.470339936353339, -9.860969154004515], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eOswald\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 12"}, {"blood": "unknown", "color": "#38E74F", "colour": "#38E74F", "community": 12, "community_colour": "#38E74F", "community_names": ["Oswald Beamish", "Oswald (Niffler)", "Oswald"], "degree": 2, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Oswald Beamish", "in_degree": 2, "label": "Oswald Beamish", "out_degree": 0, "pos": [-9.0127548645883, -2.904628679098521], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eOswald Beamish\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 12"}, {"blood": "unknown", "color": "#38E74F", "colour": "#38E74F", "community": 12, "community_colour": "#38E74F", "community_names": ["Oswald Beamish", "Oswald (Niffler)", "Oswald"], "degree": 1, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Unidentified goblin associate of Oswald Beamish", "in_degree": 0, "label": "Unidentified goblin associate of Oswald Beamish", "out_degree": 1, "pos": [9.96499094476748, 1.1761889362088913], "shape": "dot", "size": 20, "species": "Goblin", "title": "\u003cb\u003eUnidentified goblin associate of Oswald Beamish\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Goblin \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 12"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Oswald (Niffler)", "to": "Oswald", "weight": 1}, {"color": "lightgrey", "from": "Oswald", "to": "Oswald Beamish", "weight": 1}, {"color": "lightgrey", "from": "Oswald Beamish", "to": "Unidentified goblin associate of Oswald Beamish", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

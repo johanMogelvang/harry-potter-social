@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Mary Buchanan", "in_degree": 3, "label": "Mary Buchanan", "out_degree": 4, "pos": [-6.11836526392938, 7.0242211551311176], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eMary Buchanan\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 11"}, {"blood": "Pure-blood", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 5, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Angus Buchanan\u0027s siblings", "in_degree": 0, "label": "Angus Buchanan\u0027s siblings", "out_degree": 5, "pos": [-6.327749621390633, 6.961365815579345], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eAngus Buchanan\u0027s siblings\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 11"}, {"blood": "Pure-blood", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 7, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Flora Buchanan", "in_degree": 5, "label": "Flora Buchanan", "out_degree": 2, "pos": [-6.288844882888722, 6.778422211414718], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eFlora Buchanan\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 11"}, {"blood": "Squib", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 12, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Angus Buchanan", "in_degree": 6, "label": "Angus Buchanan", "out_degree": 6, "pos": [-6.0273670710693725, 6.692652088798544], "shape": "dot", "size": 22, "species": "Human", "title": "\u003cb\u003eAngus Buchanan\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Squib \u003c/br\u003eCommunity: 11"}, {"blood": "Pure-blood", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 7, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "Hamish Buchanan", "in_degree": 5, "label": "Hamish Buchanan", "out_degree": 2, "pos": [-6.192094344112211, 6.873013152635994], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eHamish Buchanan\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: Pure-blood \u003c/br\u003eCommunity: 11"}, {"blood": "unknown", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 7, "font": {"color": "black"}, "gender": "Male", "house": "unknown", "id": "John Buchanan", "in_degree": 3, "label": "John Buchanan", "out_degree": 4, "pos": [-6.207386701711564, 7.130433095772502], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eJohn Buchanan\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 11"}, {"blood": "unknown", "color": "#5E71F1", "colour": "#5E71F1", "community": 11, "community_colour": "#5E71F1", "community_names": ["Angus Buchanan", "Mary Buchanan", "John Buchanan"], "degree": 3, "font": {"color": "black"}, "gender": "Female", "house": "unknown", "id": "Girl Sorted in 1858", "in_degree": 1, "label": "Girl Sorted in 1858", "out_degree": 2, "pos": [-4.996543815669856, 5.315077320559418], "shape": "dot", "size": 20, "species": "Human", "title": "\u003cb\u003eGirl Sorted in 1858\u003c/b\u003e \u003c/br\u003eHouse: unknown \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 11"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Mary Buchanan", "to": "Angus Buchanan\u0027s siblings", "weight": 1}, {"color": "lightgrey", "from": "Mary Buchanan", "to": "Flora Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Mary Buchanan", "to": "Angus Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Mary Buchanan", "to": "Hamish Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Mary Buchanan", "to": "John Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Angus Buchanan", "to": "Angus Buchanan\u0027s siblings", "weight": 1}, {"color": "lightgrey", "from": "Angus Buchanan", "to": "Flora Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Angus Buchanan", "to": "Girl Sorted in 1858", "weight": 1}, {"color": "lightgrey", "from": "Angus Buchanan", "to": "Hamish Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Angus Buchanan", "to": "John Buchanan", "weight": 1}, {"color": "lightgrey", "from": "John Buchanan", "to": "Angus Buchanan\u0027s siblings", "weight": 1}, {"color": "lightgrey", "from": "John Buchanan", "to": "Flora Buchanan", "weight": 1}, {"color": "lightgrey", "from": "John Buchanan", "to": "Hamish Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Hamish Buchanan", "to": "Angus Buchanan\u0027s siblings", "weight": 1}, {"color": "lightgrey", "from": "Hamish Buchanan", "to": "Flora Buchanan", "weight": 1}, {"color": "lightgrey", "from": "Flora Buchanan", "to": "Angus Buchanan\u0027s siblings", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

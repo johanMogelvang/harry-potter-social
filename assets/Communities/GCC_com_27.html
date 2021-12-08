@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            border: 1px solid white;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 4, "font": {"color": "black"}, "gender": "Male", "house": "Gryffindor", "id": "Gryffindor Wizard\u0027s Chess champion (III)", "in_degree": 1, "label": "Gryffindor Wizard\u0027s Chess champion (III)", "out_degree": 3, "pos": [6.96365530318466, -3.812881526202213], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGryffindor Wizard\u0027s Chess champion (III)\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 9, "font": {"color": "black"}, "gender": "Female", "house": "Ravenclaw", "id": "Ravenclaw Wizard\u0027s Chess champion", "in_degree": 6, "label": "Ravenclaw Wizard\u0027s Chess champion", "out_degree": 3, "pos": [4.30389927187831, -3.6794657439715666], "shape": "dot", "size": 22, "species": "Human", "title": "\u003cb\u003eRavenclaw Wizard\u0027s Chess champion\u003c/b\u003e \u003c/br\u003eHouse: Ravenclaw \u003c/br\u003eGender: Female \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 9, "font": {"color": "black"}, "gender": "Male", "house": "Slytherin", "id": "Slytherin Wizard\u0027s Chess champion", "in_degree": 6, "label": "Slytherin Wizard\u0027s Chess champion", "out_degree": 3, "pos": [5.737404547765103, -3.707712800759203], "shape": "dot", "size": 22, "species": "Human", "title": "\u003cb\u003eSlytherin Wizard\u0027s Chess champion\u003c/b\u003e \u003c/br\u003eHouse: Slytherin \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 7, "font": {"color": "black"}, "gender": "Male", "house": "Gryffindor", "id": "Gryffindor Wizard\u0027s Chess champion (V)", "in_degree": 0, "label": "Gryffindor Wizard\u0027s Chess champion (V)", "out_degree": 7, "pos": [7.197669173410734, -4.4947011850256935], "shape": "dot", "size": 22, "species": "Human", "title": "\u003cb\u003eGryffindor Wizard\u0027s Chess champion (V)\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 6, "font": {"color": "black"}, "gender": "Male", "house": "Gryffindor", "id": "Gryffindor Wizard\u0027s Chess champion", "in_degree": 3, "label": "Gryffindor Wizard\u0027s Chess champion", "out_degree": 3, "pos": [5.875720482599321, -4.191910097395467], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGryffindor Wizard\u0027s Chess champion\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 4, "font": {"color": "black"}, "gender": "Male", "house": "Gryffindor", "id": "Gryffindor Wizard\u0027s Chess champion (II)", "in_degree": 1, "label": "Gryffindor Wizard\u0027s Chess champion (II)", "out_degree": 3, "pos": [6.9489371240524065, -4.072119352496087], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGryffindor Wizard\u0027s Chess champion (II)\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}, {"blood": "unknown", "color": "#CDBF56", "colour": "#CDBF56", "community": 27, "community_colour": "#CDBF56", "community_names": ["Slytherin Wizard\u0027s Chess champion", "Ravenclaw Wizard\u0027s Chess champion", "Gryffindor Wizard\u0027s Chess champion (V)"], "degree": 4, "font": {"color": "black"}, "gender": "Male", "house": "Gryffindor", "id": "Gryffindor Wizard\u0027s Chess champion (IV)", "in_degree": 1, "label": "Gryffindor Wizard\u0027s Chess champion (IV)", "out_degree": 3, "pos": [6.749404368554543, -4.212278673321259], "shape": "dot", "size": 21, "species": "Human", "title": "\u003cb\u003eGryffindor Wizard\u0027s Chess champion (IV)\u003c/b\u003e \u003c/br\u003eHouse: Gryffindor \u003c/br\u003eGender: Male \u003c/br\u003eSpecies: Human \u003c/br\u003eBloodstatus: unknown \u003c/br\u003eCommunity: 27"}]);
+        edges = new vis.DataSet([{"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (III)", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (III)", "to": "Slytherin Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (III)", "to": "Gryffindor Wizard\u0027s Chess champion (V)", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (V)", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (V)", "to": "Gryffindor Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (V)", "to": "Gryffindor Wizard\u0027s Chess champion (II)", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (V)", "to": "Gryffindor Wizard\u0027s Chess champion (IV)", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (V)", "to": "Slytherin Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (II)", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (II)", "to": "Slytherin Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (IV)", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion (IV)", "to": "Slytherin Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Gryffindor Wizard\u0027s Chess champion", "to": "Slytherin Wizard\u0027s Chess champion", "weight": 1}, {"color": "lightgrey", "from": "Slytherin Wizard\u0027s Chess champion", "to": "Ravenclaw Wizard\u0027s Chess champion", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "curvedCW"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": true,
+        "hideNodesOnDrag": true
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.02,
+            "damping": 1,
+            "gravitationalConstant": -111,
+            "springConstant": 0.025,
+            "springLength": 75
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
