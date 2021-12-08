@@ -148,7 +148,7 @@ layout = html.Div([
     
     html.Div([
         html.Div([
-            html.H5(children = ["Full network"], style = {'text-align': 'center'}),
+            html.H5(children = ["GCC network"], style = {'text-align': 'center'}),
             cyto.Cytoscape(
                 id='cytoscape-com',
                 layout={'name': 'preset'},
@@ -169,25 +169,36 @@ layout = html.Div([
                         value = 0)
                     ], style = {'width': '100%'}),
                     html.Div([
-                        html.Iframe(id = "com-graph", src="/assets/Communities/GCC_com_0.html", style={"width":"100%", "height":"400px"})
+                        html.Iframe(id = "com-graph", src="/assets/Communities/GCC_com_0.html", style={"width":"100%", "height":"500px"})
                         ], 
                     )
             ],  style={'width': '45%', 'height': '100%'})
 
-        ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
+        ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh", 'marginBottom': '100px'}),
 
     html.Div([
         html.P(children = [
-            html.Span("Have you tried looking at the communities? Do they make sense? If you use the slider to go to " \
-                      "community 1 it can be seen that the largest nodes are "),
+            html.Span("Have you tried looking at the communities? Do they make sense? If you use the slider to go to "),
+            html.Span("community 1 ", style= {"font-weight": "bold"}),
+            html.Span("it can be seen that the largest nodes are "),
             html.Span("Newton Scamander, Gellert Grindewald, Nagini, Credence Barebone and Leta Lestrage. "
-                    , style= {"font-weight": "bold"}),
+                    , style= {"font-style": "italic"} ),
             html.Span("With a little knowledge about the Wizarding World, you can identify these characters as belonging "\
-                      "to the "),
-            html.Span("Fantastic Beasts universe, ", style= {"font-style": "italic"}),
-            html.Span("with ties to the "),
-            html.Span("Harry Potter universe. ", style= {"font-style": "italic"}),
+                      "to the Fantastic Beasts universe, with ties to the Harry Potter universe. "),
             html.Span("You might discover other fascinating communities, if you explore the slider options. "),
+            html.Span("Community 0 ", style= {"font-weight": "bold"}),
+            html.Span("contains characters such as: "),
+            html.Span("Hermione Granger, Severus Snape, Albus Dumbledore, Minerva McGonagall, "
+                      "Draco Malfoy, Neville Longbottom ", style= {"font-style": "italic"}),
+            html.Span("and other Hogwart's characters. "),
+            html.Span("Community 7 ", style= {"font-weight": "bold"}),
+            html.Span("consists of: "),
+            html.Span("The Weasley family (Ron, Ginny, Fred, George, Percy, Molly, Arthur etc.), Alastor Moody, "
+                      "Cornelious Fudge ", style= {"font-style": "italic"}),
+            html.Span("and other ministry people amoungst others. "),
+            html.Span("Harry Potter ", style= {"font-style": "italic"}),
+            html.Span("is in "),
+            html.Span("community 9. ", style= {"font-weight": "bold"}),
             ])
     ], style ={"display": "flex", "justify-content": "center", 'marginLeft': 60, 'marginRight': 60, 'marginTop': 20})
 ])

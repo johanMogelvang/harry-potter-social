@@ -107,19 +107,29 @@ layout = html.Div([
 
     html.P(""),
     
-    html.P(
-        "Did you observe the large difference in scale of the sentiment scores between the movies and the books?"
-        "The boxplot is showing the chapter based average sentiment score for the movies and books. We observe more "
-        "outliers (chapters with an average sentiment score outside the upper and lower fence). This is especially "
-        "the case for the 1st, 5th and 6th movie. Outliers are only present for 1st and 5th book, with only 1 and 3 "
-        "chapters as outliers. ", style = {'marginLeft': 60, 'marginRight': 60}
+    html.P(children = [
+        html.Span(
+        "Did you observe the large difference in scale of the sentiment scores between the movies and the books? "
+        "The boxplots show the chapter based average sentiment score for the movies and books. Here it is possible "
+        "to observe the outliers (chapters with an average sentiment score outside the upper and lower fence). "
+        "It can be seen that for the 1st, 5th and 6th movies there are quite a few outliers. This could indicate that "\
+        "Hollywood emphasises on emotions in the movies. As you know big emotions are what the viewers want. "\
+        "Outliers are only present for the 1st and 5th book, with only 1 and 3 chapters as outliers respectivly. " \
+        "When looking at the boxplot for the books it can be seen that "),
+       html.Span("Harry Potter and the Goblet of Fire ", style= {"font-style": "italic"}),
+       html.Span(
+           "has the largest span in sentiment scores. This is the book where Harry falls in love for the first time, "\
+           "has a fallout with Ron, enters the Triwizard Tournament and witness the return of Voldemort. "
+       )
+        ]
+        , style = {'marginLeft': 60, 'marginRight': 60}
     ),
     # lower fence = Q3 - 1.5*IQR
     # upper fence = Q3 + 1.5*IQR
 
-    html.Div([
-        html.H3("Do you want to dive deeper into the sentiment of the Harry Potter Books?", className="text-center")
-    ]),
+    #html.Div([
+    #    html.H3("Do you want to dive deeper into the sentiment of the Harry Potter Books?", className="text-center")
+    #]),
     
 ])
 
@@ -135,9 +145,10 @@ def update_figure(value):
         src2 = "assets/Sentiment/chap_sentiment_books.png"
         text = "A sentiment score has been found for all chapters in the seven books and scenes in the eight movies. " \
             "The most negative scene in the movies is \"Writting on the Wall\" this scene only includes the basilisk " \
-            "saying \"Kill!\" and the sentiment score is therefore very negative. For the books the most negative chapter " \
+            "saying \"Kill!\" and the sentiment score is therefore very negative. The most positive scene is in movie 1, "\
+            "where Gryffindor wins the house cup for the first time in a long period. For the books the most negative chapter " \
             "is the one with Dumbledore's death and the flight of the Half-Blood prince. " \
-            "The scenes in the movies have larger sentiment scores than the books. Does this seem surprise you? Perhaps " \
+            "The scenes in the movies have larger sentiment scores than the books. Does this surprise you? Perhaps " \
             "Hollywood increase the level of sadness/ happiness when producing the movies. " \
             "When looking at the development in sentiment scores for the books, it can be seen that for the later books " \
             "they do not have the same \"happy ending\" as book 1, 2, 3 and 4 have. They all end on a more gloomy node. "
@@ -152,5 +163,5 @@ def update_figure(value):
             "\"Harry Potter and the Dealthly Hallows\" (both the book and the movie)? The Malfoy family is being punished by "\
             "Lord Voldemort and Malfoy is very unhappy about his situation. In \"Harry Potter and the Half-Blood Prince\" "\
             "(the book) both Harry and Ron have the highest on average sentiment score. Wonder if this have anything to do "\
-            "with crushes and relationships with Ginny and Lavender (and secretively Hermione). " 
+            "with their crushes and relationships with Ginny and Lavender (and secretively Hermione). " 
     return src1, src2, text
