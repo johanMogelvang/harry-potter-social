@@ -174,7 +174,7 @@ layout = html.Div([
                     )
             ],  style={'width': '45%', 'height': '100%'})
 
-        ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh", 'marginBottom': '100px'}),
+        ], style ={"display": "flex", 'flex-wrap':'wrap', "justify-content": "center", "width": "95vw", "height" : "60vh", 'marginBottom': '100px'}),
 
     html.Div([
         html.P(children = [
@@ -200,7 +200,7 @@ layout = html.Div([
             html.Span("is in "),
             html.Span("community 9. ", style= {"font-weight": "bold"}),
             ])
-    ], style ={"display": "flex", "justify-content": "center", 'marginLeft': 60, 'marginRight': 60, 'marginTop': 20})
+    ], style ={"display": "flex", 'flex-wrap':'wrap', "justify-content": "center", 'marginLeft': 60, 'marginRight': 60, 'marginTop': 20})
 ])
 
 @app.callback([Output('com-graph', 'src')],

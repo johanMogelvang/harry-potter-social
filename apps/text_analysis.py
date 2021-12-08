@@ -35,8 +35,8 @@ layout = html.Div([
                           'All these questions and more can be investigated by examining the most important words for the different groups. ' 
                           "Using natural language processing, the texts from the characters' wiki-pages have been processed and the top words have been determined using "
                         ),
-                html.Strong("term frequency-inverse document frequency (TF-IDF) "), 
-                html.Span("to score the words for each group. You can read more about this in the explainer notebook."
+                html.Strong("term count-inverse document frequency (TC-IDF) "), 
+                html.Span("to score the words for each group. You can read more about this in the explainer notebook. "
                           "The results can be visualized as word-clouds where the size of each word indicate the importance of that word to the group."
                         )
                 ])
@@ -48,7 +48,7 @@ layout = html.Div([
                 html.Em("Humans and Centaurs "),
                 html.Span("or "),
                 html.Em("Gryffindor and Slytherin" ),
-                html.Span(".")
+                html.Span(". You can also read more about the different features below.")
                     ])
                 )
             ])
@@ -127,7 +127,7 @@ def update_dropdown(value):
     if value == "blood":
         text = ["The blood-status of a character plays an important role in the Harry Potter series. Voldemort and his Deatheaters believe that only pure-blood (a wizard with two wizard parents) should be allowed to learn magic. "
                 "They also consider muggles (non-magic people) and muggle-borns (wizards born to muggle parents) to be inferior to wizards and believe that wizards should rule over muggles. "
-               "Overall, there is a lot of prejudice in the wizarding world about blood-status. However, since the wiki-pages are written in (mostly) neutral language, this is not very clear from the wordclouds."
+               "Overall, there is a lot of prejudice in the wizarding world about blood-status. However, since the wiki-pages are written in (mostly) neutral language, this is not very clear from the wordclouds. "
                "One exception is the word *mudblood* in the Muggle-born, which is a very offensize term. " 
                "Instead, the wordclouds seem to reference traits about the characters of that specific blood-type, e.g. there are many words in the Muggle-born category, which can be connected with Hermione. "
                "Voldemort and Harry Potter are both half-bloods, which might explain why *powerfull, kill* and *skill* are important words here. Words such as *prophecy, prediction* and *divination* also reference the prophecy there exists between these two characters. "
@@ -135,12 +135,14 @@ def update_dropdown(value):
                 ]
     if value == "house":
         text = ["In the Wizarding World a character's house is a very important identifier and often means that the character posses specific traits. "
-                "The stereotypes are that Gryffindors are brave and noble, Hufflepuffs are friendly and hard-working, Ravenclaws are clever and wise while Slytherins are mostly characterised as mean and bigoted. "
-                "The houses also have specific objects and historican events associated with them. "
-                "It can be observed that e.g. the word *Locket* is very important to both Gryffindor and Slytherin. "
-                "This must reference Slytherins locket, which three major Gryffindors (Ron, Hermione and Harry) destroy as part of their quest to defeat Voldemort. "
+                "The stereotypes are that Gryffindors are brave and noble, Hufflepuffs are friendly and hard-working, Ravenclaws are clever and wise while Slytherins are mostly characterised as ambitious and often a bit prejudiced. "
+                "The houses also have specific objects and historic events associated with them (e.g. Ravenclaw's diadem). "
+                "It can be observed that the word *Locket* is very important to both Gryffindor and Slytherin. "
+                "This must reference Slytherin's locket, which three major Gryffindors (Ron, Hermione and Harry) destroy as part of their quest to defeat Voldemort. "
                 "In the Slytherin wordcloud *mudblood* and *bloodline* are also very important words, which could suggest that Slytherins indeed are prejudiced and arrogant. If you look closer, there are also words such as *murdering, taunted, torturing, disowned* and *aristocracy*, which overall give a negative impression of Slytherin as a house. " 
-                "The other wordclouds seem to mostly refer to important characters and events associated with this house. Especially the Hufflepuff wordcloud is very influenced by the most famous Hufflepuff, Newton Scamander, who has a magically-expanded *suitcase* where he among other things has a *obscurus* and a wide variety of magical beasts."
+                "The other wordclouds seem to mostly refer to important characters and events associated with the house. Especially the Hufflepuff wordcloud is very influenced by the most famous Hufflepuff, Newton Scamander, who has a magically-expanded *suitcase* where he among other things has a *obscurus* and a wide variety of magical beasts."
+                
+                "\n \nNote that the American school-houses have not been included here, as there were very few characters for each house."
                 ]
     if value == "species":
         text = ["There are many different species in the dataset. The four most common are Humans followed by Goblins, House-elfs and Giants, "
@@ -157,7 +159,7 @@ def update_dropdown(value):
                 "\n \n* **Giants** are rather violent creatures living in the mountains. One exception is Hagrid's half-brother Grawp who he attempts to teach English (see the word *brother* and *English* in the wordcloud). The chief of the giants is called the *Gurg*, which explains why this is such an important word."
                 ]
     if value == "gender":
-        text = ["The male and female wordclouds seem very similar, as the most important words for both are e.g. *relationship* and *love*. This indicated that this is perhaps not the most interesting partitioning of the characters as the characters are described quite similar regardless if they are male or female. "
+        text = ["The male and female wordclouds seem very similar, as the most important words for both are e.g. *relationship* and *love*. This indicates that this is perhaps not the most interesting partitioning of the characters as the characters are described quite similar regardless if they are male or female. "
                 "However, one thing to note is that *husband* and *marriage* are important words in the female wordcloud - a female character's spouse is clearly often mentioned in relation to them!"
         ]
 
