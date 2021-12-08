@@ -36,10 +36,10 @@ layout = html.Div([
                                      html.Br(),
                                      html.Br(),
                                      "The main goal of this project is to allow you to dive into the social network of Harry Potter, Fantastical Beasts and all the side stories from the Wizarding World. " 
-                                     "To allow for this, we have prepared a couple of analysis you can explore, and even included some interactive ones, in case you want to go even deeper. ",
+                                     "To allow for this, we have prepared a couple of analyses you can explore, and even included some interactive ones, in case you want to go even deeper. ",
                                      html.Br(),
                                      html.Br(),
-                                     "The site has been split into multiple pages, so you can explore precisely what you find interesting. If you just want to explore, we recommend following the progression as seen below:"
+                                     "The site has been split into multiple pages, so you can explore precisely what you find interesting. If you just want to explore, we recommend following the steps seen below:"
                                      ])
                     , className="mb-4 ", style={'position': 'absolute',
                                                'top': '150%',
@@ -77,8 +77,8 @@ layout = html.Div([
                             href = "/exploratory", style={"text-decoration":"none"}
                         ),
                     html.P("Explore the features in the Wizarding World. "
-                    "The Wizarding universe consists of characters from the Harry Potter world, "
-                    "Fantastic Beasts and The Tales of Beedle the Bard. All characters have different features. "
+                    "The Wizarding universe consists of many different characters from the Harry Potter world, "
+                    "Fantastic Beasts, The Tales of Beedle the Bard and many others. "
                     "You can explore more about all these amazing characters, their features and the data."
                     , className = "card-text")
                     ]
@@ -96,11 +96,9 @@ layout = html.Div([
                             ), 
                             href = "/network_analysis", style={"text-decoration":"none"}
                         ),
-                    html.P("Explore the relationships in the Wizarding World."
-                            "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
+                    html.P( "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
                             "Using network science it is possible to explore the interconnections between characters. "
-                            "You can even use your imagination to examine relationships across school houses, family houses "
-                            "or blood status. "
+                            "You can even use your imagination to examine relationships based on family ties or interactions between houses."
                     , className = "card-text")
                     ]
                 ), 
@@ -139,7 +137,7 @@ layout = html.Div([
                         ), 
                     html.P("Using language processing it is possible to examine different groups of characters in the "\
                     "Wizarding World. What sets the different species apart? Can we identify characteristics for different "
-                    "groups from their WikiPages? Are all pure-bloods really prejudices? And are Gryffindors really as brave "
+                    "groups from their WikiPages? Are all pure-bloods really prejudiced? And are Gryffindors really as brave "
                     "as they would like us to beleive? "
                     , className = "card-text")
                     ]
@@ -160,8 +158,8 @@ layout = html.Div([
                         ), 
                     html.P("Through the Harry Potter series we follow Harry through thick and thin, we experience "\
                         "his happiness and sadness and we watch him grow up and prepare himself for the war against "\
-                        "Voldemort. You can here examine how the sentiment evolve over time through all eight movies and "\
-                        "seven books. You can also explore how the sentiment for top 10 most connected characters in the "\
+                        "Voldemort. You can here examine how the sentiment evolves over time through all eight movies and "\
+                        "seven books. You can also explore how the sentiment for the top 10 most connected characters in the "\
                         "Harry Potter universe changes through the story. "
                     , className = "card-text")
                     ]
@@ -185,8 +183,8 @@ layout = html.Div([
                             "Of course there is the topic of Harry Potter vs. Voldemort. Can you think of other "\
                             "topics? Perhaps that of the Triwizard Tournament in "),
                         html.Span("Harry Potter and the Goblet of Fire? ", style= {"font-style": "italic"}),
-                        html.Span("Try exploring the page to see which topics have been identified for the books "\
-                                  "and the movies. Do you think they differ? ")
+                        html.Span("Try exploring this page to see which topics have been identified for the books "\
+                                  "and the movies. Do you think they will differ? ")
                         ]
                     , className = "card-text")
                     ]
