@@ -55,10 +55,10 @@ layout = html.Div([
     #         style={'position': 'absolute', 'top':'20vh', 'text-align': 'center'}
     #     ),
     html.Div(
-            [html.Img(src="assets/Home_page.jpg", style={'width': '100vw',
+            [html.Img(src="assets/Home_page_test.jpg", style={'width': '100vw',
             'height': 'auto',
             'max-height':'1000px'})],
-            style={'width':'100vh'}
+            style={'width':'100vh', 'margin-bottom':'5vh'}
     ),
     ##JOHAN
 
@@ -170,7 +170,7 @@ layout = html.Div([
 
             dbc.Card(
                 [
-                dbc.CardImg(src="assets/HPlogo.jpg", top = True, style=card_img_style), 
+                dbc.CardImg(src="assets/Topics/topics_homepage.png", top = True, style=card_img_style), 
                 dbc.CardBody([
                     dbc.CardLink(
                             html.H5("Topic Modelling",
@@ -186,10 +186,10 @@ layout = html.Div([
                 ],
                 style = {'width':card_width},
             )
-        ], justify = 'center', className ="mb-5"),
+        ], justify = 'center', className ="mb-5", style={'top':'5vh'}),
 
         dbc.Row([
-            dbc.Col(html.P(" Enjoy!...  ", className="text-center")
+            dbc.Col(html.P("All the data on this webpage has been gathered from the Harry Potter Wiki, make sure to go and check the wiki site out below.", className="text-center")
                     , className="mb-5 mt-5")
         ]),
 
@@ -259,14 +259,14 @@ layout = html.Div([
                         dbc.Row([
                             dbc.Col(
                                 dbc.Button(
-                                    "Go to HP Wiki", 
+                                    "HP Wiki", 
                                     href="https://harrypotter.fandom.com/wiki/Main_Page",
                                     color="primary"
                                     ), 
                                 className="mt-3"),
                             dbc.Col(
                                 dbc.Button(
-                                    "Get the data - books", 
+                                    "books", 
                                     href="https://github.com/neelk07/neelkothari/tree/master/blog/static/data/text",
                                     color="primary"
                                     ), 
@@ -274,7 +274,7 @@ layout = html.Div([
                                 ),
                             dbc.Col(
                                 dbc.Button(
-                                    "Get the data - movies", 
+                                    "movies", 
                                     href="https://github.com/Kornflex28/hp-dataset/tree/main/datasets",
                                     color="primary"
                                     ), 
