@@ -125,7 +125,7 @@ layout = html.Div([
                 )
         ]),
         dbc.Row([
-            html.P(children='Node that the graph takes a while to load due to its size. There is also some shaking because the solver used to determine the node position struggles to find a non-overlapping, stable layout. '
+            html.P(children='Note that the graph takes a while to load due to its size. There is also some shaking because the solver used to determine the node position struggles to find a non-overlapping, stable layout. '
                 )
         ])
     ]),
