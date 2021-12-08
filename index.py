@@ -12,7 +12,7 @@ nav = dbc.Nav(
     [
         dbc.NavLink("Home", href="/home"),
         dbc.NavLink("Exploratory", href="/exploratory"),
-        dbc.NavLink("Network science", href="/network_analysis"),
+        dbc.NavLink("Network Analysis", href="/network_analysis"),
         dbc.NavLink("Community detection", href="/communities"),
         dbc.NavLink("Text Analysis", href="/text_analysis"),
         dbc.NavLink("Sentiment Analysis", href="/sentiment_analysis"),
