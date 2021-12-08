@@ -210,7 +210,7 @@ layout = html.Div([
                             ),
                         html.P(
                             "Get the explainer notebook to dive more into the technical aspect of this project. "
-                            "You can both be view and download it by clicking on the button. ",
+                            "You can view and download it by clicking on the button. ",
                             className="card-text",
                             ),
                         dbc.Row([
