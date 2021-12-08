@@ -35,8 +35,8 @@ layout = html.Div([
         dbc.Row([
             dbc.Col(html.P(
                 "Through the books and movies, we follow Harry Potter and the other students at Hogwarts on "
-                "their journey from being first year students to seventh year students. The characters evolve over time "
-                "and the story told becomes more elaborate and perhaps even more gloomy. This page will dive into "
+                "their journey from being first-year students to seventh-year students. The characters evolve over time "
+                "and the story becomes more elaborate and perhaps even more gloomy. This page will dive into "
                 "the world of sentiment analysis for both the seven books and the eight movies. Here you can explore the "
                 "sentiment of the top 10 most connected characters through the story and a chapter based sentiment across "
                 "the story. "
@@ -84,9 +84,9 @@ layout = html.Div([
         )
     ], style = {'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'}),
 
-    html.Div([
-        html.H4("Examine the difference in scale of the sentiment scores between the movies and the books", className="text-center")
-    ]),
+    #html.Div([
+    #    html.H4("Examine the difference in scale of the sentiment scores between the movies and the books", className="text-center")
+    #]),
 
     html.P(""),
 
@@ -102,7 +102,7 @@ layout = html.Div([
             src = "assets/Sentiment/boxplot_sentiment_books.png", 
             style = {'height':'45%', 'width': "45%"}
         )
-        ], style = {'width': '100vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap'}
+        ], style = {'width': '100vw', 'justify-content': 'center', 'display': 'flex', 'flex-wrap':'wrap', 'marginTop':30}
     ),
 
     html.P(""),
@@ -119,7 +119,7 @@ layout = html.Div([
        html.Span("Harry Potter and the Goblet of Fire ", style= {"font-style": "italic"}),
        html.Span(
            "has the largest span in sentiment scores. This is the book where Harry falls in love for the first time, "\
-           "has a fallout with Ron, enters the Triwizard Tournament and witness the return of Voldemort. "
+           "has a fallout with Ron, enters the Triwizard Tournament and witnesses the return of Voldemort. "
        )
         ]
         , style = {'marginLeft': 60, 'marginRight': 60}
@@ -148,10 +148,10 @@ def update_figure(value):
             "saying \"Kill!\" and the sentiment score is therefore very negative. The most positive scene is in movie 1, "\
             "where Gryffindor wins the house cup for the first time in a long period. For the books the most negative chapter " \
             "is the one with Dumbledore's death and the flight of the Half-Blood prince. " \
-            "The scenes in the movies have larger sentiment scores than the books. Does this surprise you? Perhaps " \
+            "The sentiment scores for the scenes in the movies are on a much larger scale than the sentiment scores for the chapters of the books. Does this surprise you? Perhaps " \
             "Hollywood increase the level of sadness/ happiness when producing the movies. " \
-            "When looking at the development in sentiment scores for the books, it can be seen that for the later books " \
-            "they do not have the same \"happy ending\" as book 1, 2, 3 and 4 have. They all end on a more gloomy node. "
+            "When looking at the development in sentiment scores for the books, it can be seen that the later books " \
+            " do not have the same \"happy ending\" as book 1, 2, 3 and 4 have. They all end on a more gloomy node. However, the epilogue \"Nineteen Years Later\" in the last book, makes sure the series ends happily after all."
     else:
         src1 = "assets/Sentiment/char_sentiment_movies.png"
         src2 = "assets/Sentiment/char_sentiment_books.png"
@@ -162,6 +162,6 @@ def update_figure(value):
             "are a Harry Potter fan, you might understand why Draco Malfoy has such a low sentiment score in "\
             "\"Harry Potter and the Dealthly Hallows\" (both the book and the movie)? The Malfoy family is being punished by "\
             "Lord Voldemort and Malfoy is very unhappy about his situation. In \"Harry Potter and the Half-Blood Prince\" "\
-            "(the book) both Harry and Ron have the highest on average sentiment score. Wonder if this have anything to do "\
+            "(the book) both Harry and Ron have the highest average sentiment score. Wonder if this has anything to do "\
             "with their crushes and relationships with Ginny and Lavender (and secretively Hermione). " 
     return src1, src2, text
