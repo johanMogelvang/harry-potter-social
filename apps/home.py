@@ -139,7 +139,7 @@ layout = html.Div([
                     html.P("Using language processing it is possible to examine different groups of characters in the "\
                     "Wizarding World. What sets the different species apart? Can we identify characteristics for different "
                     "groups from their WikiPages? Are all pure-bloods really prejudiced? And are Gryffindors really as brave "
-                    "as they would like us to beleive? "
+                    "as they would like us to believe? "
                     , className = "card-text")
                     ]
                 ), 
