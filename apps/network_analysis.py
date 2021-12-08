@@ -193,17 +193,17 @@ layout = html.Div([
                     ],  style={'width': '35%', 'height': '100%', 'text-align': 'center'})
             ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
             html.Div([
-                html.Col(children = [
-                    html.H1("Aggregated graphs"),
-                    html.H5("Explore the relationships on a more global scale"),
+                dbc.Container([
+                    html.H1("Aggregated graphs", className="text-center"),
+                    html.H5("Explore the relationships on a more global scale", className="text-center"),
                     html.P("The characters can also be combined to examine other interesting interactions. "
                             "Below you can see how the houses interact. The weight on the edges indicate how many characters from these houses interact with each other in the full network. "
-                            "Not surprisingly, Gryffindor and Slytherin have the most connections. This makes sense as there is a lot of tension, rivalry and fighting between characters of these houses. "
+                            "Not surprisingly, Gryffindor and Slytherin have the most connections. This makes sense as there is a lot of tension, rivalry and fighting between characters of these houses, and with Harry Potter being split between the houses, from the very first movie and onward.  "
                             "However, the American school-houses are also connected to the Hogwarts houses! This is an interesting discovery as it shows connections between the Harry Potter universe and the Fantastic Beasts movies. Examining the dataset from this angle, has shown us how two different parts of the wizarding universe are connected."
-                    )
-                    ], className="mb-4")
+                    ) ]   
+                )
                 ],
-                style={'marginTop': '10vh', 'marginLeft':'20vh'}),
+                style={'marginTop': '10vh'}),
             html.Div([
                     cyto.Cytoscape(
                         id='cytoscape-agg-houses',
