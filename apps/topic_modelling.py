@@ -119,8 +119,8 @@ def update_figure(value):
                 "The further the bubbles are away from each other, the more different they are. "\
                 "Try to examine topic 3. Here words such as: deatheater, gilliweed, unforgivable, maze, irish, durmstranf etc. " \
                 "occurs. These words are all very characteristic of the movie \"Harry Potter and the Goblet of Fire\".  "\
-                "OBS. - Be aware that the this visualisation enumerates the topics according to size, where the topics in "\
-                "the graph below is enumerated according to topic number given by the LDA. "
+                "Be aware that this visualisation enumerates the topics according to size, where the topics in "\
+                "the graph below is enumerated according to topic number given by the LDA, the numbering is therefore a bit different. "
         
         text2 = "How are the topics and the movies related?"
         src2 = "assets/Topics/G_topic_movies.html"
