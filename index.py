@@ -31,12 +31,12 @@ nav = dbc.Nav(
 NAVBAR_STYLE={"background-repeat": "no-repeat",
 "background-position": "right top",
 "background-size": "300px 30px",
-"height":"10%","position":"fixed",
+"height":"65px","position":"fixed",
 "top":"0",
 "width":"100%",
 "z-index": "999"}
 
-CONTENT_STYLE={"margin-top":"5%"}
+CONTENT_STYLE={"margin-top":"65px"}
 
 navbar = dbc.Navbar(
     html.Div(

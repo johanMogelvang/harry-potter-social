@@ -297,7 +297,7 @@ def update_graph(choice):
         )
     margin_val = 30
     fig.update_layout(showlegend=False,
-                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
+                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val), template='simple_white')
 
     fig2 = go.Figure(
         px.bar(df_species_freq, x="Species", y = "Count",
@@ -306,7 +306,7 @@ def update_graph(choice):
                     title = "Species")
         )
     fig2.update_layout(showlegend=False,
-                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
+                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val), template='simple_white')
 
     fig3 = go.Figure(
         px.bar(df_blood_freq, x="Blood status", y = "Count",
@@ -315,7 +315,7 @@ def update_graph(choice):
                     title = "Blood status")
         )
     fig3.update_layout(showlegend=False,
-                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
+                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val), template='simple_white')
 
     fig4 = go.Figure(
         px.bar(df_gender_freq, x="Gender", y = "Count",
@@ -324,7 +324,7 @@ def update_graph(choice):
                     title = "Gender")
         )
     fig4.update_layout(showlegend=False,
-                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val))
+                      margin=dict(l=margin_val, r=margin_val, t=margin_val, b=margin_val), template='simple_white')
     return fig, fig2, fig3, fig4
 
 @app.callback([Output('scatter_distribution', 'figure')],
@@ -401,6 +401,7 @@ def update_network(value):
                 row=2, col=1
                 )
 
+    fig.update_layout(template='simple_white')
     # Update xaxis properties
     fig.update_xaxes(title_text="Degree", row=1, col=1)
     fig.update_xaxes(title_text="log(Degree)", row=2, col=1, type="log")

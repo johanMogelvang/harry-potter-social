@@ -27,7 +27,7 @@ with open("assets/Communities/cyto_GCC_com.json", 'rb') as f:
 h = 350
 w = 500
 
-fig = px.bar(df_barplot, x = "Size", y = "Communities", orientation = 'h', color = 'Colours', color_discrete_map="identity")
+fig = px.bar(df_barplot, x = "Size", y = "Communities", orientation = 'h', color = 'Colours', color_discrete_map="identity", template='simple_white')
 
 fig.update_layout(title = dict(
                         text='<b>Sizes of communities - Louvian partition</b>',
