@@ -35,8 +35,9 @@ layout = html.Div([
                                      ["Welcome!",
                                      html.Br(),
                                      html.Br(),
-                                     "The main goal of this project is to allow you to dive into the social network of Harry Potter, Fantastical Beasts and all the side stories from the Wizarding World. " 
-                                     "To allow for this, we have prepared a couple of analyses you can explore, and even included some interactive ones, in case you want to go even deeper. ",
+                                     "The main goal of this project is to allow you to dive into the social network of Harry Potter, Fantastical Beasts and all the side stories from the Wizarding World. ",
+                                     "You can explore many different aspects of the wizarding world, from investigating important relationships and central characters to analysing the development throughout the Harry Potter series with sentiment analysis. ",
+                                     "Using interactive graphs you have the oppurtunity to dive into the wizarding world and find your own new insights. ",
                                      html.Br(),
                                      html.Br(),
                                      "The site has been split into multiple pages, so you can explore precisely what you find interesting. If you just want to explore, we recommend following the steps seen below:"
