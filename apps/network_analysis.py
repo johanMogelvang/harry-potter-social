@@ -154,6 +154,7 @@ layout = html.Div([
                     dbc.Row([
                         dbc.Col(html.P(children='On this page you can interactively explore the network of the wizarding world, as collected from the HP Wiki. '
                                                 'This first graph illustrates the families of the wizzarding world, each node representing a character, and a link between them representing familial ties. '
+                                                'Drag the slider to include more or less families. '
                                                 'You can select characters to highlight only their immediate family, and hereby show the distribution of which houses their immediate family are part of. '
                                                 'For some of the nodes, it might be a bit hard to make out who they represent, so you can zoom in on the graph, if you want to take a closer look. '
                                                 'You can also drag the nodes around and rearrange them.'
@@ -163,6 +164,7 @@ layout = html.Div([
                 ]),      
                 html.Div([
                     html.Div([
+                        html.H5("Families to include in plot:"),
                         dcc.Slider(
                         id='my-slider',
                         min=1,
@@ -187,6 +189,7 @@ layout = html.Div([
                         )
                     ], style={'width': '55%', 'height': '100%'}),
                     html.Div([
+                        html.H5('House distribution of the plotted families:'),
                         dcc.Graph(id='live-update-bar-graph', style={'height':'50%'}),
                         html.H5('The family the of selected character:', id='selected-character-text'),
                         dcc.Graph(figure={}, id='live-character-network-graph', style={'height':'50%'}),
