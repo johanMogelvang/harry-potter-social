@@ -27,7 +27,6 @@ nav = dbc.Nav(
 # dbc.Col(html.Div("One of three columns")), dbc.Col(html.Div("One of three columns"), width=3), ] )
 
 
-
 NAVBAR_STYLE={"background-repeat": "no-repeat",
 "background-position": "right top",
 "background-size": "300px 30px",
