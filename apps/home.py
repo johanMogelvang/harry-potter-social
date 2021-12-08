@@ -20,17 +20,6 @@ card_img_style ={
 }
 
 layout = html.Div([
-    html.Div(
-            [html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", style={'width': '100vw',
-            'height': 'auto', 'color':'white'})],
-            style={'position': 'absolute', 'top':'20vh', 'text-align': 'center'}
-        ),
-        html.Div(
-            [html.Img(src="assets/hogwarts.jpg", style={'width': '100vw',
-            'height': 'auto'})],
-            style={'width':'100vh'}
-        ),
-        
     dbc.Container([
         dbc.Row([
             dbc.Col(html.H2("Exploring the Wizarding World of J.K. Rowling with Network Science", className="text-center")
