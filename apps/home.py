@@ -64,12 +64,7 @@ layout = html.Div([
 
 
     dbc.Container([
-        # dbc.Row([
-        #     dbc.Col(
-        #         html.H5(children='Below you'
-        #                              'Singapore, which gives an overview of the situation in Singapore after different measures have been implemented by the local government.')
-        #             , className="mb-5 mt-3")
-        # ]),
+
         dbc.Row([
             dbc.Card(
                 [
@@ -82,9 +77,9 @@ layout = html.Div([
                             href = "/exploratory", style={"text-decoration":"none"}
                         ),
                     html.P("Explore the features in the Wizarding World. "
-                    "The Wizarding universe consists of characters from the Harry Potter world,"
-                    "Fantastic Beasts and The Tales of Beedle the Bard, and their features. "
-                    "You can explore more about all these amazing characters and the data."
+                    "The Wizarding universe consists of characters from the Harry Potter world, "
+                    "Fantastic Beasts and The Tales of Beedle the Bard. All characters have different features. "
+                    "You can explore more about all these amazing characters, their features and the data."
                     , className = "card-text")
                     ]
                 ), 
@@ -122,8 +117,10 @@ layout = html.Div([
                             ), 
                             href = "/communities", style={"text-decoration":"none"}
                         ),
-                    html.P("What are the most important communities in the Wizarding World?"
-                            "How strong/ connected are these groups. Are "
+                    html.P("The Wizarding World is a large network of many different characters connected "\
+                            "across different family houses, school houses etc. Have you ever wondered how the "\
+                            "Wizarding World can be split into communities? We will partition the network into "\
+                            "communities using four different partitions and examine how strong the communities are."
                     , className = "card-text")
                     ]
                 ), 
@@ -140,8 +137,10 @@ layout = html.Div([
                             ), 
                             href = "/text_analysis", style={"text-decoration":"none"}
                         ), 
-                    html.P("Using language processing to examine different groups of characters in the Wizarding World. "
-                    "What sets the different species apart? Are all pure-bloods really prejudices? (wordclouds, tf-idf etc)"
+                    html.P("Using language processing it is possible to examine different groups of characters in the "\
+                    "Wizarding World. What sets the different species apart? Can we identify characteristics for different "
+                    "groups from their WikiPages? Are all pure-bloods really prejudices? And are Gryffindors really as brave "
+                    "as they would like us to beleive? "
                     , className = "card-text")
                     ]
                 ), 
@@ -159,8 +158,11 @@ layout = html.Div([
                             ), 
                             href = "/sentiment_analysis", style={"text-decoration":"none"}
                         ), 
-                    html.P(" Sentiment for characters"
-                    "Books vs movies,  characters in HP vs Fantastic beasts movies? "
+                    html.P("Through the Harry Potter series we follow Harry through thick and thin, we experience "\
+                        "his happiness and sadness and we watch him grow up and prepare himself for the war against "\
+                        "Voldemort. You can here examine how the sentiment evolve over time through all eight movies and "\
+                        "seven books. You can also explore how the sentiment for top 10 most connected characters in the "\
+                        "Harry Potter universe changes through the story. "
                     , className = "card-text")
                     ]
                 ), 
@@ -178,8 +180,14 @@ layout = html.Div([
                             ), 
                             href = "/topic_modelling", style={"text-decoration":"none"}
                         ),
-                    html.P(" topics in the books vs movies"
-                    "LDA etc. "
+                    html.P(children = [
+                        html.Span("Have you ever thought about which topics appear in the different books and movies?"\
+                            "Of course there is the topic of Harry Potter vs. Voldemort. Can you think of other "\
+                            "topics? Perhaps that of the Triwizard Tournament in "),
+                        html.Span("Harry Potter and the Goblet of Fire? ", style= {"font-style": "italic"}),
+                        html.Span("Try exploring the page to see which topics have been identified for the books "\
+                                  "and the movies. Do you think they differ? ")
+                        ]
                     , className = "card-text")
                     ]
                 ), 
@@ -202,13 +210,14 @@ layout = html.Div([
                                 className="text-center"
                             ),
                         html.P(
-                            "Get the explainer notebook to dive more into the technical aspect of this project.",
+                            "Get the explainer notebook to dive more into the technical aspect of this project. "
+                            "You can both be view and download it by clicking on the button. ",
                             className="card-text",
                             ),
                         dbc.Row([
                             dbc.Col(
                                 dbc.Button(
-                                    "Download the explainer notebook", 
+                                    "Examine the explainer notebook", 
                                     href="https://harrypotter.fandom.com/wiki/Main_Page",
                                     color="primary"
                                     ), 
@@ -227,7 +236,8 @@ layout = html.Div([
                                 'Our data',
                                 className="text-center"),
                         html.P(
-                            "Get the cleaned dataset containing all characters, links and features .... and cleaned text data",
+                            "Get the cleaned dataset containing all characters, links and features used for building the "
+                            "network. Along with the movie-scripts and the books. ",
                             className="card-text",
                             ),
                         dbc.Row([
@@ -253,7 +263,8 @@ layout = html.Div([
                                 className="text-center"
                         ),
                         html.P(
-                            "link to HP fandom and the two github pages for books and movies. ",
+                            "Do you want to examine the original data? Below you will find a link to the Harry Potter fandom "
+                            "as well as links to the raw data for books and movies. ",
                             className="card-text"
                             ),
                         dbc.Row([
@@ -266,7 +277,7 @@ layout = html.Div([
                                 className="mt-3"),
                             dbc.Col(
                                 dbc.Button(
-                                    "books", 
+                                    "Books", 
                                     href="https://github.com/neelk07/neelkothari/tree/master/blog/static/data/text",
                                     color="primary"
                                     ), 
@@ -274,7 +285,7 @@ layout = html.Div([
                                 ),
                             dbc.Col(
                                 dbc.Button(
-                                    "movies", 
+                                    "Movies", 
                                     href="https://github.com/Kornflex28/hp-dataset/tree/main/datasets",
                                     color="primary"
                                     ), 
