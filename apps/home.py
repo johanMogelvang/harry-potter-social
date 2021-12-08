@@ -99,7 +99,7 @@ layout = html.Div([
                         ),
                     html.P( "Have you ever wondered how all the characters in the Harry Potter books/ movies are connected? "
                             "Using network science it is possible to explore the interconnections between characters. "
-                            "You can even use your imagination to examine relationships based on family ties or interactions between houses."
+                            "You can even examine relationships based on family ties or interactions between houses."
                     , className = "card-text")
                     ]
                 ), 
