@@ -152,11 +152,11 @@ layout = html.Div([
                     , className="mb-5 mt-5")
                     ]),
                     dbc.Row([
-                        dbc.Col(html.P(children='On this page you can interactively explore the network of the wizzarding world, as collected from the HP Wiki.'
-                                                'This first graph illustrates the families of the wizzarding world, each node representing a character, and a link between them representing familial ties.'
-                                                'You can select characters to highlight only their immediate family, and with that show a distribution of which house their immediate family is part of. '
+                        dbc.Col(html.P(children='On this page you can interactively explore the network of the wizarding world, as collected from the HP Wiki. '
+                                                'This first graph illustrates the families of the wizzarding world, each node representing a character, and a link between them representing familial ties. '
+                                                'You can select characters to highlight only their immediate family, and hereby show the distribution of which houses their immediate family are part of. '
                                                 'For some of the nodes, it might be a bit hard to make out who they represent, so you can zoom in on the graph, if you want to take a closer look. '
-                                                'You can also drag the notes around, and rearrange them.'
+                                                'You can also drag the nodes around and rearrange them.'
                                      )
                     , className="mb-4")
                     ]),
@@ -194,7 +194,12 @@ layout = html.Div([
             ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
             html.Div([
                     html.H1("Aggregated graphs"),
-                    html.H5("Explore the relationships on a more global scale")
+                    html.H5("Explore the relationships on a more global scale"),
+                    html.P("The characters can also be combined to examine other interesting interactions. "
+                            "Below you can see how the houses interact. The weight on the edges indicate how many characters from these houses interact with each other in the full network. "
+                            "Not surprisingly, Gryffindor and Slytherin have the most connections. This makes sense as there is a lot of tension, rivalry and fighting between characters of these houses. "
+                            "However, the American school-houses are also connected to the Hogwarts houses! This is an intersting discovery as it shows connections between the Harry Potter universe and the Fantastic Beasts movies. Examining the dataset from this angle, has shown us how two different parts of the wizarding universe are connected!"
+                    )
                 ],
                 style={'marginTop': '10vh'}),
             html.Div([
