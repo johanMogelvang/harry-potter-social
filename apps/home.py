@@ -55,7 +55,7 @@ layout = html.Div([
     #         style={'position': 'absolute', 'top':'20vh', 'text-align': 'center'}
     #     ),
     html.Div(
-            [html.Img(src="assets/Home_page_test.jpg", style={'width': '100vw',
+            [html.Img(src="assets/home_page_test.jpg", style={'width': '100vw',
             'height': 'auto',
             'max-height':'1000px'})],
             style={'width':'100vh', 'margin-bottom':'5vh'}
