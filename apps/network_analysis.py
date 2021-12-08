@@ -133,8 +133,7 @@ for node in links['nodes']:
 
 #print(links['nodes']['data'])
 #Agg graphs
-houses = ['unknown',
- 'Hufflepuff',
+houses = ['Hufflepuff',
  'Slytherin',
  'Gryffindor',
  'Ravenclaw',

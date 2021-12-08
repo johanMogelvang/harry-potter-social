@@ -58,7 +58,7 @@ layout = html.Div([
             [html.Img(src="assets/home_page_test.jpg", style={'width': '100vw',
             'height': 'auto',
             'max-height':'1000px'})],
-            style={'width':'100vh', 'margin-bottom':'5vh'}
+            style={'width':'100vh', 'margin-bottom':'5vh', 'user-drag': 'none', 'pointer-events': 'none', 'user-select': 'none'}
     ),
     ##JOHAN
 
