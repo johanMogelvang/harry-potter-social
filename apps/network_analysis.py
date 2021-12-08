@@ -205,9 +205,7 @@ layout = html.Div([
                         elements=house_cyto['nodes'] + house_cyto['edges'],
                         style={'width': '100%', 'height': '100%'}
                         )
-            ], style ={"display": "flex", "justify-content": "center", "width": "95vw", "height" : "60vh"}),
-            html.A(children=0, id="style-refresher"),
-            html.H1("refreshed:", id="refresh-id"),
+            ], style ={"display": "flex", "justify-content": "center", "width": "90vw", "height" : "60vh"}),
 ])
 
 @app.callback(Output('selected-character-text', 'children'),
@@ -243,31 +241,11 @@ def displayTapNodeData2(nodedata):
               State('cytoscape-hp-family', 'elements'))
 def update_elements(slider_value, elements):
     current_nodes, deleted_nodes = get_current_and_deleted_nodes(elements)
-    difference = int(slider_value) - len(current_nodes)
-
     subgraph = G.subgraph(set().union(*sorted(nx.connected_components(G), key=len, reverse=True)[:slider_value]))
     cy_elements = nx.cytoscape_data(subgraph)['elements']
     for node in cy_elements['nodes']:
         node.update({'classes': node['data']['house']})
     return [cy_elements['nodes'] + cy_elements['edges'], get_graph(cy_elements['nodes'])]
-    # If the slider value has increased
-    if difference >= 1:
-        for i in range(difference):
-            # We pop one node from deleted nodes and append it to nodes list.
-            current_nodes.append(deleted_nodes.pop())
-            # Get valid edges -- both source and target nodes are in the current graph
-            cy_edges = get_current_valid_edges(current_nodes, links['edges'])
-        return [cy_edges + current_nodes, get_graph(current_nodes)]
-
-    # If the remove button was clicked most recently and there are nodes to remove
-    elif difference < 0:
-        for i in range(-difference):
-            current_nodes.pop()
-            cy_edges = get_current_valid_edges(current_nodes, links['edges'])
-        return [cy_edges + current_nodes, get_graph(current_nodes)]
-
-    # Neither have been clicked yet (or fallback condition)
-    return [elements, get_graph(elements['nodes'])]
 
 def get_current_valid_edges(current_nodes, all_edges):
     """Returns edges that are present in Cytoscape:
@@ -344,15 +322,13 @@ def get_graph(node_elements):
 
 @app.callback(Output('cytoscape-hp-family', 'stylesheet'),
               [Input('cytoscape-hp-family', 'tapNode'),
-              Input('cytoscape-hp-family', 'selectedNodeData'),
-              Input('style-refresher', 'children'),])
-def change_stylesheet_of_graph(node, selectedNodeData, style_refresher):
+              Input('cytoscape-hp-family', 'selectedNodeData')])
+def change_stylesheet_of_graph(node, selectedNodeData):
     ctx = dash.callback_context
 
     #If no node is tapped, return the default styling
     if not selectedNodeData:
-        refresh_style = cyto_default_style.copy()
-        return  refresh_style
+        return cyto_default_style
 
     #If a node is selected, traverse the graph for connected nodes, and then change their color.
     cyto_style = [{
