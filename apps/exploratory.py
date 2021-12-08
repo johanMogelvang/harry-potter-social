@@ -43,7 +43,7 @@ layout = html.Div([
         ]),
         dbc.Row([
             dbc.Col(html.P(children='This page is about understanding the data set collected from the HP Wiki Fandom and gaining valuable insights about the characters. '
-                                    'All the characters that inhabit the wizarding world have been collected from the wiki-pages, together with some intersting features, '
+                                    'All the characters that inhabit the wizarding world have been collected from the wiki-pages, together with some interesting features, '
                                     'such as their blood-status, school-house, species and gender. '
                                     'A selected part of the dataset can be seen below with some key statistics.'
                                      )
@@ -85,7 +85,7 @@ layout = html.Div([
          )# , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.P("To get an overview of the dataset, the distribution of the features are shown below. There are many values for some of the features, you can choose how many to display for each feature.")
+            dbc.Col(html.P("To get an overview of the dataset, the distribution of the features are shown below. There are many values for some of the features, so you can choose how many to display.")
                 )  
         ])
     ]),
@@ -121,7 +121,7 @@ layout = html.Div([
             html.P(children='The network has been created using the characters as nodes and the links between the character pages as edges. '
                                     'By examining the Wizarding World as a network, the most central characters and most important relationships can easily be identified. '
                                     'The nodes have been colored according to which house they belong to and the node size is an indication of the number of connctions (this has been scaled as there is a very large difference between the number of connections). '
-                                     'Choose whether you want to see the full network or only the Giant Connected Component (GCC) below. Zoom in on the nodes to see name and features for the nodes.'
+                                     'Choose whether you want to see the full network or only the Giant Connected Component (GCC) below. Zoom in on the nodes to see name and features for the characters.'
                 )
         ]),
         dbc.Row([
@@ -205,7 +205,7 @@ layout = html.Div([
     dbc.Container([
         dbc.Row([
             html.P("Overall, we can see that the Wizarding World resembles a real-world network "
-                    "with a few highly connected hubs such as Harry Potter and Voldemort, the main antagonist and protagonist of the Harry Potter world, "
+                    "with a few highly connected hubs such as Harry Potter and Voldemort, the main protagonist and antagonist of the Harry Potter world, "
                     "and many characters that only have very few connections. "
                     "If you want to learn more about the characteristics of the network, see the explainer notebook. Otherwise the next page in our website is about exploring the different ties and connections in our network even further."
             
