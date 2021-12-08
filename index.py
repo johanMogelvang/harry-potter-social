@@ -45,7 +45,7 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src="/assets/HP_snitch_gold.png", height="60px", className="ml-2")),
-                        dbc.Col(dbc.NavbarBrand("The Universe of Harry Potter", className="ml-2")),
+                        dbc.Col(dbc.NavbarBrand("The Wizarding World", className="ml-2")),
                         dbc.Col(width="auto"),
                         dbc.Col(nav, width={"size":"auto", "order": "last"}, align="center"),
                     ],
