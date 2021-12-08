@@ -38,28 +38,28 @@ cyto_default_style = [
             {
                 'selector': '.Hufflepuff',
                 'style': {
-                    'background-color': 'blue',
+                    'background-color': '#FFDB00',
                     'line-color': 'blue'
                 }
             },
             {
                 'selector': '.Ravenclaw',
                 'style': {
-                    'background-color': 'orange',
+                    'background-color': '#0E1A40',
                     'line-color': 'orange'
                 }
             },
             {
                 'selector': '.Gryffindor',
                 'style': {
-                    'background-color': 'red',
+                    'background-color': '#740001',
                     'line-color': 'red'
                 }
             },
             {
                 'selector': '.Slytherin',
                 'style': {
-                    'background-color': 'green',
+                    'background-color': '#1A472A',
                     'line-color': 'green'
                 }
             },
@@ -154,8 +154,9 @@ layout = html.Div([
                     dbc.Row([
                         dbc.Col(html.P(children='On this page you can interactively explore the network of the wizzarding world, as collected from the HP Wiki.'
                                                 'This first graph illustrates the families of the wizzarding world, each node representing a character, and a link between them representing familial ties.'
-                                                'You can select characters to highlight only their immediate family, and with that show a distribution of which house their immediate family is part of.'
-                                                'For some of the nodes, it might be a bit hard to make out who they represent, so you can zoom in on the graph, if you want to take a closer look.'
+                                                'You can select characters to highlight only their immediate family, and with that show a distribution of which house their immediate family is part of. '
+                                                'For some of the nodes, it might be a bit hard to make out who they represent, so you can zoom in on the graph, if you want to take a closer look. '
+                                                'You can also drag the notes around, and rearrange them.'
                                      )
                     , className="mb-4")
                     ]),
@@ -199,7 +200,8 @@ layout = html.Div([
             html.Div([
                     cyto.Cytoscape(
                         id='cytoscape-agg-houses',
-                        layout={'name': 'circle'}, #circle, #close-bilkent
+                        layout={'name': 'circle'}, 
+                        userZoomingEnabled=False,
                         #stylesheet=default_stylesheet,
                         stylesheet=cyto_house_style,
                         elements=house_cyto['nodes'] + house_cyto['edges'],
@@ -221,13 +223,12 @@ def displayTapNodeData2(nodedata):
     char_list = []
     chars = set()
     if nodedata:
-        for node in links['nodes']:
+        for node in links['nodes']: 
             for edge in nodedata['edgesData']:
                 if edge['target'] == node['data']['id']:
                     if edge['target'] not in chars:
                         char_list.append(node)
                         chars.add( edge['target'])
-            for edge in nodedata['edgesData']:
                 if edge['source'] == node['data']['id']:
                     if edge['source'] not in chars:
                         char_list.append(node)
@@ -240,45 +241,12 @@ def displayTapNodeData2(nodedata):
               Input('my-slider', 'value'),
               State('cytoscape-hp-family', 'elements'))
 def update_elements(slider_value, elements):
-    current_nodes, deleted_nodes = get_current_and_deleted_nodes(elements)
     subgraph = G.subgraph(set().union(*sorted(nx.connected_components(G), key=len, reverse=True)[:slider_value]))
     cy_elements = nx.cytoscape_data(subgraph)['elements']
     for node in cy_elements['nodes']:
         node.update({'classes': node['data']['house']})
     return [cy_elements['nodes'] + cy_elements['edges'], get_graph(cy_elements['nodes'])]
 
-def get_current_valid_edges(current_nodes, all_edges):
-    """Returns edges that are present in Cytoscape:
-    its source and target nodes are still present in the graph.
-    """
-    valid_edges = []
-    node_ids = {n['data']['id'] for n in current_nodes}
-
-    for e in all_edges:
-        if e['data']['source'] in node_ids and e['data']['target'] in node_ids:
-            valid_edges.append(e)
-    return valid_edges
-
-def get_current_and_deleted_nodes(elements):
-    """Returns nodes that are present in Cytoscape and the deleted nodes
-    """
-    current_nodes = []
-    deleted_nodes = []
-
-    # get current graph nodes
-    for ele in elements:
-        # if the element is a node
-        if 'source' not in ele['data']:
-            current_nodes.append(ele)
-
-    # get deleted nodes
-    node_ids = {n['data']['id'] for n in current_nodes}
-    
-    for n in links['nodes']:
-        if n['data']['id'] not in node_ids:
-            deleted_nodes.append(n)
-
-    return current_nodes, deleted_nodes
 
 def get_graph(node_elements):
     bar_list = []
